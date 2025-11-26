@@ -1,6 +1,12 @@
-# NEST - NearBasket
+# NEST - Near Easy Shop Tracker
 
 A Flutter-based grocery discovery and shopping application that helps users find nearby grocery stores and manage their shopping experience.
+
+## 📥 Download APK
+
+**[Download NEST APK](https://github.com/shiva0042/NEST/raw/main/NEST.apk)**
+
+Get the latest version of the app and install it directly on your Android device.
 
 ## Features
 
