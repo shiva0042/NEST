@@ -1,0 +1,82 @@
+﻿> Task :gradle:compileJava NO-SOURCE
+> Task :gradle:compileGroovy UP-TO-DATE
+> Task :gradle:pluginDescriptors UP-TO-DATE
+> Task :gradle:processResources UP-TO-DATE
+> Task :gradle:classes UP-TO-DATE
+> Task :gradle:jar UP-TO-DATE
+
+> Configure project :url_launcher_android
+Warning: The plugin url_launcher_android requires Android SDK version 34.
+For more information about build configuration, see https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
+.\gradlew : One or more 
+plugins require a higher 
+Android SDK version.
+At line:1 char:50
++ ... es\Java\jdk-21"; 
+.\gradlew assembleDebug 
+--console=plain 2>&1 | 
+Out-F ...
++                      ~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~
+    + CategoryInfo          
+    : NotSpecified: (One o  
+  r more plu...id SDK ver   
+ sion.:String) [], Remot    
+eException
+    + FullyQualifiedErrorId 
+    : NativeCommandError
+ 
+Fix this issue by adding 
+the following to D:\vs\anti\
+near_basket\android\app\buil
+d.gradle:
+android {
+  compileSdkVersion 34
+  ...
+}
+
+One or more plugins require 
+a higher Android NDK 
+version.
+Fix this issue by adding 
+the following to D:\vs\anti\
+near_basket\android\app\buil
+d.gradle:
+android {
+  ndkVersion "25.1.8937393"
+  ...
+}
+
+
+FAILURE: Build failed with 
+an exception.
+
+* What went wrong:
+Could not determine the 
+dependencies of task ':app:c
+ompileDebugJavaWithJavac'.
+> SDK location not found. 
+Define a valid SDK location 
+with an ANDROID_HOME 
+environment variable or by 
+setting the sdk.dir path in 
+your project's local 
+properties file at 'D:\vs\an
+ti\near_basket\android\local
+.properties'.
+
+* Try:
+> Run with --stacktrace 
+option to get the stack 
+trace.
+> Run with --info or 
+--debug option to get more 
+log output.
+> Run with --scan to get 
+full insights.
+> Get more help at 
+https://help.gradle.org.
+
+BUILD FAILED in 1s
+4 actionable tasks: 4 up-to-date

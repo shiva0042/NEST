@@ -1,0 +1,47 @@
+﻿[!] Flutter (Channel stable, 3.16.9, on Microsoft Windows [Version 10.0.26200.7171], locale en-IN)
+    ΓÇó Flutter version 3.16.9 on channel stable at D:\vs\anti\flutter
+    ! The flutter binary is not on your path. Consider adding D:\vs\anti\flutter\bin to your path.
+    ! The dart binary is not on your path. Consider adding D:\vs\anti\flutter\bin to your path.
+    ΓÇó Upstream repository https://github.com/flutter/flutter.git
+    ΓÇó Framework revision 41456452f2 (1 year, 10 months ago), 2024-01-25 10:06:23 -0800
+    ΓÇó Engine revision f40e976bed
+    ΓÇó Dart version 3.2.6
+    ΓÇó DevTools version 2.28.5
+    ΓÇó If those were intentional, you can disregard the above warnings; however it is recommended to use "git" directly to perform update checks and upgrades.
+
+[ΓêÜ] Windows Version (Installed version of Windows is version 10 or higher)
+
+[X] Android toolchain - develop for Android devices
+    X Unable to locate Android SDK.
+      Install Android Studio from: https://developer.android.com/studio/index.html
+      On first launch it will assist you in installing the Android SDK components.
+      (or visit https://flutter.dev/docs/get-started/install/windows#android-setup for detailed instructions).
+      If the Android SDK has been installed to a custom location, please use
+      `flutter config --android-sdk` to update to that location.
+
+
+[X] Chrome - develop for the web (Cannot find Chrome executable at .\Google\Chrome\Application\chrome.exe)
+    ! Cannot find Chrome. Try setting CHROME_EXECUTABLE to a Chrome executable.
+
+[ΓêÜ] Visual Studio - develop Windows apps (Visual Studio Build Tools 2022 17.14.20)
+    ΓÇó Visual Studio at C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools
+    ΓÇó Visual Studio Build Tools 2022 version 17.14.36705.20
+    ΓÇó Windows 10 SDK version 10.0.26100.0
+
+[!] Android Studio (not installed)
+    ΓÇó Android Studio not found; download from https://developer.android.com/studio/index.html
+      (or visit https://flutter.dev/docs/get-started/install/windows#android-setup for detailed instructions).
+
+[ΓêÜ] VS Code (version 1.106.2)
+    ΓÇó VS Code at C:\Users\SRK\AppData\Local\Programs\Microsoft VS Code
+    ΓÇó Flutter extension can be installed from:
+       https://marketplace.visualstudio.com/items?itemName=Dart-Code.flutter
+
+[ΓêÜ] Connected device (2 available)
+    ΓÇó Windows (desktop) ΓÇó windows ΓÇó windows-x64    ΓÇó Microsoft Windows [Version 10.0.26200.7171]
+    ΓÇó Edge (web)        ΓÇó edge    ΓÇó web-javascript ΓÇó Microsoft Edge 142.0.3595.94
+
+[ΓêÜ] Network resources
+    ΓÇó All expected network resources are available.
+
+! Doctor found issues in 4 categories.

@@ -1,0 +1,2145 @@
+Launching lib\main.dart on Edge in debug mode...
+Waiting for connection from debug service on Edge...               16.0s
+This app is linked to the debug service: ws://127.0.0.1:50637/khsua-zfgKU=/ws
+Debug service listening on ws://127.0.0.1:50637/khsua-zfgKU=/ws
+
+  To hot restart changes while running, press "r" or "R".
+For a more detailed help message, press "h". To quit, press "q".
+
+A Dart VM Service on Edge is available at: http://127.0.0.1:50637/khsua-zfgKU=
+The Flutter DevTools debugger and profiler on Edge is available at: http://127.0.0.1:9100?uri=http://127.0.0.1:50637/khsua-zfgKU=
+══╡ EXCEPTION CAUGHT BY IMAGE RESOURCE SERVICE ╞════════════════════════════════════════════════════
+The following ProgressEvent$ object was thrown resolving an image codec:
+  [object ProgressEvent]
+
+When the exception was thrown, this was the stack
+
+Image provider:
+  NetworkImage("https://api.allorigins.win/raw?url=https%3A%2F%2Fwww.bigbasket.com%2Fmedia%2Fuploads%2Fp%2Fl%2F306927_4-amul-masti-dahi.jpg",
+  scale: 1.0)
+Image key:
+  NetworkImage("https://api.allorigins.win/raw?url=https%3A%2F%2Fwww.bigbasket.com%2Fmedia%2Fuploads%2Fp%2Fl%2F306927_4-amul-masti-dahi.jpg",
+  scale: 1.0)
+════════════════════════════════════════════════════════════════════════════════════════════════════
+Another exception was thrown: [object ProgressEvent]
+Another exception was thrown: [object ProgressEvent]
+Another exception was thrown: [object ProgressEvent]
+Another exception was thrown: ImageCodecException: Failed to detect image file format using the file header.
+Another exception was thrown: [object ProgressEvent]
+
+Performing hot restart...                                          457ms
+Restarted application in 458ms.
+
+Performing hot restart...                                          498ms
+Restarted application in 498ms.
+
+Performing hot restart...                                       
+lib/features/map_discovery/screens/shop_details_screen.dart:6:33: Error: Type 'StatefulWidget' not found.
+class ShopDetailsScreen extends StatefulWidget {
+                                ^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:12:3: Error: Type 'State' not found.
+  State<ShopDetailsScreen> createState() => _ShopDetailsScreenState();
+  ^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:15:39: Error: Type 'State' not found.
+class _ShopDetailsScreenState extends State<ShopDetailsScreen> {
+                                      ^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:32:3: Error: Type 'Widget' not found.
+  Widget build(BuildContext context) {
+  ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:32:16: Error: Type 'BuildContext' not found.
+  Widget build(BuildContext context) {
+               ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:263:29: Error: Type 'StatelessWidget' not found.
+class _CategoryChip extends StatelessWidget {
+                            ^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:266:9: Error: Type 'VoidCallback' not found.
+  final VoidCallback onTap;
+        ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:275:3: Error: Type 'Widget' not found.
+  Widget build(BuildContext context) {
+  ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:275:16: Error: Type 'BuildContext' not found.
+  Widget build(BuildContext context) {
+               ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:313:28: Error: Type 'StatelessWidget' not found.
+class _ProductItem extends StatelessWidget {
+                           ^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:319:3: Error: Type 'Widget' not found.
+  Widget build(BuildContext context) {
+  ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:319:16: Error: Type 'BuildContext' not found.
+  Widget build(BuildContext context) {
+               ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:9:9: Error: The superclass, 'StatefulWidget', has no unnamed constructor that takes no arguments.
+  const ShopDetailsScreen({super.key, required this.shop});
+        ^^^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/home_screen.dart:386:39: Error: A value of type 'ShopDetailsScreen' can't be returned from a function with return type 'Widget'.
+ - 'ShopDetailsScreen' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+ - 'Widget' is from 'package:flutter/src/widgets/framework.dart' ('../flutter/packages/flutter/lib/src/widgets/framework.dart').
+                builder: (context) => ShopDetailsScreen(shop: shop),
+                                      ^
+lib/features/map_discovery/screens/shop_details_screen.dart:21:102: Error: The getter 'widget' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'widget'.
+    final Uri url = Uri.parse('https://www.google.com/maps/search/?api=1&query=${Uri.encodeComponent(widget.shop.address)}');
+                                                                                          ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:23:11: Error: The getter 'mounted' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'mounted'.
+      if (mounted) {
+          ^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:24:9: Error: The getter 'ScaffoldMessenger' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'ScaffoldMessenger'.
+        ScaffoldMessenger.of(context).showSnackBar(
+        ^^^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:24:30: Error: The getter 'context' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'context'.
+        ScaffoldMessenger.of(context).showSnackBar(
+                             ^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:25:11: Error: The method 'SnackBar' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'SnackBar'.
+          SnackBar(content: Text('Could not launch maps')),
+          ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:25:29: Error: The method 'Text' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Text'.
+          SnackBar(content: Text('Could not launch maps')),
+                            ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:32:16: Error: 'BuildContext' isn't a type.
+  Widget build(BuildContext context) {
+               ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:220:36: Error: Couldn't find constructor 'EdgeInsets.fromLTRB'.
+                    padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
+                                   ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:246:38: Error: Couldn't find constructor 'EdgeInsets.symmetric'.
+                      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                                     ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:33:63: Error: The getter 'widget' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'widget'.
+    final allProducts = mockProducts.where((p) => p.shopId == widget.shop.id).toList();
+                                                              ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:57:12: Error: The method 'Scaffold' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Scaffold'.
+    return Scaffold(
+           ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:59:13: Error: The method 'CustomScrollView' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'CustomScrollView'.
+      body: CustomScrollView(
+            ^^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:61:11: Error: The method 'SliverAppBar' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'SliverAppBar'.
+          SliverAppBar(
+          ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:67:28: Error: The method 'FlexibleSpaceBar' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'FlexibleSpaceBar'.
+            flexibleSpace: FlexibleSpaceBar(
+                           ^^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:68:27: Error: The method 'Stack' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Stack'.
+              background: Stack(
+                          ^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:69:22: Error: The getter 'StackFit' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'StackFit'.
+                fit: StackFit.expand,
+                     ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:71:19: Error: The getter 'Image' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Image'.
+                  Image.network(
+                  ^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:72:21: Error: The getter 'widget' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'widget'.
+                    widget.shop.imageUrl,
+                    ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:73:26: Error: The getter 'BoxFit' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'BoxFit'.
+                    fit: BoxFit.cover,
+                         ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:75:19: Error: The method 'Container' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Container'.
+                  Container(
+                  ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:76:33: Error: The method 'BoxDecoration' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'BoxDecoration'.
+                    decoration: BoxDecoration(
+                                ^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:77:33: Error: The method 'LinearGradient' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'LinearGradient'.
+                      gradient: LinearGradient(
+                                ^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:78:32: Error: The getter 'Alignment' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Alignment'.
+                        begin: Alignment.topCenter,
+                               ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:79:30: Error: The getter 'Alignment' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Alignment'.
+                        end: Alignment.bottomCenter,
+                             ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:81:27: Error: The getter 'Colors' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Colors'.
+                          Colors.black.withOpacity(0.3),
+                          ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:82:27: Error: The getter 'Colors' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Colors'.
+                          Colors.transparent,
+                          ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:83:27: Error: The getter 'Colors' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Colors'.
+                          Colors.black.withOpacity(0.6),
+                          ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:91:22: Error: The method 'Container' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Container'.
+            leading: Container(
+                     ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:92:23: Error: The getter 'EdgeInsets' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'EdgeInsets'.
+              margin: EdgeInsets.all(8),
+                      ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:93:27: Error: The method 'BoxDecoration' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'BoxDecoration'.
+              decoration: BoxDecoration(
+                          ^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:94:24: Error: The getter 'Colors' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Colors'.
+                color: Colors.white.withOpacity(0.2),
+                       ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:95:24: Error: The getter 'BoxShape' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'BoxShape'.
+                shape: BoxShape.circle,
+                       ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:98:22: Error: The method 'IconButton' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'IconButton'.
+              child: IconButton(
+                     ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:99:23: Error: The method 'Icon' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Icon'.
+                icon: Icon(Icons.arrow_back_rounded, color: Colors.white),
+                      ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:99:28: Error: The getter 'Icons' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Icons'.
+                icon: Icon(Icons.arrow_back_rounded, color: Colors.white),
+                           ^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:99:61: Error: The getter 'Colors' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Colors'.
+                icon: Icon(Icons.arrow_back_rounded, color: Colors.white),
+                                                            ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:100:34: Error: The getter 'Navigator' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Navigator'.
+                onPressed: () => Navigator.pop(context),
+                                 ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:104:11: Error: The method 'SliverToBoxAdapter' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'SliverToBoxAdapter'.
+          SliverToBoxAdapter(
+          ^^^^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:105:20: Error: The method 'Padding' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Padding'.
+            child: Padding(
+                   ^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:106:24: Error: The getter 'EdgeInsets' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'EdgeInsets'.
+              padding: EdgeInsets.all(24),
+                       ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:107:22: Error: The method 'Column' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Column'.
+              child: Column(
+                     ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:108:37: Error: The getter 'CrossAxisAlignment' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'CrossAxisAlignment'.
+                crossAxisAlignment: CrossAxisAlignment.start,
+                                    ^^^^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:110:19: Error: The method 'Row' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Row'.
+                  Row(
+                  ^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:111:40: Error: The getter 'MainAxisAlignment' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'MainAxisAlignment'.
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                       ^^^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:113:23: Error: The method 'Expanded' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Expanded'.
+                      Expanded(
+                      ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:114:32: Error: The method 'Text' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Text'.
+                        child: Text(
+                               ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:115:27: Error: The getter 'widget' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'widget'.
+                          widget.shop.name,
+                          ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:116:34: Error: The getter 'Theme' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Theme'.
+                          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                 ^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:117:41: Error: The getter 'FontWeight' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'FontWeight'.
+                            fontWeight: FontWeight.w800,
+                                        ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:123:23: Error: The method 'Container' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Container'.
+                      Container(
+                      ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:124:34: Error: The getter 'EdgeInsets' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'EdgeInsets'.
+                        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                                 ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:125:37: Error: The method 'BoxDecoration' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'BoxDecoration'.
+                        decoration: BoxDecoration(
+                                    ^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:126:34: Error: The getter 'widget' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'widget'.
+                          color: widget.shop.isOpen 
+                                 ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:129:41: Error: The getter 'BorderRadius' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'BorderRadius'.
+                          borderRadius: BorderRadius.circular(24),
+                                        ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:130:35: Error: The getter 'Border' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Border'.
+                          border: Border.all(
+                                  ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:131:36: Error: The getter 'widget' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'widget'.
+                            color: widget.shop.isOpen 
+                                   ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:136:32: Error: The method 'Text' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Text'.
+                        child: Text(
+                               ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:137:27: Error: The getter 'widget' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'widget'.
+                          widget.shop.isOpen ? 'OPEN' : 'CLOSED',
+                          ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:138:34: Error: The method 'TextStyle' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'TextStyle'.
+                          style: TextStyle(
+                                 ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:139:36: Error: The getter 'widget' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'widget'.
+                            color: widget.shop.isOpen ? AppColors.success : AppColors.error,
+                                   ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:140:41: Error: The getter 'FontWeight' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'FontWeight'.
+                            fontWeight: FontWeight.w700,
+                                        ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:148:19: Error: The method 'SizedBox' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'SizedBox'.
+                  SizedBox(height: 12),
+                  ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:149:19: Error: The method 'Row' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Row'.
+                  Row(
+                  ^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:151:23: Error: The method 'Icon' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Icon'.
+                      Icon(Icons.star_rounded, color: AppColors.secondary, size: 20),
+                      ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:151:28: Error: The getter 'Icons' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Icons'.
+                      Icon(Icons.star_rounded, color: AppColors.secondary, size: 20),
+                           ^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:152:23: Error: The method 'SizedBox' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'SizedBox'.
+                      SizedBox(width: 4),
+                      ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:153:23: Error: The method 'Text' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Text'.
+                      Text(
+                      ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:154:25: Error: The getter 'widget' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'widget'.
+                        widget.shop.rating.toString(),
+                        ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:155:32: Error: The method 'TextStyle' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'TextStyle'.
+                        style: TextStyle(
+                               ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:156:39: Error: The getter 'FontWeight' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'FontWeight'.
+                          fontWeight: FontWeight.w700,
+                                      ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:161:23: Error: The method 'SizedBox' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'SizedBox'.
+                      SizedBox(width: 16),
+                      ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:162:23: Error: The method 'Icon' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Icon'.
+                      Icon(Icons.location_on_rounded, color: AppColors.textLight, size: 20),
+                      ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:162:28: Error: The getter 'Icons' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Icons'.
+                      Icon(Icons.location_on_rounded, color: AppColors.textLight, size: 20),
+                           ^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:163:23: Error: The method 'SizedBox' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'SizedBox'.
+                      SizedBox(width: 4),
+                      ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:164:23: Error: The method 'Text' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Text'.
+                      Text(
+                      ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:165:25: Error: The getter 'widget' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'widget'.
+                        widget.shop.address,
+                        ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:166:32: Error: The method 'TextStyle' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'TextStyle'.
+                        style: TextStyle(
+                               ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:168:39: Error: The getter 'FontWeight' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'FontWeight'.
+                          fontWeight: FontWeight.w500,
+                                      ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:173:19: Error: The method 'SizedBox' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'SizedBox'.
+                  SizedBox(height: 16),
+                  ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:174:19: Error: The method 'SizedBox' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'SizedBox'.
+                  SizedBox(
+                  ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:176:28: Error: The getter 'ElevatedButton' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'ElevatedButton'.
+                    child: ElevatedButton.icon(
+                           ^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:178:29: Error: The method 'Icon' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Icon'.
+                      icon: Icon(Icons.directions_rounded, color: Colors.white),
+                            ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:178:34: Error: The getter 'Icons' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Icons'.
+                      icon: Icon(Icons.directions_rounded, color: Colors.white),
+                                 ^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:178:67: Error: The getter 'Colors' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Colors'.
+                      icon: Icon(Icons.directions_rounded, color: Colors.white),
+                                                                  ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:179:30: Error: The method 'Text' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Text'.
+                      label: Text('Get Directions'),
+                             ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:180:30: Error: The getter 'ElevatedButton' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'ElevatedButton'.
+                      style: ElevatedButton.styleFrom(
+                             ^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:182:42: Error: The getter 'Colors' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Colors'.
+                        foregroundColor: Colors.white,
+                                         ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:183:34: Error: The getter 'EdgeInsets' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'EdgeInsets'.
+                        padding: EdgeInsets.symmetric(vertical: 12),
+                                 ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:184:32: Error: The method 'RoundedRectangleBorder' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'RoundedRectangleBorder'.
+                        shape: RoundedRectangleBorder(
+                               ^^^^^^^^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:185:41: Error: The getter 'BorderRadius' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'BorderRadius'.
+                          borderRadius: BorderRadius.circular(12),
+                                        ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:191:19: Error: The method 'SizedBox' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'SizedBox'.
+                  SizedBox(height: 32),
+                  ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:193:19: Error: The method 'SingleChildScrollView' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'SingleChildScrollView'.
+                  SingleChildScrollView(
+                  ^^^^^^^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:194:38: Error: The getter 'Axis' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Axis'.
+                    scrollDirection: Axis.horizontal,
+                                     ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:195:28: Error: The method 'Row' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Row'.
+                    child: Row(
+                           ^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:200:40: Error: The method 'setState' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'setState'.
+                          onTap: () => setState(() => selectedCategory = null),
+                                       ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:205:40: Error: The method 'setState' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'setState'.
+                          onTap: () => setState(() => selectedCategory = category),
+                                       ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:214:11: Error: The method 'SliverList' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'SliverList'.
+          SliverList(
+          ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:215:23: Error: The method 'SliverChildBuilderDelegate' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'SliverChildBuilderDelegate'.
+            delegate: SliverChildBuilderDelegate(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:219:26: Error: The method 'Padding' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Padding'.
+                  return Padding(
+                         ^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:221:28: Error: The method 'Text' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Text'.
+                    child: Text(
+                           ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:223:30: Error: The method 'TextStyle' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'TextStyle'.
+                      style: TextStyle(
+                             ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:225:37: Error: The getter 'FontWeight' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'FontWeight'.
+                        fontWeight: FontWeight.w800,
+                                    ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:232:26: Error: The method 'TweenAnimationBuilder' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'TweenAnimationBuilder'.
+                  return TweenAnimationBuilder<double>(
+                         ^^^^^^^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:233:28: Error: The method 'Tween' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Tween'.
+                    tween: Tween(begin: 0.0, end: 1.0),
+                           ^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:235:28: Error: The getter 'Curves' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Curves'.
+                    curve: Curves.easeOut,
+                           ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:245:28: Error: The method 'Padding' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Padding'.
+                    child: Padding(
+                           ^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:237:30: Error: The getter 'Transform' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Transform'.
+                      return Transform.translate(
+                             ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:238:33: Error: The method 'Offset' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Offset'.
+                        offset: Offset(0, 30 * (1 - value)),
+                                ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:239:32: Error: The method 'Opacity' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Opacity'.
+                        child: Opacity(
+                               ^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:256:11: Error: The method 'SliverToBoxAdapter' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'SliverToBoxAdapter'.
+          SliverToBoxAdapter(child: SizedBox(height: 40)),
+          ^^^^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:256:37: Error: The method 'SizedBox' isn't defined for the class '_ShopDetailsScreenState'.
+ - '_ShopDetailsScreenState' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'SizedBox'.
+          SliverToBoxAdapter(child: SizedBox(height: 40)),
+                                    ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:266:9: Error: 'VoidCallback' isn't a type.
+  final VoidCallback onTap;
+        ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:275:16: Error: 'BuildContext' isn't a type.
+  Widget build(BuildContext context) {
+               ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:277:22: Error: Couldn't find constructor 'EdgeInsets.only'.
+      padding: const EdgeInsets.only(right: 12.0),
+                     ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:276:12: Error: The method 'Padding' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Padding'.
+    return Padding(
+           ^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:278:14: Error: The method 'InkWell' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'InkWell'.
+      child: InkWell(
+             ^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:280:23: Error: The getter 'BorderRadius' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'BorderRadius'.
+        borderRadius: BorderRadius.circular(24),
+                      ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:281:16: Error: The method 'AnimatedContainer' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'AnimatedContainer'.
+        child: AnimatedContainer(
+               ^^^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:283:20: Error: The getter 'EdgeInsets' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'EdgeInsets'.
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                   ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:284:23: Error: The method 'BoxDecoration' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'BoxDecoration'.
+          decoration: BoxDecoration(
+                      ^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:286:27: Error: The getter 'BorderRadius' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'BorderRadius'.
+            borderRadius: BorderRadius.circular(24),
+                          ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:287:21: Error: The getter 'Border' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Border'.
+            border: Border.all(
+                    ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:292:21: Error: The method 'BoxShadow' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'BoxShadow'.
+                    BoxShadow(
+                    ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:295:31: Error: The method 'Offset' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Offset'.
+                      offset: Offset(0, 4),
+                              ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:300:18: Error: The method 'Text' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Text'.
+          child: Text(
+                 ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:302:20: Error: The method 'TextStyle' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'TextStyle'.
+            style: TextStyle(
+                   ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:303:35: Error: The getter 'Colors' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Colors'.
+              color: isSelected ? Colors.white : AppColors.text,
+                                  ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:304:40: Error: The getter 'FontWeight' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'FontWeight'.
+              fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                                       ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:304:58: Error: The getter 'FontWeight' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'FontWeight'.
+              fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                                                         ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:319:16: Error: 'BuildContext' isn't a type.
+  Widget build(BuildContext context) {
+               ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:320:12: Error: The method 'Container' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Container'.
+    return Container(
+           ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:321:15: Error: The getter 'EdgeInsets' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'EdgeInsets'.
+      margin: EdgeInsets.only(bottom: 16),
+              ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:322:16: Error: The getter 'EdgeInsets' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'EdgeInsets'.
+      padding: EdgeInsets.all(12),
+               ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:323:19: Error: The method 'BoxDecoration' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'BoxDecoration'.
+      decoration: BoxDecoration(
+                  ^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:325:23: Error: The getter 'BorderRadius' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'BorderRadius'.
+        borderRadius: BorderRadius.circular(20),
+                      ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:326:17: Error: The getter 'Border' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Border'.
+        border: Border.all(color: AppColors.border.withOpacity(0.5)),
+                ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:328:11: Error: The method 'BoxShadow' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'BoxShadow'.
+          BoxShadow(
+          ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:329:20: Error: The getter 'Colors' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Colors'.
+            color: Colors.black.withOpacity(0.02),
+                   ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:331:21: Error: The method 'Offset' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Offset'.
+            offset: Offset(0, 8),
+                    ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:335:14: Error: The method 'Row' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Row'.
+      child: Row(
+             ^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:337:11: Error: The method 'Hero' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Hero'.
+          Hero(
+          ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:339:20: Error: The method 'ClipRRect' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'ClipRRect'.
+            child: ClipRRect(
+                   ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:340:29: Error: The getter 'BorderRadius' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'BorderRadius'.
+              borderRadius: BorderRadius.circular(16),
+                            ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:341:22: Error: The getter 'Image' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Image'.
+              child: Image.network(
+                     ^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:345:22: Error: The getter 'BoxFit' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'BoxFit'.
+                fit: BoxFit.cover,
+                     ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:347:26: Error: The method 'Container' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Container'.
+                  return Container(
+                         ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:351:28: Error: The method 'Icon' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Icon'.
+                    child: Icon(Icons.image_not_supported_rounded, color: AppColors.textLight),
+                           ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:351:33: Error: The getter 'Icons' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Icons'.
+                    child: Icon(Icons.image_not_supported_rounded, color: AppColors.textLight),
+                                ^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:357:11: Error: The method 'SizedBox' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'SizedBox'.
+          SizedBox(width: 16),
+          ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:358:11: Error: The method 'Expanded' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Expanded'.
+          Expanded(
+          ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:359:20: Error: The method 'Column' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Column'.
+            child: Column(
+                   ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:360:35: Error: The getter 'CrossAxisAlignment' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'CrossAxisAlignment'.
+              crossAxisAlignment: CrossAxisAlignment.start,
+                                  ^^^^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:362:17: Error: The method 'Text' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Text'.
+                Text(
+                ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:364:26: Error: The method 'TextStyle' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'TextStyle'.
+                  style: TextStyle(
+                         ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:366:33: Error: The getter 'FontWeight' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'FontWeight'.
+                    fontWeight: FontWeight.bold,
+                                ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:371:17: Error: The method 'SizedBox' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'SizedBox'.
+                SizedBox(height: 4),
+                ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:372:17: Error: The method 'Text' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Text'.
+                Text(
+                ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:374:26: Error: The method 'TextStyle' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'TextStyle'.
+                  style: TextStyle(
+                         ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:376:33: Error: The getter 'FontWeight' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'FontWeight'.
+                    fontWeight: FontWeight.w500,
+                                ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:380:17: Error: The method 'SizedBox' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'SizedBox'.
+                SizedBox(height: 8),
+                ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:381:17: Error: The method 'Row' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Row'.
+                Row(
+                ^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:383:21: Error: The method 'Text' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Text'.
+                    Text(
+                    ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:385:30: Error: The method 'TextStyle' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'TextStyle'.
+                      style: TextStyle(
+                             ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:387:37: Error: The getter 'FontWeight' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'FontWeight'.
+                        fontWeight: FontWeight.w800,
+                                    ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:392:23: Error: The method 'SizedBox' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'SizedBox'.
+                      SizedBox(width: 8),
+                      ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:393:23: Error: The method 'Text' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Text'.
+                      Text(
+                      ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:395:32: Error: The method 'TextStyle' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'TextStyle'.
+                        style: TextStyle(
+                               ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:397:39: Error: The getter 'TextDecoration' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'TextDecoration'.
+                          decoration: TextDecoration.lineThrough,
+                                      ^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:399:39: Error: The getter 'FontWeight' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'FontWeight'.
+                          fontWeight: FontWeight.w500,
+                                      ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:409:13: Error: The method 'Container' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Container'.
+            Container(
+            ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:410:24: Error: The getter 'EdgeInsets' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'EdgeInsets'.
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                       ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:411:27: Error: The method 'BoxDecoration' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'BoxDecoration'.
+              decoration: BoxDecoration(
+                          ^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:413:31: Error: The getter 'BorderRadius' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'BorderRadius'.
+                borderRadius: BorderRadius.circular(12),
+                              ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:415:22: Error: The method 'Text' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Text'.
+              child: Text(
+                     ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:417:24: Error: The method 'TextStyle' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'TextStyle'.
+                style: TextStyle(
+                       ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:420:31: Error: The getter 'FontWeight' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'FontWeight'.
+                  fontWeight: FontWeight.w700,
+                              ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:425:13: Error: The method 'Container' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Container'.
+            Container(
+            ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:426:24: Error: The getter 'EdgeInsets' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'EdgeInsets'.
+              padding: EdgeInsets.all(8),
+                       ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:427:27: Error: The method 'BoxDecoration' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'BoxDecoration'.
+              decoration: BoxDecoration(
+                          ^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:429:24: Error: The getter 'BoxShape' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'BoxShape'.
+                shape: BoxShape.circle,
+                       ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:431:22: Error: The method 'Icon' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Icon'.
+              child: Icon(Icons.add_rounded, color: AppColors.primary, size: 20),
+                     ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:431:27: Error: The getter 'Icons' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Icons'.
+              child: Icon(Icons.add_rounded, color: AppColors.primary, size: 20),
+                          ^^^^^
+Performing hot restart...                                          353ms
+Try again after fixing the above error(s).
+
+Performing hot restart...                                           4.0s
+Restarted application in 4,023ms.
+
+Performing hot restart...                                          103ms
+Restarted application in 103ms.
+
+Performing hot restart...                                          320ms
+Restarted application in 320ms.
+
+Performing hot restart...                                          217ms
+Restarted application in 217ms.
+
+Performing hot restart...                                       
+lib/features/map_discovery/screens/shop_details_screen.dart:10:5: Error: 'for' can't be used as an identifier because it's a keyword.
+Try renaming this to be an identifier that isn't a keyword.
+    for (var product in displayedProducts) {
+    ^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:10:22: Error: Expected ')' before this.
+    for (var product in displayedProducts) {
+                     ^^
+lib/features/map_discovery/screens/shop_details_screen.dart:19:5: Error: A function declaration needs an explicit list of parameters.
+Try adding a parameter list to the function declaration.
+    groupedProducts.forEach((category, products) {
+    ^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:19:20: Error: Expected '{' before this.
+    groupedProducts.forEach((category, products) {
+                   ^
+lib/features/map_discovery/screens/shop_details_screen.dart:19:5: Error: 'groupedProducts' is already declared in this scope.
+    groupedProducts.forEach((category, products) {
+    ^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:9:43: Context: Previous declaration of 'groupedProducts'.
+    final Map<String, List<ProductModel>> groupedProducts = {};
+                                          ^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:19:20: Error: Expected a declaration, but got '.'.
+    groupedProducts.forEach((category, products) {
+                   ^
+lib/features/map_discovery/screens/shop_details_screen.dart:19:29: Error: Expected an identifier, but got '('.
+Try inserting an identifier before '('.
+    groupedProducts.forEach((category, products) {
+                            ^
+lib/features/map_discovery/screens/shop_details_screen.dart:19:50: Error: Expected ')' before this.
+    groupedProducts.forEach((category, products) {
+                                                 ^
+lib/features/map_discovery/screens/shop_details_screen.dart:22:7: Error: Expected a function body or '=>'.
+Try adding {}.
+    });
+      ^
+lib/features/map_discovery/screens/shop_details_screen.dart:24:5: Error: Variables must be declared using the keywords 'const', 'final', 'var' or a type name.
+Try adding the name of the type of the variable or the keyword 'var'.
+    return Scaffold(
+    ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:24:5: Error: 'return' can't be used as an identifier because it's a keyword.
+Try renaming this to be an identifier that isn't a keyword.
+    return Scaffold(
+    ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:24:5: Error: Expected ';' after this.
+    return Scaffold(
+    ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:25:22: Error: Non-optional parameters can't have a default value.
+Try removing the default value or making the parameter optional.
+      backgroundColor: AppColors.background,
+                     ^
+lib/features/map_discovery/screens/shop_details_screen.dart:26:11: Error: Non-optional parameters can't have a default value.
+Try removing the default value or making the parameter optional.
+      body: CustomScrollView(
+          ^
+lib/features/map_discovery/screens/shop_details_screen.dart:226:6: Error: Expected a function body or '=>'.
+Try adding {}.
+    );
+     ^
+lib/features/map_discovery/screens/shop_details_screen.dart:227:3: Error: Expected a declaration, but got '}'.
+  }
+  ^
+lib/features/map_discovery/screens/shop_details_screen.dart:228:1: Error: Expected a declaration, but got '}'.
+}
+^
+lib/features/map_discovery/screens/shop_details_screen.dart:9:28: Error: Type 'ProductModel' not found.
+    final Map<String, List<ProductModel>> groupedProducts = {};
+                           ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:230:29: Error: Type 'StatelessWidget' not found.
+class _CategoryChip extends StatelessWidget {
+                            ^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:233:9: Error: Type 'VoidCallback' not found.
+  final VoidCallback onTap;
+        ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:242:3: Error: Type 'Widget' not found.
+  Widget build(BuildContext context) {
+  ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:242:16: Error: Type 'BuildContext' not found.
+  Widget build(BuildContext context) {
+               ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:280:28: Error: Type 'StatelessWidget' not found.
+class _ProductItem extends StatelessWidget {
+                           ^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:281:9: Error: Type 'ProductModel' not found.
+  final ProductModel product;
+        ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:286:3: Error: Type 'Widget' not found.
+  Widget build(BuildContext context) {
+  ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:286:16: Error: Type 'BuildContext' not found.
+  Widget build(BuildContext context) {
+               ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:1:24: Error: Undefined name 'allProducts'.
+    final categories = allProducts.map((p) => p.category).toSet().toList()..sort();
+                       ^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:4:31: Error: Undefined name 'selectedCategory'.
+    final displayedProducts = selectedCategory == null 
+                              ^^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:5:11: Error: Undefined name 'allProducts'.
+        ? allProducts 
+          ^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:6:50: Error: Undefined name 'selectedCategory'.
+        : allProducts.where((p) => p.category == selectedCategory).toList();
+                                                 ^^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:6:11: Error: Undefined name 'allProducts'.
+        : allProducts.where((p) => p.category == selectedCategory).toList();
+          ^^^^^^^^^^^
+lib/features/map_discovery/screens/home_screen.dart:21:12: Error: 'Scaffold' is imported from both 'package:flutter/src/material/scaffold.dart' and 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart'.
+    return Scaffold(
+           ^^^^^^^^
+lib/features/map_discovery/screens/home_screen.dart:320:35: Error: 'Scaffold' is imported from both 'package:flutter/src/material/scaffold.dart' and 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart'.
+            builder: (context) => Scaffold(
+                                  ^^^^^^^^
+lib/features/map_discovery/screens/home_screen.dart:386:39: Error: The method 'ShopDetailsScreen' isn't defined for the class '_ShopCard'.
+ - '_ShopCard' is from 'package:near_basket/features/map_discovery/screens/home_screen.dart' ('lib/features/map_discovery/screens/home_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'ShopDetailsScreen'.
+                builder: (context) => ShopDetailsScreen(shop: shop),
+                                      ^^^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:9:28: Error: 'ProductModel' isn't a type.
+    final Map<String, List<ProductModel>> groupedProducts = {};
+                           ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:11:12: Error: Can't use 'groupedProducts' because it is declared more than once.
+      if (!groupedProducts.containsKey(product.category)) {
+           ^
+lib/features/map_discovery/screens/shop_details_screen.dart:12:9: Error: Can't use 'groupedProducts' because it is declared more than once.
+        groupedProducts[product.category] = [];
+        ^
+lib/features/map_discovery/screens/shop_details_screen.dart:14:7: Error: Can't use 'groupedProducts' because it is declared more than once.
+      groupedProducts[product.category]!.add(product);
+      ^
+lib/features/map_discovery/screens/shop_details_screen.dart:25:24: Error: Undefined name 'AppColors'.
+      backgroundColor: AppColors.background,
+                       ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:31:30: Error: Undefined name 'AppColors'.
+            backgroundColor: AppColors.surface,
+                             ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:36:22: Error: Undefined name 'StackFit'.
+                fit: StackFit.expand,
+                     ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:39:21: Error: Undefined name 'widget'.
+                    widget.shop.imageUrl,
+                    ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:39:28: Error: Not a constant expression.
+                    widget.shop.imageUrl,
+                           ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:40:26: Error: Undefined name 'BoxFit'.
+                    fit: BoxFit.cover,
+                         ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:38:19: Error: Undefined name 'Image'.
+                  Image.network(
+                  ^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:38:25: Error: Method invocation is not a constant expression.
+                  Image.network(
+                        ^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:45:32: Error: Undefined name 'Alignment'.
+                        begin: Alignment.topCenter,
+                               ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:46:30: Error: Undefined name 'Alignment'.
+                        end: Alignment.bottomCenter,
+                             ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:48:27: Error: Undefined name 'Colors'.
+                          Colors.black.withOpacity(0.3),
+                          ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:48:40: Error: Method invocation is not a constant expression.
+                          Colors.black.withOpacity(0.3),
+                                       ^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:49:27: Error: Undefined name 'Colors'.
+                          Colors.transparent,
+                          ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:50:27: Error: Undefined name 'Colors'.
+                          Colors.black.withOpacity(0.6),
+                          ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:50:40: Error: Method invocation is not a constant expression.
+                          Colors.black.withOpacity(0.6),
+                                       ^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:47:33: Error: Constant expression expected.
+Try inserting 'const'.
+                        colors: [
+                                ^
+lib/features/map_discovery/screens/shop_details_screen.dart:44:33: Error: Method not found: 'LinearGradient'.
+                      gradient: LinearGradient(
+                                ^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:43:33: Error: Method not found: 'BoxDecoration'.
+                    decoration: BoxDecoration(
+                                ^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:42:19: Error: Method not found: 'Container'.
+                  Container(
+                  ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:37:27: Error: Constant expression expected.
+Try inserting 'const'.
+                children: [
+                          ^
+lib/features/map_discovery/screens/shop_details_screen.dart:35:27: Error: Method not found: 'Stack'.
+              background: Stack(
+                          ^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:34:28: Error: Method not found: 'FlexibleSpaceBar'.
+            flexibleSpace: FlexibleSpaceBar(
+                           ^^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:59:23: Error: Undefined name 'EdgeInsets'.
+              margin: EdgeInsets.all(8),
+                      ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:59:34: Error: Method invocation is not a constant expression.
+              margin: EdgeInsets.all(8),
+                                 ^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:61:24: Error: Undefined name 'Colors'.
+                color: Colors.white.withOpacity(0.2),
+                       ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:61:37: Error: Method invocation is not a constant expression.
+                color: Colors.white.withOpacity(0.2),
+                                    ^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:62:24: Error: Undefined name 'BoxShape'.
+                shape: BoxShape.circle,
+                       ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:60:27: Error: Method not found: 'BoxDecoration'.
+              decoration: BoxDecoration(
+                          ^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:66:28: Error: Undefined name 'Icons'.
+                icon: Icon(Icons.arrow_back_rounded, color: Colors.white),
+                           ^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:66:61: Error: Undefined name 'Colors'.
+                icon: Icon(Icons.arrow_back_rounded, color: Colors.white),
+                                                            ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:66:23: Error: Method not found: 'Icon'.
+                icon: Icon(Icons.arrow_back_rounded, color: Colors.white),
+                      ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:67:48: Error: Undefined name 'context'.
+                onPressed: () => Navigator.pop(context),
+                                               ^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:67:34: Error: Undefined name 'Navigator'.
+                onPressed: () => Navigator.pop(context),
+                                 ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:67:44: Error: Method invocation is not a constant expression.
+                onPressed: () => Navigator.pop(context),
+                                           ^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:67:28: Error: Not a constant expression.
+                onPressed: () => Navigator.pop(context),
+                           ^^
+lib/features/map_discovery/screens/shop_details_screen.dart:65:22: Error: Method not found: 'IconButton'.
+              child: IconButton(
+                     ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:58:22: Error: Method not found: 'Container'.
+            leading: Container(
+                     ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:28:11: Error: Method not found: 'SliverAppBar'.
+          SliverAppBar(
+          ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:73:24: Error: Undefined name 'EdgeInsets'.
+              padding: EdgeInsets.all(24),
+                       ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:73:35: Error: Method invocation is not a constant expression.
+              padding: EdgeInsets.all(24),
+                                  ^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:75:37: Error: Undefined name 'CrossAxisAlignment'.
+                crossAxisAlignment: CrossAxisAlignment.start,
+                                    ^^^^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:78:40: Error: Undefined name 'MainAxisAlignment'.
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                       ^^^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:82:27: Error: Undefined name 'widget'.
+                          widget.shop.name,
+                          ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:82:34: Error: Not a constant expression.
+                          widget.shop.name,
+                                 ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:83:43: Error: Undefined name 'context'.
+                          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                          ^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:83:34: Error: Undefined name 'Theme'.
+                          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                 ^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:83:40: Error: Method invocation is not a constant expression.
+                          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                       ^^
+lib/features/map_discovery/screens/shop_details_screen.dart:83:52: Error: Not a constant expression.
+                          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                                   ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:84:41: Error: Undefined name 'FontWeight'.
+                            fontWeight: FontWeight.w800,
+                                        ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:85:36: Error: Undefined name 'AppColors'.
+                            color: AppColors.text,
+                                   ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:83:78: Error: Method invocation is not a constant expression.
+                          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                                                                             ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:81:32: Error: Method not found: 'Text'.
+                        child: Text(
+                               ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:80:23: Error: Method not found: 'Expanded'.
+                      Expanded(
+                      ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:91:34: Error: Undefined name 'EdgeInsets'.
+                        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                                 ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:91:45: Error: Method invocation is not a constant expression.
+                        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                                            ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:93:34: Error: Undefined name 'widget'.
+                          color: widget.shop.isOpen 
+                                 ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:93:41: Error: Not a constant expression.
+                          color: widget.shop.isOpen 
+                                        ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:94:33: Error: Undefined name 'AppColors'.
+                              ? AppColors.success.withOpacity(0.1) 
+                                ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:94:51: Error: Method invocation is not a constant expression.
+                              ? AppColors.success.withOpacity(0.1) 
+                                                  ^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:95:33: Error: Undefined name 'AppColors'.
+                              : AppColors.error.withOpacity(0.1),
+                                ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:95:49: Error: Method invocation is not a constant expression.
+                              : AppColors.error.withOpacity(0.1),
+                                                ^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:96:41: Error: Undefined name 'BorderRadius'.
+                          borderRadius: BorderRadius.circular(24),
+                                        ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:96:54: Error: Method invocation is not a constant expression.
+                          borderRadius: BorderRadius.circular(24),
+                                                     ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:98:36: Error: Undefined name 'widget'.
+                            color: widget.shop.isOpen 
+                                   ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:98:43: Error: Not a constant expression.
+                            color: widget.shop.isOpen 
+                                          ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:99:35: Error: Undefined name 'AppColors'.
+                                ? AppColors.success.withOpacity(0.2) 
+                                  ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:99:53: Error: Method invocation is not a constant expression.
+                                ? AppColors.success.withOpacity(0.2) 
+                                                    ^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:100:35: Error: Undefined name 'AppColors'.
+                                : AppColors.error.withOpacity(0.2),
+                                  ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:100:51: Error: Method invocation is not a constant expression.
+                                : AppColors.error.withOpacity(0.2),
+                                                  ^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:97:35: Error: Undefined name 'Border'.
+                          border: Border.all(
+                                  ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:97:42: Error: Method invocation is not a constant expression.
+                          border: Border.all(
+                                         ^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:92:37: Error: Method not found: 'BoxDecoration'.
+                        decoration: BoxDecoration(
+                                    ^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:104:27: Error: Undefined name 'widget'.
+                          widget.shop.isOpen ? 'OPEN' : 'CLOSED',
+                          ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:104:34: Error: Not a constant expression.
+                          widget.shop.isOpen ? 'OPEN' : 'CLOSED',
+                                 ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:106:36: Error: Undefined name 'widget'.
+                            color: widget.shop.isOpen ? AppColors.success : AppColors.error,
+                                   ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:106:43: Error: Not a constant expression.
+                            color: widget.shop.isOpen ? AppColors.success : AppColors.error,
+                                          ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:106:57: Error: Undefined name 'AppColors'.
+                            color: widget.shop.isOpen ? AppColors.success : AppColors.error,
+                                                        ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:106:77: Error: Undefined name 'AppColors'.
+                            color: widget.shop.isOpen ? AppColors.success : AppColors.error,
+                                                                            ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:107:41: Error: Undefined name 'FontWeight'.
+                            fontWeight: FontWeight.w700,
+                                        ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:105:34: Error: Method not found: 'TextStyle'.
+                          style: TextStyle(
+                                 ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:103:32: Error: Method not found: 'Text'.
+                        child: Text(
+                               ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:90:23: Error: Method not found: 'Container'.
+                      Container(
+                      ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:79:31: Error: Constant expression expected.
+Try inserting 'const'.
+                    children: [
+                              ^
+lib/features/map_discovery/screens/shop_details_screen.dart:77:19: Error: Method not found: 'Row'.
+                  Row(
+                  ^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:115:19: Error: Method not found: 'SizedBox'.
+                  SizedBox(height: 12),
+                  ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:118:28: Error: Undefined name 'Icons'.
+                      Icon(Icons.star_rounded, color: AppColors.secondary, size: 20),
+                           ^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:118:55: Error: Undefined name 'AppColors'.
+                      Icon(Icons.star_rounded, color: AppColors.secondary, size: 20),
+                                                      ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:118:23: Error: Method not found: 'Icon'.
+                      Icon(Icons.star_rounded, color: AppColors.secondary, size: 20),
+                      ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:119:23: Error: Method not found: 'SizedBox'.
+                      SizedBox(width: 4),
+                      ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:121:25: Error: Undefined name 'widget'.
+                        widget.shop.rating.toString(),
+                        ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:121:32: Error: Not a constant expression.
+                        widget.shop.rating.toString(),
+                               ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:121:44: Error: Method invocation is not a constant expression.
+                        widget.shop.rating.toString(),
+                                           ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:123:39: Error: Undefined name 'FontWeight'.
+                          fontWeight: FontWeight.w700,
+                                      ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:125:34: Error: Undefined name 'AppColors'.
+                          color: AppColors.text,
+                                 ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:122:32: Error: Method not found: 'TextStyle'.
+                        style: TextStyle(
+                               ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:120:23: Error: Method not found: 'Text'.
+                      Text(
+                      ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:128:23: Error: Method not found: 'SizedBox'.
+                      SizedBox(width: 16),
+                      ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:129:28: Error: Undefined name 'Icons'.
+                      Icon(Icons.location_on_rounded, color: AppColors.textLight, size: 20),
+                           ^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:129:62: Error: Undefined name 'AppColors'.
+                      Icon(Icons.location_on_rounded, color: AppColors.textLight, size: 20),
+                                                             ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:129:23: Error: Method not found: 'Icon'.
+                      Icon(Icons.location_on_rounded, color: AppColors.textLight, size: 20),
+                      ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:130:23: Error: Method not found: 'SizedBox'.
+                      SizedBox(width: 4),
+                      ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:132:25: Error: Undefined name 'widget'.
+                        widget.shop.address,
+                        ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:132:32: Error: Not a constant expression.
+                        widget.shop.address,
+                               ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:134:34: Error: Undefined name 'AppColors'.
+                          color: AppColors.textLight,
+                                 ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:135:39: Error: Undefined name 'FontWeight'.
+                          fontWeight: FontWeight.w500,
+                                      ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:133:32: Error: Method not found: 'TextStyle'.
+                        style: TextStyle(
+                               ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:131:23: Error: Method not found: 'Text'.
+                      Text(
+                      ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:117:31: Error: Constant expression expected.
+Try inserting 'const'.
+                    children: [
+                              ^
+lib/features/map_discovery/screens/shop_details_screen.dart:116:19: Error: Method not found: 'Row'.
+                  Row(
+                  ^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:140:19: Error: Method not found: 'SizedBox'.
+                  SizedBox(height: 16),
+                  ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:144:34: Error: Undefined name '_launchMaps'.
+                      onPressed: _launchMaps,
+                                 ^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:145:34: Error: Undefined name 'Icons'.
+                      icon: Icon(Icons.directions_rounded, color: Colors.white),
+                                 ^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:145:67: Error: Undefined name 'Colors'.
+                      icon: Icon(Icons.directions_rounded, color: Colors.white),
+                                                                  ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:145:29: Error: Method not found: 'Icon'.
+                      icon: Icon(Icons.directions_rounded, color: Colors.white),
+                            ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:146:30: Error: Method not found: 'Text'.
+                      label: Text('Get Directions'),
+                             ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:148:42: Error: Undefined name 'AppColors'.
+                        backgroundColor: AppColors.primary,
+                                         ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:149:42: Error: Undefined name 'Colors'.
+                        foregroundColor: Colors.white,
+                                         ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:150:34: Error: Undefined name 'EdgeInsets'.
+                        padding: EdgeInsets.symmetric(vertical: 12),
+                                 ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:150:45: Error: Method invocation is not a constant expression.
+                        padding: EdgeInsets.symmetric(vertical: 12),
+                                            ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:152:41: Error: Undefined name 'BorderRadius'.
+                          borderRadius: BorderRadius.circular(12),
+                                        ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:152:54: Error: Method invocation is not a constant expression.
+                          borderRadius: BorderRadius.circular(12),
+                                                     ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:151:32: Error: Method not found: 'RoundedRectangleBorder'.
+                        shape: RoundedRectangleBorder(
+                               ^^^^^^^^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:147:30: Error: Undefined name 'ElevatedButton'.
+                      style: ElevatedButton.styleFrom(
+                             ^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:147:45: Error: Method invocation is not a constant expression.
+                      style: ElevatedButton.styleFrom(
+                                            ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:143:28: Error: Undefined name 'ElevatedButton'.
+                    child: ElevatedButton.icon(
+                           ^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:143:43: Error: Method invocation is not a constant expression.
+                    child: ElevatedButton.icon(
+                                          ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:141:19: Error: Method not found: 'SizedBox'.
+                  SizedBox(
+                  ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:158:19: Error: Method not found: 'SizedBox'.
+                  SizedBox(height: 32),
+                  ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:161:38: Error: Undefined name 'Axis'.
+                    scrollDirection: Axis.horizontal,
+                                     ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:166:39: Error: Undefined name 'selectedCategory'.
+                          isSelected: selectedCategory == null,
+                                      ^^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:167:72: Error: Not a constant expression.
+                          onTap: () => setState(() => selectedCategory = null),
+                                                                       ^
+lib/features/map_discovery/screens/shop_details_screen.dart:167:49: Error: Not a constant expression.
+                          onTap: () => setState(() => selectedCategory = null),
+                                                ^^
+lib/features/map_discovery/screens/shop_details_screen.dart:167:40: Error: Method not found: 'setState'.
+                          onTap: () => setState(() => selectedCategory = null),
+                                       ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:167:34: Error: Not a constant expression.
+                          onTap: () => setState(() => selectedCategory = null),
+                                 ^^
+lib/features/map_discovery/screens/shop_details_screen.dart:164:25: Error: Constant expression expected.
+Try inserting 'const'.
+                        _CategoryChip(
+                        ^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:169:28: Error: Not a constant expression.
+                        ...categories.map((category) => _CategoryChip(
+                           ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:170:34: Error: Not a constant expression.
+                          label: category,
+                                 ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:171:59: Error: Not a constant expression.
+                          isSelected: selectedCategory == category,
+                                                          ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:171:39: Error: Undefined name 'selectedCategory'.
+                          isSelected: selectedCategory == category,
+                                      ^^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:172:74: Error: Not a constant expression.
+                          onTap: () => setState(() => selectedCategory = category),
+                                                                         ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:172:72: Error: Not a constant expression.
+                          onTap: () => setState(() => selectedCategory = category),
+                                                                       ^
+lib/features/map_discovery/screens/shop_details_screen.dart:172:49: Error: Not a constant expression.
+                          onTap: () => setState(() => selectedCategory = category),
+                                                ^^
+lib/features/map_discovery/screens/shop_details_screen.dart:172:40: Error: Method not found: 'setState'.
+                          onTap: () => setState(() => selectedCategory = category),
+                                       ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:172:34: Error: Not a constant expression.
+                          onTap: () => setState(() => selectedCategory = category),
+                                 ^^
+lib/features/map_discovery/screens/shop_details_screen.dart:169:57: Error: Constant expression expected.
+Try inserting 'const'.
+                        ...categories.map((category) => _CategoryChip(
+                                                        ^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:169:43: Error: Not a constant expression.
+                        ...categories.map((category) => _CategoryChip(
+                                          ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:169:39: Error: Method invocation is not a constant expression.
+                        ...categories.map((category) => _CategoryChip(
+                                      ^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:163:33: Error: Constant expression expected.
+Try inserting 'const'.
+                      children: [
+                                ^
+lib/features/map_discovery/screens/shop_details_screen.dart:162:28: Error: Method not found: 'Row'.
+                    child: Row(
+                           ^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:160:19: Error: Method not found: 'SingleChildScrollView'.
+                  SingleChildScrollView(
+                  ^^^^^^^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:76:27: Error: Constant expression expected.
+Try inserting 'const'.
+                children: [
+                          ^
+lib/features/map_discovery/screens/shop_details_screen.dart:74:22: Error: Method not found: 'Column'.
+              child: Column(
+                     ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:72:20: Error: Method not found: 'Padding'.
+            child: Padding(
+                   ^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:71:11: Error: Method not found: 'SliverToBoxAdapter'.
+          SliverToBoxAdapter(
+          ^^^^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:185:21: Error: Not a constant expression.
+                if (item is String) {
+                    ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:187:36: Error: Couldn't find constructor 'EdgeInsets.fromLTRB'.
+                    padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
+                                   ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:192:37: Error: Undefined name 'FontWeight'.
+                        fontWeight: FontWeight.w800,
+                                    ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:193:32: Error: Undefined name 'AppColors'.
+                        color: AppColors.text,
+                               ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:190:30: Error: Method not found: 'TextStyle'.
+                      style: TextStyle(
+                             ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:189:23: Error: Not a constant expression.
+                      item,
+                      ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:188:28: Error: Method not found: 'Text'.
+                    child: Text(
+                           ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:186:26: Error: Method not found: 'Padding'.
+                  return Padding(
+                         ^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:198:36: Error: 'ProductModel' isn't a type.
+                } else if (item is ProductModel) {
+                                   ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:198:28: Error: Not a constant expression.
+                } else if (item is ProductModel) {
+                           ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:200:28: Error: Method not found: 'Tween'.
+                    tween: Tween(begin: 0.0, end: 1.0),
+                           ^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:201:31: Error: Constant expression expected.
+Try inserting 'const'.
+                    duration: Duration(milliseconds: 400),
+                              ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:202:28: Error: Undefined name 'Curves'.
+                    curve: Curves.easeOut,
+                           ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:205:53: Error: Not a constant expression.
+                        offset: Offset(0, 30 * (1 - value)),
+                                                    ^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:205:33: Error: Method not found: 'Offset'.
+                        offset: Offset(0, 30 * (1 - value)),
+                                ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:207:36: Error: Not a constant expression.
+                          opacity: value,
+                                   ^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:208:34: Error: Not a constant expression.
+                          child: child,
+                                 ^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:206:32: Error: Method not found: 'Opacity'.
+                        child: Opacity(
+                               ^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:204:30: Error: Undefined name 'Transform'.
+                      return Transform.translate(
+                             ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:204:40: Error: Method invocation is not a constant expression.
+                      return Transform.translate(
+                                       ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:203:30: Error: Not a constant expression.
+                    builder: (context, value, child) {
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:213:38: Error: Couldn't find constructor 'EdgeInsets.symmetric'.
+                      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                                     ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:214:52: Error: Not a constant expression.
+                      child: _ProductItem(product: item),
+                                                   ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:214:30: Error: Constant expression expected.
+Try inserting 'const'.
+                      child: _ProductItem(product: item),
+                             ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:212:28: Error: Method not found: 'Padding'.
+                    child: Padding(
+                           ^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:199:26: Error: Method not found: 'TweenAnimationBuilder'.
+                  return TweenAnimationBuilder<double>(
+                         ^^^^^^^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:183:15: Error: Not a constant expression.
+              (context, index) {
+              ^^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:220:27: Error: Not a constant expression.
+              childCount: flatList.length,
+                          ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:182:23: Error: Method not found: 'SliverChildBuilderDelegate'.
+            delegate: SliverChildBuilderDelegate(
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:181:11: Error: Method not found: 'SliverList'.
+          SliverList(
+          ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:223:37: Error: Method not found: 'SizedBox'.
+          SliverToBoxAdapter(child: SizedBox(height: 40)),
+                                    ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:223:11: Error: Method not found: 'SliverToBoxAdapter'.
+          SliverToBoxAdapter(child: SizedBox(height: 40)),
+          ^^^^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:27:18: Error: Constant expression expected.
+Try inserting 'const'.
+        slivers: [
+                 ^
+lib/features/map_discovery/screens/shop_details_screen.dart:26:13: Error: Method not found: 'CustomScrollView'.
+      body: CustomScrollView(
+            ^^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:233:9: Error: 'VoidCallback' isn't a type.
+  final VoidCallback onTap;
+        ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:242:16: Error: 'BuildContext' isn't a type.
+  Widget build(BuildContext context) {
+               ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:244:22: Error: Couldn't find constructor 'EdgeInsets.only'.
+      padding: const EdgeInsets.only(right: 12.0),
+                     ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:243:12: Error: The method 'Padding' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Padding'.
+    return Padding(
+           ^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:245:14: Error: The method 'InkWell' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'InkWell'.
+      child: InkWell(
+             ^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:247:23: Error: The getter 'BorderRadius' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'BorderRadius'.
+        borderRadius: BorderRadius.circular(24),
+                      ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:248:16: Error: The method 'AnimatedContainer' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'AnimatedContainer'.
+        child: AnimatedContainer(
+               ^^^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:250:20: Error: The getter 'EdgeInsets' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'EdgeInsets'.
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                   ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:251:23: Error: The method 'BoxDecoration' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'BoxDecoration'.
+          decoration: BoxDecoration(
+                      ^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:252:33: Error: The getter 'AppColors' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'AppColors'.
+            color: isSelected ? AppColors.primary : AppColors.surface,
+                                ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:252:53: Error: The getter 'AppColors' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'AppColors'.
+            color: isSelected ? AppColors.primary : AppColors.surface,
+                                                    ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:253:27: Error: The getter 'BorderRadius' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'BorderRadius'.
+            borderRadius: BorderRadius.circular(24),
+                          ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:254:21: Error: The getter 'Border' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Border'.
+            border: Border.all(
+                    ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:255:35: Error: The getter 'AppColors' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'AppColors'.
+              color: isSelected ? AppColors.primary : AppColors.border,
+                                  ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:255:55: Error: The getter 'AppColors' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'AppColors'.
+              color: isSelected ? AppColors.primary : AppColors.border,
+                                                      ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:259:21: Error: The method 'BoxShadow' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'BoxShadow'.
+                    BoxShadow(
+                    ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:260:30: Error: The getter 'AppColors' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'AppColors'.
+                      color: AppColors.primary.withOpacity(0.3),
+                             ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:262:31: Error: The method 'Offset' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Offset'.
+                      offset: Offset(0, 4),
+                              ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:267:18: Error: The method 'Text' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Text'.
+          child: Text(
+                 ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:269:20: Error: The method 'TextStyle' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'TextStyle'.
+            style: TextStyle(
+                   ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:270:35: Error: The getter 'Colors' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Colors'.
+              color: isSelected ? Colors.white : AppColors.text,
+                                  ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:270:50: Error: The getter 'AppColors' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'AppColors'.
+              color: isSelected ? Colors.white : AppColors.text,
+                                                 ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:271:40: Error: The getter 'FontWeight' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'FontWeight'.
+              fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                                       ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:271:58: Error: The getter 'FontWeight' isn't defined for the class '_CategoryChip'.
+ - '_CategoryChip' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'FontWeight'.
+              fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                                                         ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:281:9: Error: 'ProductModel' isn't a type.
+  final ProductModel product;
+        ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:286:16: Error: 'BuildContext' isn't a type.
+  Widget build(BuildContext context) {
+               ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:287:12: Error: The method 'Container' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Container'.
+    return Container(
+           ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:288:15: Error: The getter 'EdgeInsets' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'EdgeInsets'.
+      margin: EdgeInsets.only(bottom: 16),
+              ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:289:16: Error: The getter 'EdgeInsets' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'EdgeInsets'.
+      padding: EdgeInsets.all(12),
+               ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:290:19: Error: The method 'BoxDecoration' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'BoxDecoration'.
+      decoration: BoxDecoration(
+                  ^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:291:16: Error: The getter 'AppColors' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'AppColors'.
+        color: AppColors.surface,
+               ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:292:23: Error: The getter 'BorderRadius' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'BorderRadius'.
+        borderRadius: BorderRadius.circular(20),
+                      ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:293:17: Error: The getter 'Border' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Border'.
+        border: Border.all(color: AppColors.border.withOpacity(0.5)),
+                ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:293:35: Error: The getter 'AppColors' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'AppColors'.
+        border: Border.all(color: AppColors.border.withOpacity(0.5)),
+                                  ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:295:11: Error: The method 'BoxShadow' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'BoxShadow'.
+          BoxShadow(
+          ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:296:20: Error: The getter 'Colors' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Colors'.
+            color: Colors.black.withOpacity(0.02),
+                   ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:298:21: Error: The method 'Offset' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Offset'.
+            offset: Offset(0, 8),
+                    ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:302:14: Error: The method 'Row' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Row'.
+      child: Row(
+             ^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:304:11: Error: The method 'Hero' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Hero'.
+          Hero(
+          ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:306:20: Error: The method 'ClipRRect' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'ClipRRect'.
+            child: ClipRRect(
+                   ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:307:29: Error: The getter 'BorderRadius' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'BorderRadius'.
+              borderRadius: BorderRadius.circular(16),
+                            ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:308:22: Error: The getter 'Image' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Image'.
+              child: Image.network(
+                     ^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:312:22: Error: The getter 'BoxFit' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'BoxFit'.
+                fit: BoxFit.cover,
+                     ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:314:26: Error: The method 'Container' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Container'.
+                  return Container(
+                         ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:317:28: Error: The getter 'AppColors' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'AppColors'.
+                    color: AppColors.background,
+                           ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:318:28: Error: The method 'Icon' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Icon'.
+                    child: Icon(Icons.image_not_supported_rounded, color: AppColors.textLight),
+                           ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:318:33: Error: The getter 'Icons' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Icons'.
+                    child: Icon(Icons.image_not_supported_rounded, color: AppColors.textLight),
+                                ^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:318:75: Error: The getter 'AppColors' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'AppColors'.
+                    child: Icon(Icons.image_not_supported_rounded, color: AppColors.textLight),
+                                                                          ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:324:11: Error: The method 'SizedBox' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'SizedBox'.
+          SizedBox(width: 16),
+          ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:325:11: Error: The method 'Expanded' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Expanded'.
+          Expanded(
+          ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:326:20: Error: The method 'Column' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Column'.
+            child: Column(
+                   ^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:327:35: Error: The getter 'CrossAxisAlignment' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'CrossAxisAlignment'.
+              crossAxisAlignment: CrossAxisAlignment.start,
+                                  ^^^^^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:329:17: Error: The method 'Text' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Text'.
+                Text(
+                ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:331:26: Error: The method 'TextStyle' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'TextStyle'.
+                  style: TextStyle(
+                         ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:333:33: Error: The getter 'FontWeight' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'FontWeight'.
+                    fontWeight: FontWeight.bold,
+                                ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:334:28: Error: The getter 'AppColors' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'AppColors'.
+                    color: AppColors.text,
+                           ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:338:17: Error: The method 'SizedBox' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'SizedBox'.
+                SizedBox(height: 4),
+                ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:339:17: Error: The method 'Text' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Text'.
+                Text(
+                ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:341:26: Error: The method 'TextStyle' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'TextStyle'.
+                  style: TextStyle(
+                         ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:343:33: Error: The getter 'FontWeight' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'FontWeight'.
+                    fontWeight: FontWeight.w500,
+                                ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:344:28: Error: The getter 'AppColors' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'AppColors'.
+                    color: AppColors.textLight,
+                           ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:347:17: Error: The method 'SizedBox' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'SizedBox'.
+                SizedBox(height: 8),
+                ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:348:17: Error: The method 'Row' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Row'.
+                Row(
+                ^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:350:21: Error: The method 'Text' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Text'.
+                    Text(
+                    ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:352:30: Error: The method 'TextStyle' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'TextStyle'.
+                      style: TextStyle(
+                             ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:354:37: Error: The getter 'FontWeight' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'FontWeight'.
+                        fontWeight: FontWeight.w800,
+                                    ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:355:32: Error: The getter 'AppColors' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'AppColors'.
+                        color: AppColors.primary,
+                               ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:359:23: Error: The method 'SizedBox' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'SizedBox'.
+                      SizedBox(width: 8),
+                      ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:360:23: Error: The method 'Text' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Text'.
+                      Text(
+                      ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:362:32: Error: The method 'TextStyle' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'TextStyle'.
+                        style: TextStyle(
+                               ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:364:39: Error: The getter 'TextDecoration' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'TextDecoration'.
+                          decoration: TextDecoration.lineThrough,
+                                      ^^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:365:34: Error: The getter 'AppColors' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'AppColors'.
+                          color: AppColors.textLight,
+                                 ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:366:39: Error: The getter 'FontWeight' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'FontWeight'.
+                          fontWeight: FontWeight.w500,
+                                      ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:376:13: Error: The method 'Container' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Container'.
+            Container(
+            ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:377:24: Error: The getter 'EdgeInsets' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'EdgeInsets'.
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                       ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:378:27: Error: The method 'BoxDecoration' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'BoxDecoration'.
+              decoration: BoxDecoration(
+                          ^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:379:24: Error: The getter 'AppColors' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'AppColors'.
+                color: AppColors.error.withOpacity(0.1),
+                       ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:380:31: Error: The getter 'BorderRadius' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'BorderRadius'.
+                borderRadius: BorderRadius.circular(12),
+                              ^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:382:22: Error: The method 'Text' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Text'.
+              child: Text(
+                     ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:384:24: Error: The method 'TextStyle' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'TextStyle'.
+                style: TextStyle(
+                       ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:386:26: Error: The getter 'AppColors' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'AppColors'.
+                  color: AppColors.error,
+                         ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:387:31: Error: The getter 'FontWeight' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'FontWeight'.
+                  fontWeight: FontWeight.w700,
+                              ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:392:13: Error: The method 'Container' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Container'.
+            Container(
+            ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:393:24: Error: The getter 'EdgeInsets' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'EdgeInsets'.
+              padding: EdgeInsets.all(8),
+                       ^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:394:27: Error: The method 'BoxDecoration' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'BoxDecoration'.
+              decoration: BoxDecoration(
+                          ^^^^^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:395:24: Error: The getter 'AppColors' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'AppColors'.
+                color: AppColors.primary.withOpacity(0.1),
+                       ^^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:396:24: Error: The getter 'BoxShape' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'BoxShape'.
+                shape: BoxShape.circle,
+                       ^^^^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:398:22: Error: The method 'Icon' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing method, or defining a method named 'Icon'.
+              child: Icon(Icons.add_rounded, color: AppColors.primary, size: 20),
+                     ^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:398:27: Error: The getter 'Icons' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'Icons'.
+              child: Icon(Icons.add_rounded, color: AppColors.primary, size: 20),
+                          ^^^^^
+lib/features/map_discovery/screens/shop_details_screen.dart:398:53: Error: The getter 'AppColors' isn't defined for the class '_ProductItem'.
+ - '_ProductItem' is from 'package:near_basket/features/map_discovery/screens/shop_details_screen.dart' ('lib/features/map_discovery/screens/shop_details_screen.dart').
+Try correcting the name to the name of an existing getter, or defining a getter or field named 'AppColors'.
+              child: Icon(Icons.add_rounded, color: AppColors.primary, size: 20),
+                                                    ^^^^^^^^^
+Performing hot restart...                                          140ms
+Try again after fixing the above error(s).
+
+Performing hot restart...                                          410ms
+Restarted application in 410ms.
+
+Performing hot restart...                                           3.8s
+Restarted application in 3,835ms.
+
+Application finished.
