@@ -1,0 +1,17 @@
+Analyzing near_basket...                                        
+
+   info - The constant name 'LOW_STOCK_THRESHOLD' isn't a lowerCamelCase identifier - lib\core\providers\sales_provider.dart:95:20 - constant_identifier_names
+   info - The imported package 'shared_preferences' isn't a dependency of the importing package - lib\core\services\local_storage_service.dart:2:8 - depend_on_referenced_packages
+  error - Target of URI doesn't exist: 'package:shared_preferences/shared_preferences.dart' - lib\core\services\local_storage_service.dart:2:8 - uri_does_not_exist
+  error - Undefined name 'SharedPreferences' - lib\core\services\local_storage_service.dart:9:25 - undefined_identifier
+  error - The method 'toJson' isn't defined for the type 'ProductModel' - lib\core\services\local_storage_service.dart:11:29 - undefined_method
+  error - Undefined name 'SharedPreferences' - lib\core\services\local_storage_service.dart:17:25 - undefined_identifier
+  error - Undefined name 'SharedPreferences' - lib\core\services\local_storage_service.dart:30:25 - undefined_identifier
+   info - The declaration '_ModernShopCard' isn't referenced - lib\features\map_discovery\screens\home_screen.dart:703:7 - unused_element
+  error - Target of URI doesn't exist: '../../models/shop_model.dart' - lib\features\map_discovery\screens\stores_list_screen.dart:3:8 - uri_does_not_exist
+  error - Undefined name 'mockShops' - lib\features\map_discovery\screens\stores_list_screen.dart:20:20 - undefined_identifier
+  error - Undefined name 'mockShops' - lib\features\map_discovery\screens\stores_list_screen.dart:22:24 - undefined_identifier
+  error - Undefined class 'ShopModel' - lib\features\map_discovery\screens\stores_list_screen.dart:31:9 - undefined_class
+warning - The value of the field '_isSuggesting' isn't used - lib\features\product_onboarding\screens\custom_product_screen.dart:25:8 - unused_field
+
+13 issues found. (ran in 1.3s)

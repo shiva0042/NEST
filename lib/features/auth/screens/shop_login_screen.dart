@@ -23,7 +23,7 @@ class _ShopLoginScreenState extends State<ShopLoginScreen> {
       setState(() => _isLoading = true);
       
       // Simulate network delay
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 1));
 
       if (!mounted) return;
 
@@ -37,11 +37,11 @@ class _ShopLoginScreenState extends State<ShopLoginScreen> {
       if (success) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (_) => ShopOwnerDashboard()),
+          MaterialPageRoute(builder: (_) => const ShopOwnerDashboard()),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          const SnackBar(
             content: Text('Invalid Phone Number or OTP'),
             backgroundColor: Colors.red,
           ),
@@ -57,18 +57,18 @@ class _ShopLoginScreenState extends State<ShopLoginScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        iconTheme: IconThemeData(color: AppColors.text),
+        iconTheme: const IconThemeData(color: AppColors.text),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(24),
+        padding: const EdgeInsets.all(24),
         child: Form(
           key: _formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Icon(Icons.store_rounded, size: 80, color: AppColors.primary),
-              SizedBox(height: 24),
-              Text(
+              const Icon(Icons.store_rounded, size: 80, color: AppColors.primary),
+              const SizedBox(height: 24),
+              const Text(
                 'Shop Owner Login',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -77,19 +77,19 @@ class _ShopLoginScreenState extends State<ShopLoginScreen> {
                   color: AppColors.text,
                 ),
               ),
-              SizedBox(height: 8),
-              Text(
+              const SizedBox(height: 8),
+              const Text(
                 'Manage your store, inventory, and bills',
                 textAlign: TextAlign.center,
                 style: TextStyle(color: AppColors.textLight),
               ),
-              SizedBox(height: 48),
+              const SizedBox(height: 48),
               TextFormField(
                 controller: _phoneController,
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   labelText: 'Phone Number',
-                  prefixIcon: Icon(Icons.phone_android),
+                  prefixIcon: const Icon(Icons.phone_android),
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                   filled: true,
                   fillColor: AppColors.surface,
@@ -99,14 +99,14 @@ class _ShopLoginScreenState extends State<ShopLoginScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextFormField(
                 controller: _otpController,
                 keyboardType: TextInputType.number,
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'OTP (Password)',
-                  prefixIcon: Icon(Icons.lock_outline),
+                  prefixIcon: const Icon(Icons.lock_outline),
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                   filled: true,
                   fillColor: AppColors.surface,
@@ -117,40 +117,40 @@ class _ShopLoginScreenState extends State<ShopLoginScreen> {
                   return null;
                 },
               ),
-              SizedBox(height: 32),
+              const SizedBox(height: 32),
               ElevatedButton(
                 onPressed: _isLoading ? null : _login,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primary,
-                  padding: EdgeInsets.symmetric(vertical: 16),
+                  padding: const EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                 ),
                 child: _isLoading
-                    ? SizedBox(
+                    ? const SizedBox(
                         height: 20,
                         width: 20,
                         child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
                       )
-                    : Text(
+                    : const Text(
                         'Login',
                         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       ),
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               TextButton(
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (_) => ShopSignUpScreen()),
+                    MaterialPageRoute(builder: (_) => const ShopSignUpScreen()),
                   );
                 },
-                child: Text(
+                child: const Text(
                   'Don\'t have an account? Register here',
                   style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold),
                 ),
               ),
-              SizedBox(height: 16),
-              Text(
+              const SizedBox(height: 16),
+              const Text(
                 'Demo Credentials:\nPhone: 9876543210 (Shop 1)\nOTP: 1234',
                 textAlign: TextAlign.center,
                 style: TextStyle(color: AppColors.textLight, fontSize: 12),

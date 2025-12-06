@@ -23,7 +23,7 @@ class _ShopSignUpScreenState extends State<ShopSignUpScreen> {
       setState(() => _isLoading = true);
       
       // Simulate network delay
-      await Future.delayed(Duration(seconds: 1));
+      await Future.delayed(const Duration(seconds: 1));
 
       if (!mounted) return;
 
@@ -37,7 +37,7 @@ class _ShopSignUpScreenState extends State<ShopSignUpScreen> {
       setState(() => _isLoading = false);
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Shop Registered Successfully! Please Login.'),
           backgroundColor: Colors.green,
         ),
@@ -54,11 +54,11 @@ class _ShopSignUpScreenState extends State<ShopSignUpScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        iconTheme: IconThemeData(color: AppColors.text),
-        title: Text('Register Shop', style: TextStyle(color: AppColors.text)),
+        iconTheme: const IconThemeData(color: AppColors.text),
+        title: const Text('Register Shop', style: TextStyle(color: AppColors.text)),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(24),
+        padding: const EdgeInsets.all(24),
         child: Form(
           key: _formKey,
           child: Column(
@@ -68,66 +68,66 @@ class _ShopSignUpScreenState extends State<ShopSignUpScreen> {
                 controller: _nameController,
                 decoration: InputDecoration(
                   labelText: 'Shop Name',
-                  prefixIcon: Icon(Icons.store),
+                  prefixIcon: const Icon(Icons.store),
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                   filled: true,
                   fillColor: AppColors.surface,
                 ),
                 validator: (value) => value!.isEmpty ? 'Enter shop name' : null,
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextFormField(
                 controller: _phoneController,
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   labelText: 'Phone Number',
-                  prefixIcon: Icon(Icons.phone_android),
+                  prefixIcon: const Icon(Icons.phone_android),
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                   filled: true,
                   fillColor: AppColors.surface,
                 ),
                 validator: (value) => value!.isEmpty ? 'Enter phone number' : null,
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextFormField(
                 controller: _passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'Password',
-                  prefixIcon: Icon(Icons.lock_outline),
+                  prefixIcon: const Icon(Icons.lock_outline),
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                   filled: true,
                   fillColor: AppColors.surface,
                 ),
                 validator: (value) => value!.isEmpty ? 'Enter password' : null,
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextFormField(
                 controller: _addressController,
                 decoration: InputDecoration(
                   labelText: 'Address',
-                  prefixIcon: Icon(Icons.location_on_outlined),
+                  prefixIcon: const Icon(Icons.location_on_outlined),
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                   filled: true,
                   fillColor: AppColors.surface,
                 ),
                 validator: (value) => value!.isEmpty ? 'Enter address' : null,
               ),
-              SizedBox(height: 32),
+              const SizedBox(height: 32),
               ElevatedButton(
                 onPressed: _isLoading ? null : _signUp,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.primary,
-                  padding: EdgeInsets.symmetric(vertical: 16),
+                  padding: const EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                 ),
                 child: _isLoading
-                    ? SizedBox(
+                    ? const SizedBox(
                         height: 20,
                         width: 20,
                         child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
                       )
-                    : Text(
+                    : const Text(
                         'Register Shop',
                         style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                       ),

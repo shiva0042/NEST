@@ -16,7 +16,7 @@ class AppTheme {
         error: AppColors.error,
         background: AppColors.background,
       ),
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.surface,
         elevation: 0,
         centerTitle: false,
@@ -37,8 +37,8 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
-          padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-          textStyle: TextStyle(
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+          textStyle: const TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
             letterSpacing: 0.5,
@@ -48,24 +48,24 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: AppColors.surface,
-        contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: Colors.transparent),
+          borderSide: const BorderSide(color: Colors.transparent),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: Colors.transparent),
+          borderSide: const BorderSide(color: Colors.transparent),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: AppColors.primary, width: 2),
+          borderSide: const BorderSide(color: AppColors.primary, width: 2),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: AppColors.error),
+          borderSide: const BorderSide(color: AppColors.error),
         ),
-        hintStyle: TextStyle(color: AppColors.textLight),
+        hintStyle: const TextStyle(color: AppColors.textLight),
       ),
       cardTheme: CardTheme(
         color: AppColors.surface,
@@ -78,10 +78,10 @@ class AppTheme {
       ),
       chipTheme: ChipThemeData(
         backgroundColor: AppColors.surface,
-        side: BorderSide(color: AppColors.border),
+        side: const BorderSide(color: AppColors.border),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        labelStyle: TextStyle(color: AppColors.text),
-        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+        labelStyle: const TextStyle(color: AppColors.text),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
       ),
     );
   }

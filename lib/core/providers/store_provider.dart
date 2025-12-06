@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../features/map_discovery/models/shop_model.dart';
 
 class StoreProvider extends ChangeNotifier {
-  List<ShopModel> _shops = mockShops;
+  final List<ShopModel> _shops = mockShops;
   String? _userRole; // 'customer' or 'shopOwner'
   String _currentShopId = '1';
   ShopModel? _loggedInShop;
@@ -11,6 +11,7 @@ class StoreProvider extends ChangeNotifier {
   String? get userRole => _userRole;
   String get currentShopId => _currentShopId;
   ShopModel? get loggedInShop => _loggedInShop;
+  String? get currentShopName => _loggedInShop?.name;
 
   void setUserRole(String role) {
     _userRole = role;

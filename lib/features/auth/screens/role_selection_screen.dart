@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../map_discovery/screens/home_screen.dart';
-import '../../shop_dashboard/screens/dashboard_screen.dart';
 import 'shop_login_screen.dart';
 
 class RoleSelectionScreen extends StatelessWidget {
@@ -23,63 +22,47 @@ class RoleSelectionScreen extends StatelessWidget {
           ),
         ),
         child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // Icon(Icons.local_mall_rounded, size: 64, color: AppColors.primary),
-                // Logo
-                const _FloatingLogo(),
-                SizedBox(height: 16),
-                // Text(
-                //   'NEST',
-                //   textAlign: TextAlign.center,
-                //   style: TextStyle(
-                //     fontSize: 40,
-                //     fontWeight: FontWeight.w900,
-                //     color: AppColors.text,
-                //     letterSpacing: -1,
-                //   ),
-                // ),
-                // SizedBox(height: 8),
-                // Text(
-                //   'Near Easy Shop Tracker',
-                //   textAlign: TextAlign.center,
-                //   style: TextStyle(
-                //     fontSize: 16,
-                //     color: AppColors.textLight,
-                //     letterSpacing: 0.5,
-                //   ),
-                // ),
-                SizedBox(height: 64),
-                _RoleCard(
-                  title: "I'm a Customer",
-                  description: "Find shops, check stock, and discover deals nearby.",
-                  icon: Icons.shopping_bag_outlined,
-                  color: AppColors.primary,
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const CustomerHomeScreen()),
-                    );
-                  },
-                ),
-                SizedBox(height: 24),
-                _RoleCard(
-                  title: "I'm a Shop Owner",
-                  description: "Manage inventory, post offers, and grow your business.",
-                  icon: Icons.store_outlined,
-                  color: AppColors.secondary,
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const ShopLoginScreen()),
-                    );
-                  },
-                ),
-              ],
+          child: Center(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(24.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  // Icon(Icons.local_mall_rounded, size: 64, color: AppColors.primary),
+                  // Logo
+                  const _FloatingLogo(),
+                  const SizedBox(height: 16),
+                  
+                  const SizedBox(height: 48),
+                  _RoleCard(
+                    title: "I'm a Customer",
+                    description: "Find shops, check stock, and discover deals nearby.",
+                    icon: Icons.shopping_bag_outlined,
+                    color: AppColors.primary,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const CustomerHomeScreen()),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 24),
+                  _RoleCard(
+                    title: "I'm a Shop Owner",
+                    description: "Manage inventory, post offers, and grow your business.",
+                    icon: Icons.store_outlined,
+                    color: AppColors.secondary,
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const ShopLoginScreen()),
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -111,7 +94,7 @@ class _RoleCard extends StatelessWidget {
         onTap: onTap,
         borderRadius: BorderRadius.circular(24),
         child: Container(
-          padding: EdgeInsets.all(24),
+          padding: const EdgeInsets.all(24),
           decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.8),
             borderRadius: BorderRadius.circular(24),
@@ -120,37 +103,37 @@ class _RoleCard extends StatelessWidget {
               BoxShadow(
                 color: color.withOpacity(0.1),
                 blurRadius: 20,
-                offset: Offset(0, 8),
+                offset: const Offset(0, 8),
               ),
             ],
           ),
           child: Row(
             children: [
               Container(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
                   color: color.withOpacity(0.1),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(icon, size: 32, color: color),
               ),
-              SizedBox(width: 20),
+              const SizedBox(width: 20),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       title,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
                         color: AppColors.text,
                       ),
                     ),
-                    SizedBox(height: 4),
+                    const SizedBox(height: 4),
                     Text(
                       description,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 13,
                         color: AppColors.textLight,
                         height: 1.4,
@@ -159,7 +142,7 @@ class _RoleCard extends StatelessWidget {
                   ],
                 ),
               ),
-              Icon(Icons.arrow_forward_ios_rounded, size: 16, color: AppColors.textLight),
+              const Icon(Icons.arrow_forward_ios_rounded, size: 16, color: AppColors.textLight),
             ],
           ),
         ),
@@ -209,8 +192,8 @@ class _FloatingLogoState extends State<_FloatingLogo> with SingleTickerProviderS
         );
       },
       child: Container(
-        height: 200,
-        width: 200,
+        height: 300,
+        width: 300,
         decoration: BoxDecoration(
           // Add a subtle glow/blend effect behind the logo
           shape: BoxShape.circle,

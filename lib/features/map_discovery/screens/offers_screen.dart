@@ -18,8 +18,8 @@ class OffersScreen extends StatelessWidget {
             scrolledUnderElevation: 0,
             expandedHeight: 120,
             flexibleSpace: FlexibleSpaceBar(
-              titlePadding: EdgeInsets.only(left: 24, bottom: 16),
-              title: Text(
+              titlePadding: const EdgeInsets.only(left: 24, bottom: 16),
+              title: const Text(
                 'Community Deals',
                 style: TextStyle(
                   color: AppColors.text,
@@ -32,10 +32,10 @@ class OffersScreen extends StatelessWidget {
             ),
           ),
           SliverPadding(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             sliver: SliverList(
               delegate: SliverChildListDelegate([
-                Text(
+                const Text(
                   'Best offers near you',
                   style: TextStyle(
                     color: AppColors.textLight,
@@ -43,29 +43,29 @@ class OffersScreen extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                SizedBox(height: 24),
-                _OfferCard(
+                const SizedBox(height: 24),
+                const _OfferCard(
                   title: '50% OFF on Organic Veggies',
                   shopName: 'Green Valley Organics',
                   expiry: 'Expires in 2 hours',
                   color: Colors.green,
                   icon: Icons.eco_rounded,
                 ),
-                _OfferCard(
+                const _OfferCard(
                   title: 'Buy 1 Get 1 Free: Bread',
                   shopName: 'Fresh Mart',
                   expiry: 'Valid today only',
                   color: Colors.orange,
                   icon: Icons.bakery_dining_rounded,
                 ),
-                _OfferCard(
+                const _OfferCard(
                   title: 'Flash Sale: Dairy Products',
                   shopName: 'Daily Needs Store',
                   expiry: 'Ends at 8 PM',
                   color: Colors.blue,
                   icon: Icons.water_drop_rounded,
                 ),
-                _OfferCard(
+                const _OfferCard(
                   title: '20% OFF on All Spices',
                   shopName: 'Spice World',
                   expiry: 'Valid until Sunday',
@@ -99,7 +99,7 @@ class _OfferCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(bottom: 20),
+      margin: const EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(24),
@@ -107,7 +107,7 @@ class _OfferCard extends StatelessWidget {
           BoxShadow(
             color: color.withOpacity(0.15),
             blurRadius: 20,
-            offset: Offset(0, 8),
+            offset: const Offset(0, 8),
           ),
         ],
       ),
@@ -125,14 +125,14 @@ class _OfferCard extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(24),
+              padding: const EdgeInsets.all(24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                         decoration: BoxDecoration(
                           color: color.withOpacity(0.1),
                           borderRadius: BorderRadius.circular(12),
@@ -140,7 +140,7 @@ class _OfferCard extends StatelessWidget {
                         child: Row(
                           children: [
                             Icon(Icons.store_rounded, size: 14, color: color),
-                            SizedBox(width: 6),
+                            const SizedBox(width: 6),
                             Text(
                               shopName,
                               style: TextStyle(
@@ -152,9 +152,9 @@ class _OfferCard extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Container(
-                        padding: EdgeInsets.all(8),
+                        padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
                           color: color.withOpacity(0.1),
                           shape: BoxShape.circle,
@@ -163,10 +163,10 @@ class _OfferCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Text(
                     title,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w800,
                       color: AppColors.text,
@@ -174,14 +174,14 @@ class _OfferCard extends StatelessWidget {
                       letterSpacing: -0.5,
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Row(
                     children: [
-                      Icon(Icons.timer_outlined, color: AppColors.textLight, size: 18),
-                      SizedBox(width: 6),
+                      const Icon(Icons.timer_outlined, color: AppColors.textLight, size: 18),
+                      const SizedBox(width: 6),
                       Text(
                         expiry,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: AppColors.textLight,
                           fontWeight: FontWeight.w600,
                           fontSize: 14,

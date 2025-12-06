@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "956594217906",
+    "project_id": "nest-app-251b1",
+    "storage_bucket": "nest-app-251b1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:956594217906:android:fd689ea991a63c8305faab",
+        "android_client_info": {
+          "package_name": "com.example.near_basket"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8Jfwm8SDJzPJt-u4S1bLEuvC-BRFVyp4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

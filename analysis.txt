@@ -1,0 +1,1 @@
+[info] Use 'const' literals as arguments to constructors of '@immutable' classes (D:\vs\anti\near_basket\lib\features\map_discovery\screens\home_screen.dart:28:21)

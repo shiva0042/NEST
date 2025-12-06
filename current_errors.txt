@@ -1,0 +1,1 @@
+[error] The named parameter 'onProductAdded' is required, but there's no corresponding argument (D:\vs\anti\near_basket\lib\features\shop_dashboard\screens\dashboard_screen.dart:380:79)

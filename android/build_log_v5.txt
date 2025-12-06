@@ -1,0 +1,112 @@
+﻿> Task :gradle:compileJava NO-SOURCE
+> Task :gradle:compileGroovy UP-TO-DATE
+> Task :gradle:pluginDescriptors UP-TO-DATE
+> Task :gradle:processResources UP-TO-DATE
+> Task :gradle:classes UP-TO-DATE
+> Task :gradle:jar UP-TO-DATE
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:compileFlutterBuildDebug UP-TO-DATE
+> Task :app:packLibsflutterBuildDebug UP-TO-DATE
+> Task :url_launcher_android:preBuild UP-TO-DATE
+> Task :url_launcher_android:preDebugBuild UP-TO-DATE
+> Task :url_launcher_android:writeDebugAarMetadata UP-TO-DATE
+> Task :app:checkDebugAarMetadata UP-TO-DATE
+> Task :app:cleanMergeDebugAssets
+> Task :app:mergeDebugShaders UP-TO-DATE
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :url_launcher_android:mergeDebugShaders UP-TO-DATE
+> Task :url_launcher_android:compileDebugShaders NO-SOURCE
+> Task :url_launcher_android:generateDebugAssets UP-TO-DATE
+> Task :url_launcher_android:packageDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets
+> Task :app:copyFlutterAssetsDebug
+> Task :app:generateDebugResValues UP-TO-DATE
+> Task :url_launcher_android:generateDebugResValues UP-TO-DATE
+> Task :url_launcher_android:generateDebugResources UP-TO-DATE
+> Task :url_launcher_android:packageDebugResources UP-TO-DATE
+> Task :app:mapDebugSourceSetPaths UP-TO-DATE
+> Task :app:generateDebugResources UP-TO-DATE
+> Task :app:mergeDebugResources UP-TO-DATE
+> Task :app:packageDebugResources UP-TO-DATE
+> Task :app:parseDebugLocalResources UP-TO-DATE
+> Task :app:createDebugCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksDebug UP-TO-DATE
+> Task :url_launcher_android:extractDeepLinksDebug UP-TO-DATE
+> Task :url_launcher_android:processDebugManifest UP-TO-DATE
+> Task :app:processDebugMainManifest UP-TO-DATE
+> Task :app:processDebugManifest UP-TO-DATE
+> Task :app:processDebugManifestForPackage UP-TO-DATE
+> Task :url_launcher_android:compileDebugLibraryResources UP-TO-DATE
+> Task :url_launcher_android:parseDebugLocalResources UP-TO-DATE
+> Task :url_launcher_android:generateDebugRFile UP-TO-DATE
+> Task :app:processDebugResources UP-TO-DATE
+> Task :url_launcher_android:generateDebugBuildConfig UP-TO-DATE
+> Task :url_launcher_android:javaPreCompileDebug UP-TO-DATE
+> Task :url_launcher_android:compileDebugJavaWithJavac UP-TO-DATE
+> Task :url_launcher_android:bundleLibCompileToJarDebug UP-TO-DATE
+> Task :app:compileDebugKotlin UP-TO-DATE
+> Task :app:javaPreCompileDebug UP-TO-DATE
+> Task :app:compileDebugJavaWithJavac FAILED
+.\gradlew : 
+At line:1 char:50
++ ... es\Java\jdk-21"; 
+.\gradlew assembleDebug 
+--console=plain 2>&1 | Out-F ...
++                      ~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~
+    + CategoryInfo          : N 
+   otSpecified: (:String) [],   
+  RemoteException
+    + FullyQualifiedErrorId : N 
+   ativeCommandError
+ 
+FAILURE: Build failed with an 
+exception.
+
+* What went wrong:
+Execution failed for task ':app:
+compileDebugJavaWithJavac'.
+> Could not resolve all files 
+for configuration 
+':app:androidJdkImage'.
+   > Failed to transform 
+core-for-system-modules.jar to 
+match attributes {artifactType=_
+internal_android_jdk_image, 
+org.gradle.libraryelements=jar, 
+org.gradle.usage=java-runtime}.
+      > Execution failed for 
+JdkImageTransform: C:\Users\SRK\
+AppData\Local\Android\sdk\platfo
+rms\android-34\core-for-system-m
+odules.jar.
+         > Error while 
+executing process C:\Program 
+Files\Java\jdk-21\bin\jlink.exe 
+with arguments {--module-path C:
+\Users\SRK\.gradle\caches\transf
+orms-3\d45efe468bfb4b88f26dc3ceb
+938cd9e\transformed\output\temp\
+jmod --add-modules java.base 
+--output C:\Users\SRK\.gradle\ca
+ches\transforms-3\d45efe468bfb4b
+88f26dc3ceb938cd9e\transformed\o
+utput\jdkImage --disable-plugin 
+system-modules}
+
+* Try:
+> Run with --stacktrace option 
+to get the stack trace.
+> Run with --info or --debug 
+option to get more log output.
+> Run with --scan to get full 
+insights.
+> Get more help at 
+https://help.gradle.org.
+
+BUILD FAILED in 5s
+39 actionable tasks: 4 executed, 35 up-to-date
