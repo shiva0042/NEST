@@ -391,15 +391,19 @@ class _BillingScreenState extends State<BillingScreen> {
                 // Cart Items
                 Expanded(
                   child: _cart.isEmpty
-                      ? const Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.shopping_cart_outlined, size: 64, color: AppColors.textLight),
-                              SizedBox(height: 16),
-                              Text('Cart is empty', style: TextStyle(color: AppColors.textLight)),
-                              Text('Tap products to add', style: TextStyle(color: AppColors.textLight, fontSize: 12)),
-                            ],
+                      ? Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Icon(Icons.shopping_cart_outlined, size: 64, color: AppColors.textLight),
+                                SizedBox(height: 16),
+                                Text('Cart is empty', style: TextStyle(color: AppColors.textLight)),
+                                SizedBox(height: 4),
+                                Text('Tap products to add', style: TextStyle(color: AppColors.textLight, fontSize: 12)),
+                              ],
+                            ),
                           ),
                         )
                       : ListView.separated(

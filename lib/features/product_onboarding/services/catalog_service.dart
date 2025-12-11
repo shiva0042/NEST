@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import '../models/models.dart';
 import '../../../core/models/shop_models.dart';
-import '../../../core/services/firebase_service.dart';
+// import '../../../core/services/firebase_service.dart'; // Removed - using local storage
 // import '../../map_discovery/models/product_model.dart'; // No longer needed
 // import '../../../core/services/local_storage_service.dart'; // No longer needed
 
@@ -313,12 +313,14 @@ class CatalogService {
       status: 'approved',
     );
 
-    // Write to Firestore
-    try {
-      await FirebaseService().addToInventory(shopProduct.shopId, inventoryItem.toMap());
-    } catch (e) {
-      debugPrint('Error adding to firestore inventory: $e');
-    }
+    // Write to Firestore (Disabled - using local storage)
+    // try {
+    //   await FirebaseService().addToInventory(shopProduct.shopId, inventoryItem.toMap());
+    // } catch (e) {
+    //   debugPrint('Error adding to firestore inventory: $e');
+    // }
+    
+    debugPrint('Product added to local inventory: ${inventoryItem.productName}');
   }
 
   Future<void> addCustomProduct(CustomProductCandidate candidate) async {
@@ -335,11 +337,14 @@ class CatalogService {
       status: 'pending',
     );
 
-    try {
-      await FirebaseService().addToInventory(candidate.shopId, inventoryItem.toMap());
-    } catch (e) {
-      debugPrint('Error adding custom product to firestore: $e');
-    }
+    // Write to Firestore (Disabled - using local storage)
+    // try {
+    //   await FirebaseService().addToInventory(candidate.shopId, inventoryItem.toMap());
+    // } catch (e) {
+    //   debugPrint('Error adding custom product to firestore: $e');
+    // }
+    
+    debugPrint('Custom product added to local inventory: ${inventoryItem.productName}');
   }
   
   Future<List<Product>> autoSuggest(String name, String? barcode) async {

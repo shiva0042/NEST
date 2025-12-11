@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/providers/store_provider.dart';
+import '../../shop_dashboard/screens/dashboard_screen.dart';
 
 class ShopSignUpScreen extends StatefulWidget {
   const ShopSignUpScreen({super.key});
@@ -16,6 +17,8 @@ class _ShopSignUpScreenState extends State<ShopSignUpScreen> {
   final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
   final _addressController = TextEditingController();
+  String _selectedCategory = 'Grocery';
+  final List<String> _categories = ['Grocery', 'Supermarket', 'Fruits & Veg', 'Bakery', 'Stationery'];
   bool _isLoading = false;
 
   void _signUp() async {
@@ -32,18 +35,26 @@ class _ShopSignUpScreenState extends State<ShopSignUpScreen> {
         _phoneController.text.trim(),
         _passwordController.text.trim(),
         _addressController.text.trim(),
+        _selectedCategory,
       );
 
       setState(() => _isLoading = false);
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Shop Registered Successfully! Please Login.'),
+          content: Text('Shop Registered Successfully!'),
           backgroundColor: Colors.green,
         ),
       );
 
-      Navigator.pop(context); // Go back to Login Screen
+      // Navigate to Dashboard directly
+      if (mounted) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (_) => const ShopOwnerDashboard()),
+          (route) => false,
+        );
+      }
     }
   }
 
@@ -76,6 +87,22 @@ class _ShopSignUpScreenState extends State<ShopSignUpScreen> {
                 validator: (value) => value!.isEmpty ? 'Enter shop name' : null,
               ),
               const SizedBox(height: 16),
+              
+              // Category Dropdown
+              DropdownButtonFormField<String>(
+                value: _selectedCategory,
+                decoration: InputDecoration(
+                  labelText: 'Category',
+                  prefixIcon: const Icon(Icons.category),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  filled: true,
+                  fillColor: AppColors.surface,
+                ),
+                items: _categories.map((c) => DropdownMenuItem(value: c, child: Text(c))).toList(),
+                onChanged: (val) => setState(() => _selectedCategory = val!),
+              ),
+              const SizedBox(height: 16),
+
               TextFormField(
                 controller: _phoneController,
                 keyboardType: TextInputType.phone,

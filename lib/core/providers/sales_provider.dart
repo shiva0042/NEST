@@ -336,20 +336,73 @@ class SalesProvider extends ChangeNotifier {
     }
   }
   
-  // Get top selling products
-  List<MapEntry<String, int>> getTopProducts(String shopId, {int limit = 5}) {
+  // Get top selling products with full product info
+  List<Map<String, dynamic>> getTopProducts(String shopId, {int limit = 5}) {
     final analytics = getMonthAnalytics(shopId);
     final sorted = analytics.salesByProduct.entries.toList()
       ..sort((a, b) => b.value.compareTo(a.value));
-    return sorted.take(limit).toList();
+    
+    // Get actual product objects
+    return sorted.take(limit).map((entry) {
+      final productName = entry.key;
+      final quantity = entry.value;
+      
+      // Find the product by name
+      final product = mockProducts.firstWhere(
+        (p) => p.name == productName && p.shopId == shopId,
+        orElse: () => mockProducts.first,
+      );
+      
+      return {
+        'product': product,
+        'quantity': quantity,
+      };
+    }).toList();
   }
   
-  // Get top brands
-  List<MapEntry<String, double>> getTopBrands(String shopId, {int limit = 5}) {
+  // Get top brands with product images
+  List<Map<String, dynamic>> getTopBrands(String shopId, {int limit = 5}) {
     final analytics = getMonthAnalytics(shopId);
     final sorted = analytics.revenueByBrand.entries.toList()
       ..sort((a, b) => b.value.compareTo(a.value));
-    return sorted.take(limit).toList();
+    
+    // Get representative product for each brand
+    return sorted.take(limit).map((entry) {
+      final brandName = entry.key;
+      final revenue = entry.value;
+      
+      // Find a product from this brand
+      final product = mockProducts.firstWhere(
+        (p) => p.brand == brandName && p.shopId == shopId,
+        orElse: () => mockProducts.first,
+      );
+      
+      return {
+        'brand': brandName,
+        'revenue': revenue,
+        'product': product,
+      };
+    }).toList();
+  }
+  
+  // Get category data with images
+  Map<String, dynamic> getCategoryData(String shopId, String category) {
+    final analytics = getMonthAnalytics(shopId);
+    final revenue = analytics.revenueByCategory[category] ?? 0.0;
+    final unitsSold = analytics.salesByCategory[category] ?? 0;
+    
+    // Find a representative product from this category
+    final product = mockProducts.firstWhere(
+      (p) => p.category == category && p.shopId == shopId,
+      orElse: () => mockProducts.first,
+    );
+    
+    return {
+      'category': category,
+      'revenue': revenue,
+      'units': unitsSold,
+      'product': product,
+    };
   }
   
   // Add demo data for testing - includes ALL categories

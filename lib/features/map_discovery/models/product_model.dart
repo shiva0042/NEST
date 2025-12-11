@@ -1353,6 +1353,98 @@ List<ProductModel> _generateProducts() {
       'smallBrands': {'StBotanica': [1, 2], 'Organix': [3, 4]},
       'basePrice': 399.0,
     },
+
+    // === BABY CARE ===
+    {
+      'name': 'Baby Diapers (S/M/L)',
+      'category': 'Baby Care',
+      'unit': 'pack',
+      'bigBrands': ['Pampers', 'MamyPoko', 'Huggies'],
+      'smallBrands': {'Supples': [1, 2], 'Little\'s': [3, 4]},
+      'basePrice': 699.0, // Large pack
+    },
+    {
+      'name': 'Baby Wipes',
+      'category': 'Baby Care',
+      'unit': 'pack',
+      'bigBrands': ['Johnson\'s', 'Himalaya'],
+      'smallBrands': {'Little\'s': [1, 3], 'Mother Sparsh': [2, 4]},
+      'basePrice': 150.0,
+    },
+    {
+      'name': 'Baby Soap',
+      'category': 'Baby Care',
+      'unit': 'pieces',
+      'bigBrands': ['Johnson\'s', 'Himalaya'],
+      'smallBrands': {'Sebamed': [2, 3], 'Tedibar': [1, 4]},
+      'basePrice': 65.0,
+    },
+    {
+      'name': 'Baby Powder',
+      'category': 'Baby Care',
+      'unit': 'weight',
+      'bigBrands': ['Johnson\'s', 'Himalaya'],
+      'smallBrands': {'Sebamed': [1, 2], 'Dabur': [3, 4]},
+      'basePrice': 120.0,
+    },
+    {
+      'name': 'Baby Massage Oil',
+      'category': 'Baby Care',
+      'unit': 'volume',
+      'bigBrands': ['Johnson\'s', 'Dabur Lal Tail'],
+      'smallBrands': {'Himalaya': [1, 3], 'Figaro': [2, 4]},
+      'basePrice': 200.0,
+    },
+    {
+      'name': 'Baby Lotion',
+      'category': 'Baby Care',
+      'unit': 'volume',
+      'bigBrands': ['Johnson\'s', 'Himalaya'],
+      'smallBrands': {'Aveeno': [1, 2], 'Cetaphil': [3, 4]},
+      'basePrice': 250.0,
+    },
+    {
+      'name': 'Cerelac',
+      'category': 'Baby Care',
+      'unit': 'pack',
+      'bigBrands': ['Nestle'],
+      'smallBrands': {'Slurrp Farm': [2, 3], 'Early Foods': [1, 4]},
+      'basePrice': 280.0,
+    },
+
+    // === PET CARE ===
+    {
+      'name': 'Dog Food (Adult/Puppy)',
+      'category': 'Pet Care',
+      'unit': 'weight',
+      'bigBrands': ['Pedigree', 'Royal Canin'],
+      'smallBrands': {'Drools': [1, 2], 'Purepet': [3, 4]},
+      'basePrice': 450.0, // ₹450/3kg approx base
+    },
+    {
+      'name': 'Cat Food',
+      'category': 'Pet Care',
+      'unit': 'weight',
+      'bigBrands': ['Whiskas', 'Royal Canin'],
+      'smallBrands': {'Me-O': [1, 3], 'Purepet': [2, 4]},
+      'basePrice': 400.0,
+    },
+    {
+      'name': 'Pet Shampoo',
+      'category': 'Pet Care',
+      'unit': 'volume',
+      'bigBrands': ['Himalaya Erina'],
+      'smallBrands': {'Wahl': [1, 2], 'Captain Zack': [3, 4]},
+      'basePrice': 220.0,
+    },
+    {
+      'name': 'Dog Biscuits/Treats',
+      'category': 'Pet Care',
+      'unit': 'pack',
+      'bigBrands': ['Pedigree', 'Drools'],
+      'smallBrands': {'Choostix': [1, 3], 'Meat Up': [2, 4]},
+      'basePrice': 150.0,
+    },
   ];
 
   // Shop IDs: 1 = GRO MART, 2 = ROYAL Supermarket, 3 = Reliance SMART Point, 4 = J B Super Market

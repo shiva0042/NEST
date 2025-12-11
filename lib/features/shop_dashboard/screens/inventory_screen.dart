@@ -8,7 +8,9 @@ import '../../map_discovery/models/product_model.dart';
 import 'add_product_catalog_screen.dart';
 
 class InventoryScreen extends StatefulWidget {
-  const InventoryScreen({super.key});
+  final bool showLowStockOnly;
+  
+  const InventoryScreen({super.key, this.showLowStockOnly = false});
 
   @override
   State<InventoryScreen> createState() => _InventoryScreenState();
@@ -83,7 +85,8 @@ class _InventoryScreenState extends State<InventoryScreen> {
       _displayedProducts = _allProducts.where((p) {
         bool matchesCategory = _selectedCategory == 'All' || p.category == _selectedCategory;
         bool matchesSearch = p.name.toLowerCase().contains(_searchQuery.toLowerCase());
-        return matchesCategory && matchesSearch;
+        bool matchesLowStock = !widget.showLowStockOnly || p.stockQuantity < 10; // Low stock threshold
+        return matchesCategory && matchesSearch && matchesLowStock;
       }).toList();
     });
   }
@@ -125,9 +128,9 @@ class _InventoryScreenState extends State<InventoryScreen> {
       backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: AppColors.surface,
-        title: const Text(
-          'Inventory Management',
-          style: TextStyle(color: AppColors.text, fontWeight: FontWeight.bold),
+        title: Text(
+          widget.showLowStockOnly ? 'Low Stock Items' : 'Inventory Management',
+          style: const TextStyle(color: AppColors.text, fontWeight: FontWeight.bold),
         ),
         iconTheme: const IconThemeData(color: AppColors.text),
         elevation: 0,

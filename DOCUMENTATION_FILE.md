@@ -1,7 +1,46 @@
+# NEST App - Customer Home Screen Documentation File
+
+## Application Overview
+**App Name:** NEST (formerly NearBasket)  
+**Type:** E-commerce Grocery Delivery Platform  
+**Similar to:** Blinkit, JioMart, Swiggy Instamart  
+**Platform:** Flutter (Android, iOS, Web)  
+
+## Purpose
+NEST is a comprehensive e-market platform that connects customers with local shops for grocery and essential items delivery. The app has two main user roles:
+1. **Customers**: Browse products, add to cart, and purchase from nearby shops
+2. **Shop Owners**: Manage inventory, add products, track sales, and handle billing
+
+## Code File Details
+**File Path:** `lib/features/map_discovery/screens/home_screen.dart`  
+**File Size:** 1059 lines  
+**Purpose:** Primary customer-facing home screen with product discovery and navigation
+
+## Key Features Implemented in This File
+- ✅ Modern bottom navigation bar with 3 tabs (Home, Stores, Deals)
+- ✅ Location-based header showing current delivery area
+- ✅ Search functionality for products and stores
+- ✅ Promotional banners with swipe navigation
+- ✅ Category browsing with horizontal scroll
+- ✅ Product listings organized by categories (Daily Essentials, Vegetables, Snacks, etc.)
+- ✅ Product cards with images, pricing, and stock status
+- ✅ Smooth animations and modern UI/UX design
+- ✅ Integration with shop details view for product selection
+
+## Technologies & Dependencies
+- Flutter SDK
+- Provider (State Management)
+- Material Design
+- Custom theme system (AppTheme)
+- Network image loading
+
+---
+
+## COMPLETE SOURCE CODE
+
+```dart
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../../../core/constants/app_colors.dart';
-import '../../../core/providers/store_provider.dart';
 import '../models/shop_model.dart';
 import '../models/category_model.dart';
 import '../models/product_model.dart';
@@ -190,73 +229,57 @@ class _HomeView extends StatelessWidget {
         
         // Essential Products Sections
         SliverToBoxAdapter(
-          child: Builder(
-            builder: (context) {
-              // Get list of open shop IDs
-              final openShopIds = context.watch<StoreProvider>()
-                  .shops
-                  .where((shop) => shop.isOpen)
-                  .map((shop) => shop.id)
-                  .toSet();
-              
-              // Filter products from open shops only
-              final availableProducts = mockProducts
-                  .where((p) => p.inStock && openShopIds.contains(p.shopId))
-                  .toList();
-              
-              return Column(
-                children: [
-                  _ProductHorizontalList(
-                    title: 'Daily Essentials',
-                    products: (availableProducts.where((p) => (p.category.contains('Rice') || p.category.contains('Oil') || p.category.contains('Atta'))).toList()..shuffle()).take(10).toList(),
-                  ),
-                  _ProductHorizontalList(
-                    title: 'Fresh Vegetables',
-                    products: (availableProducts.where((p) => p.category.contains('Vegetables')).toList()..shuffle()).take(10).toList(),
-                  ),
-                  _ProductHorizontalList(
-                    title: 'Snacks & Munchies',
-                    products: (availableProducts.where((p) => (p.category.contains('Snacks') || p.category.contains('Biscuits'))).toList()..shuffle()).take(10).toList(),
-                  ),
-                  _ProductHorizontalList(
-                    title: 'Cold Drinks & Juices',
-                    products: (availableProducts.where((p) => p.category.contains('Beverages')).toList()..shuffle()).take(10).toList(),
-                  ),
-                  _ProductHorizontalList(
-                    title: 'Dairy & Breakfast',
-                    products: (availableProducts.where((p) => p.category.contains('Dairy')).toList()..shuffle()).take(10).toList(),
-                  ),
-                  _ProductHorizontalList(
-                    title: 'Tea & Coffee',
-                    products: (availableProducts.where((p) => p.category.contains('Tea & Coffee')).toList()..shuffle()).take(10).toList(),
-                  ),
-                  _ProductHorizontalList(
-                    title: 'Ice Cream & Frozen',
-                    products: (availableProducts.where((p) => p.category.contains('Ice Cream')).toList()..shuffle()).take(10).toList(),
-                  ),
-                  _ProductHorizontalList(
-                    title: 'Chocolates & Sweets',
-                    products: (availableProducts.where((p) => p.category.contains('Chocolate')).toList()..shuffle()).take(10).toList(),
-                  ),
-                  _ProductHorizontalList(
-                    title: 'Instant Food',
-                    products: (availableProducts.where((p) => p.category.contains('Instant')).toList()..shuffle()).take(10).toList(),
-                  ),
-                  _ProductHorizontalList(
-                    title: 'Masala & Spices',
-                    products: (availableProducts.where((p) => (p.category.contains('Masala') || p.category.contains('Spices'))).toList()..shuffle()).take(10).toList(),
-                  ),
-                  _ProductHorizontalList(
-                    title: 'Fresh Fruits',
-                    products: (availableProducts.where((p) => p.category.contains('Fruits')).toList()..shuffle()).take(10).toList(),
-                  ),
-                  _ProductHorizontalList(
-                    title: 'Cleaning & Household',
-                    products: (availableProducts.where((p) => p.category.contains('Household')).toList()..shuffle()).take(10).toList(),
-                  ),
-                ],
-              );
-            },
+          child: Column(
+            children: [
+              _ProductHorizontalList(
+                title: 'Daily Essentials',
+                products: mockProducts.where((p) => p.inStock && (p.category.contains('Rice') || p.category.contains('Oil') || p.category.contains('Atta'))).take(10).toList(),
+              ),
+              _ProductHorizontalList(
+                title: 'Fresh Vegetables',
+                products: mockProducts.where((p) => p.inStock && p.category.contains('Vegetables')).take(10).toList(),
+              ),
+              _ProductHorizontalList(
+                title: 'Snacks & Munchies',
+                products: mockProducts.where((p) => p.inStock && (p.category.contains('Snacks') || p.category.contains('Biscuits'))).take(10).toList(),
+              ),
+              _ProductHorizontalList(
+                title: 'Cold Drinks & Juices',
+                products: mockProducts.where((p) => p.inStock && p.category.contains('Beverages')).take(10).toList(),
+              ),
+              _ProductHorizontalList(
+                title: 'Dairy & Breakfast',
+                products: mockProducts.where((p) => p.inStock && p.category.contains('Dairy')).take(10).toList(),
+              ),
+              _ProductHorizontalList(
+                title: 'Tea & Coffee',
+                products: mockProducts.where((p) => p.inStock && p.category.contains('Tea & Coffee')).take(10).toList(),
+              ),
+              _ProductHorizontalList(
+                title: 'Ice Cream & Frozen',
+                products: mockProducts.where((p) => p.inStock && p.category.contains('Ice Cream')).take(10).toList(),
+              ),
+              _ProductHorizontalList(
+                title: 'Chocolates & Sweets',
+                products: mockProducts.where((p) => p.inStock && p.category.contains('Chocolate')).take(10).toList(),
+              ),
+              _ProductHorizontalList(
+                title: 'Instant Food',
+                products: mockProducts.where((p) => p.inStock && p.category.contains('Instant')).take(10).toList(),
+              ),
+              _ProductHorizontalList(
+                title: 'Masala & Spices',
+                products: mockProducts.where((p) => p.inStock && (p.category.contains('Masala') || p.category.contains('Spices'))).take(10).toList(),
+              ),
+              _ProductHorizontalList(
+                title: 'Fresh Fruits',
+                products: mockProducts.where((p) => p.inStock && p.category.contains('Fruits')).take(10).toList(),
+              ),
+              _ProductHorizontalList(
+                title: 'Cleaning & Household',
+                products: mockProducts.where((p) => p.inStock && p.category.contains('Household')).take(10).toList(),
+              ),
+            ],
           ),
         ),
         
@@ -397,35 +420,9 @@ class _PromotionalBannersState extends State<_PromotionalBanners> {
   int _currentPage = 0;
 
   final List<Map<String, dynamic>> banners = [
-    // Banners for each shop
-    {
-      'gradient': [const Color(0xFF4CAF50), const Color(0xFF81C784)], 
-      'title': 'GRO MART', 
-      'subtitle': 'Groceries & More', 
-      'icon': '🥬', 
-      'shopId': '1'
-    },
-    {
-      'gradient': [const Color(0xFFFF7043), const Color(0xFFFF8A65)], 
-      'title': 'ROYAL Supermarket', 
-      'subtitle': 'Quality Products', 
-      'icon': '🛒', 
-      'shopId': '2'
-    },
-    {
-      'gradient': [const Color(0xFF42A5F5), const Color(0xFF64B5F6)], 
-      'title': 'Reliance SMART', 
-      'subtitle': 'Smart Savings', 
-      'icon': '🛍️', 
-      'shopId': '3'
-    },
-    {
-       'gradient': [const Color(0xFFAB47BC), const Color(0xFFBA68C8)],
-       'title': 'J B Super Market',
-       'subtitle': 'Best Deals',
-       'icon': '🏪',
-       'shopId': '4'
-    }
+    {'gradient': [const Color(0xFF4CAF50), const Color(0xFF81C784)], 'title': 'Fresh Vegetables', 'subtitle': 'Up to 40% OFF', 'icon': '🥬', 'category': 'Vegetables'},
+    {'gradient': [const Color(0xFFFF7043), const Color(0xFFFF8A65)], 'title': 'Instant Foods', 'subtitle': 'Buy 1 Get 1 Free', 'icon': '🍜', 'category': 'Noodles'},
+    {'gradient': [const Color(0xFF42A5F5), const Color(0xFF64B5F6)], 'title': 'Summer Drinks', 'subtitle': 'Starting ₹29', 'icon': '🥤', 'category': 'Beverages'},
   ];
 
   void _scrollToPage(int page) {
@@ -447,7 +444,7 @@ class _PromotionalBannersState extends State<_PromotionalBanners> {
     return Column(
       children: [
         Container(
-          height: 120,
+          height: 170,
           margin: const EdgeInsets.only(top: 8, bottom: 8),
           child: Stack(
             children: [
@@ -463,7 +460,7 @@ class _PromotionalBannersState extends State<_PromotionalBanners> {
                     title: banner['title'] as String,
                     subtitle: banner['subtitle'] as String,
                     emoji: banner['icon'] as String,
-                    shopId: banner['shopId'] as String,
+                    category: banner['category'] as String,
                   );
                 },
               ),
@@ -542,14 +539,14 @@ class _AnimatedBanner extends StatelessWidget {
   final String title;
   final String subtitle;
   final String emoji;
-  final String shopId;
+  final String category;
 
   const _AnimatedBanner({
     required this.gradient,
     required this.title,
     required this.subtitle,
     required this.emoji,
-    required this.shopId,
+    required this.category,
   });
 
   @override
@@ -557,8 +554,8 @@ class _AnimatedBanner extends StatelessWidget {
     return GestureDetector(
       onTap: () => _navigateToCategory(context),
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 4), // Reduced margin
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10), // Further reduced padding
+        margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+        padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           gradient: LinearGradient(colors: gradient, begin: Alignment.topLeft, end: Alignment.bottomRight),
           borderRadius: BorderRadius.circular(24),
@@ -579,31 +576,27 @@ class _AnimatedBanner extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
-                      fontSize: 15,
+                      fontSize: 22,
                       fontWeight: FontWeight.w900,
                       color: Colors.white,
                       letterSpacing: -0.5,
                     ),
                   ),
-                  const SizedBox(height: 2),
+                  const SizedBox(height: 4),
                   Text(
                     subtitle,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 16,
                       fontWeight: FontWeight.w600,
                       color: Colors.white.withOpacity(0.9),
                     ),
                   ),
-                  const SizedBox(height: 6), // Reduced from 8
+                  const SizedBox(height: 12),
                   GestureDetector(
                     onTap: () => _navigateToCategory(context),
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6), // Reduced button padding
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(12),
@@ -615,15 +608,15 @@ class _AnimatedBanner extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            'Visit Store',
+                            'Shop Now',
                             style: TextStyle(
                               color: gradient.first,
                               fontWeight: FontWeight.w700,
-                              fontSize: 12, // Reduced from 13
+                              fontSize: 13,
                             ),
                           ),
                           const SizedBox(width: 4),
-                          Icon(Icons.arrow_forward_rounded, color: gradient.first, size: 14), // Reduced from 16
+                          Icon(Icons.arrow_forward_rounded, color: gradient.first, size: 16),
                         ],
                       ),
                     ),
@@ -631,7 +624,7 @@ class _AnimatedBanner extends StatelessWidget {
                 ],
               ),
             ),
-            Text(emoji, style: const TextStyle(fontSize: 50)),
+            Text(emoji, style: const TextStyle(fontSize: 60)),
           ],
         ),
       ),
@@ -639,18 +632,15 @@ class _AnimatedBanner extends StatelessWidget {
   }
 
   void _navigateToCategory(BuildContext context) {
-    // Navigate to specific shop
-    final shop = mockShops.firstWhere(
-      (s) => s.id == shopId,
-      orElse: () => mockShops.first,
-    );
-    
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ShopDetailsView(shop: shop),
-      ),
-    );
+    // Navigate to first store with the category pre-selected
+    if (mockShops.isNotEmpty) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ShopDetailsView(shop: mockShops.first),
+        ),
+      );
+    }
   }
 }
 
@@ -976,10 +966,7 @@ class _ProductHorizontalListState extends State<_ProductHorizontalList> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ShopDetailsView(
-                          shop: shop,
-                          initialProduct: product,
-                        ),
+                        builder: (context) => ShopDetailsView(shop: shop),
                       ),
                     );
                   },
@@ -1110,3 +1097,72 @@ class _ProductHorizontalListState extends State<_ProductHorizontalList> {
     );
   }
 }
+```
+
+---
+
+## Documentation Request
+
+Please provide comprehensive documentation for this Flutter code file that includes:
+
+### 1. **Overview Section**
+- Purpose and functionality of this screen
+- Role in the overall app architecture
+- Target audience (customers)
+
+### 2. **Component Breakdown**
+- Description of each widget class and its responsibility
+- State management approach
+- Widget hierarchy
+
+### 3. **Key Features**
+- Navigation system
+- Product discovery mechanisms
+- Search functionality
+- Promotional banners
+- Category filtering
+- Product display system
+
+### 4. **Technical Details**
+- Flutter widgets used (Scaffold, CustomScrollView, Sliver widgets, etc.)
+- Animation implementations
+- Scroll controllers and listeners
+- Gesture detection
+- Network image handling
+- Error handling strategies
+
+### 5. **UI/UX Patterns**
+- Design principles applied
+- Color scheme and theming
+- Responsive layouts
+- User interaction patterns
+- Accessibility considerations
+
+### 6. **Data Flow**
+- How mock data is used (mockProducts, mockShops, mockCategories)
+- Navigation between screens
+- Product filtering logic
+
+### 7. **Best Practices Observed**
+- Widget composition
+- Code organization
+- Performance optimizations (IndexedStack, ListView.builder, etc.)
+- Separation of concerns
+
+### 8. **Areas for Improvement**
+- Potential refactoring opportunities
+- Performance enhancements
+- Code quality improvements
+- Scalability considerations
+
+### 9. **Usage Examples**
+- How this screen is integrated in the app
+- Sample user journeys
+- Common use cases
+
+### 10. **Dependencies**
+- External packages used
+- Internal module dependencies
+- Model classes referenced
+
+Please format the documentation in a professional, clear, and comprehensive manner suitable for developers, technical stakeholders, and academic project reports.

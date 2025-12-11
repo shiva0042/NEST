@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/providers/store_provider.dart';
 import '../../../core/providers/sales_provider.dart';
+import '../../map_discovery/models/product_model.dart';
 
 class AnalyticsScreen extends StatefulWidget {
   const AnalyticsScreen({super.key});
@@ -373,8 +374,8 @@ class _AnalyticsTabWithFilter extends StatelessWidget {
   final AnalyticsSummary analytics;
   final String periodLabel;
   final List<Map<String, dynamic>> dailyData;
-  final List<MapEntry<String, int>> topProducts;
-  final List<MapEntry<String, double>> topBrands;
+  final List<Map<String, dynamic>> topProducts;
+  final List<Map<String, dynamic>> topBrands;
   final Widget filterWidget;
 
   const _AnalyticsTabWithFilter({
@@ -414,8 +415,8 @@ class _AnalyticsContent extends StatelessWidget {
   final AnalyticsSummary analytics;
   final String periodLabel;
   final List<Map<String, dynamic>> dailyData;
-  final List<MapEntry<String, int>> topProducts;
-  final List<MapEntry<String, double>> topBrands;
+  final List<Map<String, dynamic>> topProducts;
+  final List<Map<String, dynamic>> topBrands;
 
   const _AnalyticsContent({
     required this.analytics,
@@ -571,8 +572,8 @@ class _AnalyticsTab extends StatelessWidget {
   final AnalyticsSummary analytics;
   final String periodLabel;
   final List<Map<String, dynamic>> dailyData;
-  final List<MapEntry<String, int>> topProducts;
-  final List<MapEntry<String, double>> topBrands;
+  final List<Map<String, dynamic>> topProducts;
+  final List<Map<String, dynamic>> topBrands;
 
   const _AnalyticsTab({
     required this.analytics,
@@ -676,7 +677,7 @@ class _RevenueChart extends StatelessWidget {
         (item['revenue'] as double) > max ? item['revenue'] as double : max);
 
     return Container(
-      height: 180,
+      height: 200,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: AppColors.surface,
@@ -685,6 +686,23 @@ class _RevenueChart extends StatelessWidget {
       ),
       child: Column(
         children: [
+          // Tap hint
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.touch_app, size: 14, color: AppColors.textLight.withOpacity(0.6)),
+              const SizedBox(width: 4),
+              Text(
+                'Tap any bar for details',
+                style: TextStyle(
+                  fontSize: 11,
+                  color: AppColors.textLight.withOpacity(0.8),
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
           Expanded(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -694,31 +712,59 @@ class _RevenueChart extends StatelessWidget {
                 final heightPercent = maxRevenue > 0 ? revenue / maxRevenue : 0.0;
                 final isToday = item['day'] == _getDayName(DateTime.now().weekday);
                 
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    if (revenue > 0)
-                      Text(
-                        '₹${(revenue / 1000).toStringAsFixed(0)}k',
-                        style: const TextStyle(fontSize: 9, color: AppColors.textLight),
-                      ),
-                    const SizedBox(height: 4),
-                    AnimatedContainer(
-                      duration: const Duration(milliseconds: 500),
-                      width: 28,
-                      height: 80 * heightPercent + 4,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: isToday 
-                              ? [AppColors.primary, AppColors.primary.withOpacity(0.7)]
-                              : [Colors.grey[400]!, Colors.grey[300]!],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
+                return Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
+                    child: Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        onTap: () => _showDayDetails(context, item),
+                        borderRadius: BorderRadius.circular(8),
+                        splashColor: AppColors.primary.withOpacity(0.3),
+                        highlightColor: AppColors.primary.withOpacity(0.1),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 2),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              if (revenue > 0)
+                                Text(
+                                  '₹${(revenue / 1000).toStringAsFixed(0)}k',
+                                  style: const TextStyle(
+                                    fontSize: 9,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.textLight,
+                                  ),
+                                ),
+                              const SizedBox(height: 4),
+                              AnimatedContainer(
+                                duration: const Duration(milliseconds: 500),
+                                width: double.infinity,
+                                height: 80 * heightPercent + 4,
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    colors: isToday 
+                                        ? [AppColors.primary, AppColors.primary.withOpacity(0.7)]
+                                        : [Colors.grey[400]!, Colors.grey[300]!],
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                  ),
+                                  borderRadius: BorderRadius.circular(6),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: (isToday ? AppColors.primary : Colors.grey).withOpacity(0.3),
+                                      blurRadius: 4,
+                                      offset: const Offset(0, 2),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        borderRadius: BorderRadius.circular(6),
                       ),
                     ),
-                  ],
+                  ),
                 );
               }).toList(),
             ),
@@ -728,15 +774,245 @@ class _RevenueChart extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: data.map((item) {
               final isToday = item['day'] == _getDayName(DateTime.now().weekday);
-              return Text(
-                item['day'],
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: isToday ? FontWeight.bold : FontWeight.normal,
-                  color: isToday ? AppColors.primary : AppColors.textLight,
+              return Expanded(
+                child: Text(
+                  item['day'],
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: isToday ? FontWeight.bold : FontWeight.normal,
+                    color: isToday ? AppColors.primary : AppColors.textLight,
+                  ),
                 ),
               );
             }).toList(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showDayDetails(BuildContext context, Map<String, dynamic> dayData) {
+    final revenue = dayData['revenue'] as double;
+    final transactions = dayData['transactions'] as int? ?? 0;
+    final itemsSold = dayData['items'] as int? ?? 0;
+    final day = dayData['day'] as String;
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        height: MediaQuery.of(context).size.height * 0.6,
+        decoration: const BoxDecoration(
+          color: AppColors.background,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+        ),
+        child: Column(
+          children: [
+            // Handle bar
+            Container(
+              margin: const EdgeInsets.only(top: 12),
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            // Header with icon
+            Container(
+              margin: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF1E3A5F), Color(0xFF2D5A87)],
+                ),
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xFF1E3A5F).withOpacity(0.3),
+                    blurRadius: 12,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Icon(
+                      Icons.calendar_today,
+                      color: Colors.white,
+                      size: 28,
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          day,
+                          style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          'Daily Performance Overview',
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: Colors.white.withOpacity(0.9),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            // Stats
+            Expanded(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  children: [
+                    _buildStatRow(
+                      icon: Icons.currency_rupee,
+                      label: 'Total Revenue',
+                      value: '₹${revenue.toStringAsFixed(0)}',
+                      color: Colors.green,
+                      gradient: [Colors.green[400]!, Colors.green[600]!],
+                    ),
+                    const SizedBox(height: 12),
+                    _buildStatRow(
+                      icon: Icons.receipt_long,
+                      label: 'Bills Generated',
+                      value: '$transactions',
+                      color: Colors.blue,
+                      gradient: [Colors.blue[400]!, Colors.blue[600]!],
+                    ),
+                    const SizedBox(height: 12),
+                    _buildStatRow(
+                      icon: Icons.shopping_basket,
+                      label: 'Items Sold',
+                      value: '$itemsSold units',
+                      color: Colors.orange,
+                      gradient: [Colors.orange[400]!, Colors.orange[600]!],
+                    ),
+                    if (transactions > 0) ...[
+                      const SizedBox(height: 12),
+                      _buildStatRow(
+                        icon: Icons.show_chart,
+                        label: 'Average Bill Amount',
+                        value: '₹${(revenue / transactions).toStringAsFixed(0)}',
+                        color: Colors.purple,
+                        gradient: [Colors.purple[400]!, Colors.purple[600]!],
+                      ),
+                    ],
+                    const SizedBox(height: 20),
+                  ],
+                ),
+              ),
+            ),
+            // Close button
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () => Navigator.pop(context),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    elevation: 0,
+                  ),
+                  child: const Text(
+                    'Close',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStatRow({
+    required IconData icon,
+    required String label,
+    required String value,
+    required Color color,
+    required List<Color> gradient,
+  }) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: gradient,
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: color.withOpacity(0.3),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.25),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(icon, color: Colors.white, size: 28),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  label,
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: Colors.white.withOpacity(0.9),
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  value,
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -766,6 +1042,10 @@ class _CategoryBreakdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sortedData = data.entries.toList()..sort((a, b) => b.value.compareTo(a.value));
+    final storeProvider = context.watch<StoreProvider>();
+    final shopId = storeProvider.currentShopId;
+    final salesProvider = context.watch<SalesProvider>();
+    
     final colors = [
       Colors.blue[400]!,
       Colors.green[400]!,
@@ -785,48 +1065,85 @@ class _CategoryBreakdown extends StatelessWidget {
       ),
       child: Column(
         children: [
-          // Progress bars
+          // Category cards with images
           ...sortedData.take(5).toList().asMap().entries.map((entry) {
             final index = entry.key;
             final item = entry.value;
             final percent = total > 0 ? (item.value / total) : 0.0;
+            final categoryData = salesProvider.getCategoryData(shopId, item.key);
+            final product = categoryData['product'] as ProductModel;
             
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+            return Container(
+              margin: const EdgeInsets.only(bottom: 12),
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: colors[index % colors.length].withOpacity(0.1),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: colors[index % colors.length].withOpacity(0.3)),
+              ),
+              child: Row(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Container(
-                            width: 12,
-                            height: 12,
-                            decoration: BoxDecoration(
-                              color: colors[index % colors.length],
-                              borderRadius: BorderRadius.circular(3),
-                            ),
-                          ),
-                          const SizedBox(width: 8),
-                          Text(item.key, style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 13)),
-                        ],
-                      ),
-                      Text(
-                        '₹${item.value.toStringAsFixed(0)} (${(percent * 100).toStringAsFixed(1)}%)',
-                        style: const TextStyle(color: AppColors.textLight, fontSize: 12),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 6),
+                  // Product Image
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(4),
-                    child: LinearProgressIndicator(
-                      value: percent,
-                      backgroundColor: Colors.grey[200],
-                      valueColor: AlwaysStoppedAnimation(colors[index % colors.length]),
-                      minHeight: 8,
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.network(
+                      product.imageUrl,
+                      width: 50,
+                      height: 50,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) => Container(
+                        width: 50,
+                        height: 50,
+                        color: Colors.grey[200],
+                        child: const Icon(Icons.image_not_supported, size: 24, color: Colors.grey),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  // Category info and progress
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              item.key,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
+                              ),
+                            ),
+                            Text(
+                              '${(percent * 100).toStringAsFixed(1)}%',
+                              style: TextStyle(
+                                color: colors[index % colors.length],
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          '₹${item.value.toStringAsFixed(0)}',
+                          style: TextStyle(
+                            color: Colors.grey[600],
+                            fontSize: 12,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(4),
+                          child: LinearProgressIndicator(
+                            value: percent,
+                            backgroundColor: Colors.grey[200],
+                            valueColor: AlwaysStoppedAnimation(colors[index % colors.length]),
+                            minHeight: 6,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -840,7 +1157,7 @@ class _CategoryBreakdown extends StatelessWidget {
 }
 
 class _TopProductsList extends StatelessWidget {
-  final List<MapEntry<String, int>> products;
+  final List<Map<String, dynamic>> products;
 
   const _TopProductsList({required this.products});
 
@@ -855,34 +1172,114 @@ class _TopProductsList extends StatelessWidget {
       child: Column(
         children: products.asMap().entries.map((entry) {
           final index = entry.key;
-          final product = entry.value;
+          final data = entry.value;
+          final product = data['product'] as ProductModel;
+          final quantity = data['quantity'] as int;
           
-          return ListTile(
-            leading: Container(
-              width: 32,
-              height: 32,
-              decoration: BoxDecoration(
-                color: index == 0 ? Colors.amber : (index == 1 ? Colors.grey[400] : Colors.brown[300]),
-                shape: BoxShape.circle,
-              ),
-              child: Center(
-                child: Text(
-                  '${index + 1}',
-                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
-                ),
+          return Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: index < products.length - 1
+                    ? BorderSide(color: AppColors.border.withOpacity(0.5))
+                    : BorderSide.none,
               ),
             ),
-            title: Text(product.key, style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 13)),
-            trailing: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-              decoration: BoxDecoration(
-                color: AppColors.primary.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Text(
-                '${product.value} sold',
-                style: const TextStyle(color: AppColors.primary, fontWeight: FontWeight.w600, fontSize: 11),
-              ),
+            child: Row(
+              children: [
+                // Ranking Badge
+                Container(
+                  width: 32,
+                  height: 32,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: index == 0
+                          ? [Colors.amber.shade400, Colors.amber.shade600]
+                          : index == 1
+                              ? [Colors.grey.shade300, Colors.grey.shade500]
+                              : [Colors.brown.shade300, Colors.brown.shade400],
+                    ),
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: (index == 0 ? Colors.amber : Colors.grey).withOpacity(0.3),
+                        blurRadius: 4,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Center(
+                    child: Text(
+                      '${index + 1}',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                // Product Image
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.network(
+                    product.imageUrl,
+                    width: 50,
+                    height: 50,
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, __, ___) => Container(
+                      width: 50,
+                      height: 50,
+                      color: Colors.grey[200],
+                      child: const Icon(Icons.image_not_supported, size: 24, color: Colors.grey),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                // Product Info
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        product.name,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        product.brand,
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: Colors.grey[600],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                // Quantity Badge
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: AppColors.primary.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: AppColors.primary.withOpacity(0.3)),
+                  ),
+                  child: Text(
+                    '$quantity sold',
+                    style: const TextStyle(
+                      color: AppColors.primary,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+              ],
             ),
           );
         }).toList(),
@@ -892,7 +1289,7 @@ class _TopProductsList extends StatelessWidget {
 }
 
 class _TopBrandsList extends StatelessWidget {
-  final List<MapEntry<String, double>> brands;
+  final List<Map<String, dynamic>> brands;
 
   const _TopBrandsList({required this.brands});
 
@@ -907,27 +1304,80 @@ class _TopBrandsList extends StatelessWidget {
       child: Column(
         children: brands.asMap().entries.map((entry) {
           final index = entry.key;
-          final brand = entry.value;
+          final data = entry.value;
+          final brandName = data['brand'] as String;
+          final revenue = data['revenue'] as double;
+          final product = data['product'] as ProductModel;
           
-          return ListTile(
-            leading: CircleAvatar(
-              radius: 18,
-              backgroundColor: [
-                Colors.blue[100],
-                Colors.green[100],
-                Colors.orange[100],
-                Colors.purple[100],
-                Colors.teal[100],
-              ][index % 5],
-              child: Text(
-                brand.key.isNotEmpty ? brand.key[0].toUpperCase() : '?',
-                style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.text),
+          return Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: index < brands.length - 1
+                    ? BorderSide(color: AppColors.border.withOpacity(0.5))
+                    : BorderSide.none,
               ),
             ),
-            title: Text(brand.key, style: const TextStyle(fontWeight: FontWeight.w500)),
-            trailing: Text(
-              '₹${brand.value.toStringAsFixed(0)}',
-              style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.primary),
+            child: Row(
+              children: [
+                // Brand Product Image
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Image.network(
+                    product.imageUrl,
+                    width: 50,
+                    height: 50,
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, __, ___) => Container(
+                      width: 50,
+                      height: 50,
+                      color: Colors.grey[200],
+                      child: const Icon(Icons.image_not_supported, size: 24, color: Colors.grey),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                // Brand Name
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        brandName,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        'Top brand',
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: Colors.grey[600],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                // Revenue
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: Colors.green.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: Colors.green.withOpacity(0.3)),
+                  ),
+                  child: Text(
+                    '₹${revenue.toStringAsFixed(0)}',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 13,
+                      color: Colors.green,
+                    ),
+                  ),
+                ),
+              ],
             ),
           );
         }).toList(),

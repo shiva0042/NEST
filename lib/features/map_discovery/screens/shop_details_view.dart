@@ -9,8 +9,15 @@ import 'cart_screen.dart';
 
 class ShopDetailsView extends StatefulWidget {
   final ShopModel shop;
+  final ProductModel? initialProduct;
+  final String? initialCategory;
 
-  const ShopDetailsView({super.key, required this.shop});
+  const ShopDetailsView({
+    super.key, 
+    required this.shop,
+    this.initialProduct,
+    this.initialCategory,
+  });
 
   @override
   State<ShopDetailsView> createState() => _ShopDetailsViewState();
@@ -26,6 +33,19 @@ class _ShopDetailsViewState extends State<ShopDetailsView> {
   void initState() {
     super.initState();
     _categoryScrollController.addListener(_updateArrowVisibility);
+    
+    // Auto-select category and product if provided
+    if (widget.initialProduct != null) {
+      selectedCategory = widget.initialProduct!.category;
+      
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        // Find the product instance from the loaded products to ensure consistency? 
+        // Or just use the passed one.
+        _showProductBottomSheet(context, widget.initialProduct!);
+      });
+    } else if (widget.initialCategory != null) {
+      selectedCategory = widget.initialCategory;
+    }
   }
 
   @override
@@ -117,15 +137,25 @@ class _ShopDetailsViewState extends State<ShopDetailsView> {
                   background: Stack(
                     fit: StackFit.expand,
                     children: [
-                      Image.network(
-                        widget.shop.imageUrl,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Container(
-                            color: AppColors.secondary.withOpacity(0.1),
-                            child: const Icon(Icons.store_rounded, size: 64, color: AppColors.secondary),
-                          );
-                        },
+                      ColorFiltered(
+                        colorFilter: widget.shop.isOpen
+                            ? const ColorFilter.mode(Colors.transparent, BlendMode.multiply)
+                            : const ColorFilter.matrix(<double>[
+                                0.2126, 0.7152, 0.0722, 0, 0,
+                                0.2126, 0.7152, 0.0722, 0, 0,
+                                0.2126, 0.7152, 0.0722, 0, 0,
+                                0, 0, 0, 1, 0,
+                              ]),
+                        child: Image.network(
+                          widget.shop.imageUrl,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              color: AppColors.secondary.withOpacity(0.1),
+                              child: const Icon(Icons.store_rounded, size: 64, color: AppColors.secondary),
+                            );
+                          },
+                        ),
                       ),
                       Container(
                         decoration: BoxDecoration(
@@ -133,13 +163,18 @@ class _ShopDetailsViewState extends State<ShopDetailsView> {
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                             colors: [
-                              Colors.black.withOpacity(0.3),
+                              Colors.black.withOpacity(widget.shop.isOpen ? 0.3 : 0.5),
                               Colors.transparent,
-                              Colors.black.withOpacity(0.6),
+                              Colors.black.withOpacity(widget.shop.isOpen ? 0.6 : 0.7),
                             ],
                           ),
                         ),
                       ),
+                      // Gray overlay for closed shops
+                      if (!widget.shop.isOpen)
+                        Container(
+                          color: Colors.grey.withOpacity(0.5),
+                        ),
                     ],
                   ),
                 ),
@@ -155,9 +190,71 @@ class _ShopDetailsViewState extends State<ShopDetailsView> {
                   ),
                 ),
               ),
+              // STORE CLOSED Banner
+              if (!widget.shop.isOpen)
+                SliverToBoxAdapter(
+                  child: Container(
+                    margin: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      gradient: const LinearGradient(
+                        colors: [Color(0xFFEF4444), Color(0xFFDC2626)],
+                      ),
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color(0xFFEF4444).withOpacity(0.4),
+                          blurRadius: 12,
+                          offset: const Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: const Icon(
+                            Icons.store_outlined,
+                            color: Colors.white,
+                            size: 32,
+                          ),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'STORE CLOSED',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 0.5,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                'Not accepting orders right now',
+                                style: TextStyle(
+                                  color: Colors.white.withOpacity(0.9),
+                                  fontSize: 13,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               SliverToBoxAdapter(
                 child: Padding(
-                  padding: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -308,33 +405,81 @@ class _ShopDetailsViewState extends State<ShopDetailsView> {
               ),
               SliverPadding(
                 padding: const EdgeInsets.fromLTRB(16, 0, 16, 120),
-                sliver: SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                      final item = flatList[index];
-                      if (item is String) {
-                        return Padding(
-                          padding: const EdgeInsets.fromLTRB(8, 16, 8, 12),
-                          child: Text(
-                            item,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w800,
-                              color: AppColors.text,
-                            ),
+                sliver: widget.shop.isOpen
+                    ? SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (context, index) {
+                            final item = flatList[index];
+                            if (item is String) {
+                              return Padding(
+                                padding: const EdgeInsets.fromLTRB(8, 16, 8, 12),
+                                child: Text(
+                                  item,
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w800,
+                                    color: AppColors.text,
+                                  ),
+                                ),
+                              );
+                            } else if (item is ProductModel) {
+                              return _ProductCard(
+                                product: item,
+                                onTap: () => _showProductBottomSheet(context, item),
+                              );
+                            }
+                            return null;
+                          },
+                          childCount: flatList.length,
+                        ),
+                      )
+                    : SliverFillRemaining(
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(32),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.withOpacity(0.1),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Icon(
+                                  Icons.store_outlined,
+                                  size: 80,
+                                  color: Colors.grey.shade400,
+                                ),
+                              ),
+                              const SizedBox(height: 24),
+                              Text(
+                                'Shop Closed',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.grey.shade700,
+                                ),
+                              ),
+                              const SizedBox(height: 12),
+                              Text(
+                                'This shop is currently not accepting orders',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey.shade500,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                'Please check back later',
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  color: Colors.grey.shade400,
+                                ),
+                              ),
+                            ],
                           ),
-                        );
-                      } else if (item is ProductModel) {
-                        return _ProductCard(
-                          product: item,
-                          onTap: () => _showProductBottomSheet(context, item),
-                        );
-                      }
-                      return null;
-                    },
-                    childCount: flatList.length,
-                  ),
-                ),
+                        ),
+                      ),
               ),
             ],
           ),

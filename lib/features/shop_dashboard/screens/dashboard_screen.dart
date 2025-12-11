@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/providers/store_provider.dart';
+import '../../map_discovery/models/product_model.dart';
 
 import 'inventory_screen.dart';
 import 'billing_screen.dart';
 import 'analytics_screen.dart';
 import 'add_product_catalog_screen.dart';
+import 'add_offer_screen.dart';
 
 class ShopOwnerDashboard extends StatefulWidget {
   const ShopOwnerDashboard({super.key});
@@ -16,7 +18,7 @@ class ShopOwnerDashboard extends StatefulWidget {
 }
 
 class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
-  bool isOpen = true;
+  // Shop status is now managed by StoreProvider
   int _selectedIndex = 0;
 
   @override
@@ -113,7 +115,7 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
       slivers: [
         SliverToBoxAdapter(child: _buildHeader()),
         SliverPadding(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(16),
           sliver: SliverList(
             delegate: SliverChildListDelegate([
               _buildStoreStatusCard(),
@@ -197,7 +199,7 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
           ),
           const SizedBox(height: 24),
           Container(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(0.15),
               borderRadius: BorderRadius.circular(20),
@@ -245,6 +247,10 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
   }
 
   Widget _buildStoreStatusCard() {
+    final storeProvider = context.watch<StoreProvider>();
+    final shop = storeProvider.loggedInShop;
+    final isOpen = shop?.isOpen ?? true;
+    
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
@@ -302,7 +308,9 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
               activeTrackColor: Colors.white.withOpacity(0.3),
               inactiveThumbColor: Colors.white,
               inactiveTrackColor: Colors.white.withOpacity(0.3),
-              onChanged: (val) => setState(() => isOpen = val),
+              onChanged: (val) {
+                context.read<StoreProvider>().toggleShopStatus(storeProvider.currentShopId);
+              },
             ),
           ),
         ],
@@ -318,17 +326,19 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
         const SizedBox(height: 16),
         Row(
           children: [
-            _buildStatCard(Icons.inventory_2_rounded, 'Products', '248', '+12 this week', const Color(0xFF6366F1)),
+            Expanded(
+              child: GestureDetector(
+                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const InventoryScreen())),
+                child: _buildStatCard(Icons.inventory_2_rounded, 'Products', '248', '+12 this week', const Color(0xFF6366F1)),
+              ),
+            ),
             const SizedBox(width: 12),
-            _buildStatCard(Icons.warning_amber_rounded, 'Low Stock', '8', 'Need attention', const Color(0xFFF59E0B)),
-          ],
-        ),
-        const SizedBox(height: 12),
-        Row(
-          children: [
-            _buildStatCard(Icons.local_shipping_rounded, 'Pending', '5', 'Orders to pack', const Color(0xFF8B5CF6)),
-            const SizedBox(width: 12),
-            _buildStatCard(Icons.star_rounded, 'Rating', '4.8', '156 reviews', const Color(0xFF10B981)),
+            Expanded(
+              child: GestureDetector(
+                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const InventoryScreen(showLowStockOnly: true))),
+                child: _buildStatCard(Icons.warning_amber_rounded, 'Low Stock', '8', 'Items running low', const Color(0xFFF59E0B)),
+              ),
+            ),
           ],
         ),
       ],
@@ -336,34 +346,32 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
   }
 
   Widget _buildStatCard(IconData icon, String title, String value, String change, Color color) {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: AppColors.surface,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: AppColors.border.withOpacity(0.5)),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(color: color.withOpacity(0.1), borderRadius: BorderRadius.circular(12)),
-                  child: Icon(icon, color: color, size: 22),
-                ),
-                Text(value, style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: AppColors.text)),
-              ],
-            ),
-            const SizedBox(height: 12),
-            Text(title, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.textLight)),
-            const SizedBox(height: 4),
-            Text(change, style: TextStyle(fontSize: 12, color: color, fontWeight: FontWeight.w500)),
-          ],
-        ),
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: AppColors.border.withOpacity(0.5)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(color: color.withOpacity(0.1), borderRadius: BorderRadius.circular(12)),
+                child: Icon(icon, color: color, size: 22),
+              ),
+              Text(value, style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: AppColors.text)),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Text(title, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.textLight)),
+          const SizedBox(height: 4),
+          Text(change, style: TextStyle(fontSize: 12, color: color, fontWeight: FontWeight.w500)),
+        ],
       ),
     );
   }
@@ -378,11 +386,58 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
           children: [
             _buildActionCard(Icons.add_box_rounded, 'Add Product', const Color(0xFF6366F1), () {
               Navigator.push(context, MaterialPageRoute(builder: (_) => AddProductCatalogScreen(
-                onProductAdded: (product, size, price) {
-                  // Handle product added - show confirmation
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('${product.name} added to inventory!')),
-                  );
+                onProductAdded: (newProduct, selectedSize, price) {
+                  // Add to inventory
+                  setState(() {
+                      final shopId = context.read<StoreProvider>().currentShopId;
+                      String productNameWithSize = '${newProduct.name} ($selectedSize)';
+                      
+                      // Check if exists
+                      final index = mockProducts.indexWhere((p) => p.name == productNameWithSize && p.shopId == shopId);
+                      
+                      if (index == -1) {
+                         final productToAdd = ProductModel(
+                           id: DateTime.now().millisecondsSinceEpoch.toString(),
+                           shopId: shopId,
+                           name: productNameWithSize,
+                           price: price,
+                           originalPrice: newProduct.originalPrice != null 
+                               ? newProduct.originalPrice! * (price / newProduct.price)
+                               : null,
+                           imageUrl: newProduct.imageUrl,
+                           inStock: true,
+                           stockQuantity: 10,
+                           category: newProduct.category,
+                           brand: newProduct.brand,
+                           unit: newProduct.unit,
+                         );
+                         mockProducts.add(productToAdd);
+                         
+                         ScaffoldMessenger.of(context).showSnackBar(
+                           SnackBar(content: Text('${productToAdd.name} added to inventory!'), backgroundColor: Colors.green),
+                         );
+                      } else {
+                         // Increment stock
+                         final existing = mockProducts[index];
+                         mockProducts[index] = ProductModel(
+                           id: existing.id,
+                           shopId: existing.shopId,
+                           name: existing.name,
+                           price: existing.price,
+                           originalPrice: existing.originalPrice,
+                           imageUrl: existing.imageUrl,
+                           inStock: true,
+                           stockQuantity: existing.stockQuantity + 1,
+                           category: existing.category,
+                           brand: existing.brand,
+                           unit: existing.unit,
+                         );
+                         
+                         ScaffoldMessenger.of(context).showSnackBar(
+                           const SnackBar(content: Text('Product stock updated!'), backgroundColor: Colors.blue),
+                         );
+                      }
+                  });
                 },
               )));
             }),
@@ -399,7 +454,9 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
               Navigator.push(context, MaterialPageRoute(builder: (_) => const InventoryScreen()));
             }),
             const SizedBox(width: 12),
-            _buildActionCard(Icons.local_offer_rounded, 'Add Offer', const Color(0xFFEF4444), () {}),
+            _buildActionCard(Icons.local_offer_rounded, 'Add Offer', const Color(0xFFEF4444), () {
+              Navigator.push(context, MaterialPageRoute(builder: (_) => const AddOfferScreen()));
+            }),
           ],
         ),
       ],
@@ -411,7 +468,7 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
       child: GestureDetector(
         onTap: onTap,
         child: Container(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             gradient: LinearGradient(colors: [color, color.withOpacity(0.8)]),
             borderRadius: BorderRadius.circular(20),
@@ -441,16 +498,16 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
           ],
         ),
         const SizedBox(height: 12),
-        _buildOrderItem('#ORD-2847', 'Rahul Kumar', '₹458', '2 mins ago', 'New', const Color(0xFF6366F1)),
+        _buildOrderItem('#ORD-2847', 'Murugan', '₹458', '2 mins ago'),
         const SizedBox(height: 12),
-        _buildOrderItem('#ORD-2846', 'Priya Singh', '₹1,245', '15 mins ago', 'Preparing', const Color(0xFFF59E0B)),
+        _buildOrderItem('#ORD-2846', 'Lakshmi', '₹1,245', '15 mins ago'),
         const SizedBox(height: 12),
-        _buildOrderItem('#ORD-2845', 'Amit Patel', '₹789', '32 mins ago', 'Ready', const Color(0xFF10B981)),
+        _buildOrderItem('#ORD-2845', 'Selvam', '₹789', '32 mins ago'),
       ],
     );
   }
 
-  Widget _buildOrderItem(String orderId, String customer, String amount, String time, String status, Color statusColor) {
+  Widget _buildOrderItem(String orderId, String customer, String amount, String time) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -462,25 +519,18 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
         children: [
           Container(
             padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(color: statusColor.withOpacity(0.1), borderRadius: BorderRadius.circular(12)),
-            child: Icon(Icons.receipt_rounded, color: statusColor, size: 24),
+            decoration: BoxDecoration(
+              color: AppColors.primary.withOpacity(0.1), 
+              borderRadius: BorderRadius.circular(12)
+            ),
+            child: const Icon(Icons.receipt_rounded, color: AppColors.primary, size: 24),
           ),
           const SizedBox(width: 14),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(orderId, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15, color: AppColors.text)),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                      decoration: BoxDecoration(color: statusColor.withOpacity(0.1), borderRadius: BorderRadius.circular(8)),
-                      child: Text(status, style: TextStyle(color: statusColor, fontSize: 11, fontWeight: FontWeight.w700)),
-                    ),
-                  ],
-                ),
+                Text(orderId, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 15, color: AppColors.text)),
                 const SizedBox(height: 4),
                 Text(customer, style: const TextStyle(color: AppColors.textLight, fontSize: 13)),
               ],

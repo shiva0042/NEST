@@ -229,7 +229,10 @@ class _ProductResultCard extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ShopDetailsView(shop: shop),
+              builder: (context) => ShopDetailsView(
+                shop: shop, 
+                initialProduct: product,
+              ),
             ),
           );
         },

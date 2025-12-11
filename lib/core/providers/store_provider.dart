@@ -33,7 +33,7 @@ class StoreProvider extends ChangeNotifier {
     }
   }
 
-  void registerShop(String name, String phone, String password, String address) {
+  void registerShop(String name, String phone, String password, String address, String category) {
     final newShop = ShopModel(
       id: '${_shops.length + 1}',
       name: name,
@@ -42,11 +42,14 @@ class StoreProvider extends ChangeNotifier {
       isOpen: true,
       rating: 5.0, // New shops start with 5 stars
       imageUrl: 'https://images.unsplash.com/photo-1542838132-92c53300491e', // Default image
-      category: 'Grocery',
+      category: category,
       phoneNumber: phone,
       password: password,
     );
     _shops.add(newShop);
+    
+    // Auto login
+    loginShopOwner(phone, password);
     notifyListeners();
   }
 
@@ -60,7 +63,7 @@ class StoreProvider extends ChangeNotifier {
     final index = _shops.indexWhere((s) => s.id == shopId);
     if (index != -1) {
       final shop = _shops[index];
-      _shops[index] = ShopModel(
+      final updatedShop = ShopModel(
         id: shop.id,
         name: shop.name,
         address: shop.address,
@@ -71,7 +74,14 @@ class StoreProvider extends ChangeNotifier {
         category: shop.category,
         phoneNumber: shop.phoneNumber,
         password: shop.password,
+        mapLink: shop.mapLink,
       );
+      _shops[index] = updatedShop;
+      
+      // Update logged in shop if it's the same
+      if (_loggedInShop?.id == shopId) {
+        _loggedInShop = updatedShop;
+      }
       notifyListeners();
     }
   }

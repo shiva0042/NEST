@@ -110,7 +110,6 @@ class _ShopLoginScreenState extends State<ShopLoginScreen> {
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                   filled: true,
                   fillColor: AppColors.surface,
-                  helperText: 'Use "1234" for demo',
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) return 'Please enter OTP';
@@ -148,12 +147,6 @@ class _ShopLoginScreenState extends State<ShopLoginScreen> {
                   'Don\'t have an account? Register here',
                   style: TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold),
                 ),
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                'Demo Credentials:\nPhone: 9876543210 (Shop 1)\nOTP: 1234',
-                textAlign: TextAlign.center,
-                style: TextStyle(color: AppColors.textLight, fontSize: 12),
               ),
             ],
           ),
