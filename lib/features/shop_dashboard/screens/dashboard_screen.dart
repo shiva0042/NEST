@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/providers/store_provider.dart';
+import '../../../core/providers/sales_provider.dart';
 import '../../map_discovery/models/product_model.dart';
 
 import 'inventory_screen.dart';
@@ -9,6 +10,7 @@ import 'billing_screen.dart';
 import 'analytics_screen.dart';
 import 'add_product_catalog_screen.dart';
 import 'add_offer_screen.dart';
+import 'add_product_screen.dart';
 
 class ShopOwnerDashboard extends StatefulWidget {
   const ShopOwnerDashboard({super.key});
@@ -198,23 +200,42 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
             ],
           ),
           const SizedBox(height: 24),
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.15),
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: Colors.white.withOpacity(0.2)),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _buildSummaryItem("Today's Sales", '₹12,450', Icons.trending_up_rounded),
-                Container(height: 40, width: 1, color: Colors.white.withOpacity(0.2)),
-                _buildSummaryItem('Orders', '28', Icons.shopping_bag_rounded),
-                Container(height: 40, width: 1, color: Colors.white.withOpacity(0.2)),
-                _buildSummaryItem('Customers', '23', Icons.people_rounded),
-              ],
-            ),
+          Consumer<SalesProvider>(
+            builder: (context, salesProvider, _) {
+              final shopId = context.read<StoreProvider>().currentShopId;
+              final analytics = salesProvider.getTodayAnalytics(shopId);
+              
+              return Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.15),
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: Colors.white.withOpacity(0.2)),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    _buildSummaryItem(
+                      "Today's Sales", 
+                      '₹${analytics.totalRevenue.toStringAsFixed(0)}', 
+                      Icons.trending_up_rounded
+                    ),
+                    Container(height: 40, width: 1, color: Colors.white.withOpacity(0.2)),
+                    _buildSummaryItem(
+                      'Orders', 
+                      '${analytics.totalTransactions}', 
+                      Icons.shopping_bag_rounded
+                    ),
+                    Container(height: 40, width: 1, color: Colors.white.withOpacity(0.2)),
+                    _buildSummaryItem(
+                      'Items Sold', 
+                      '${analytics.totalItemsSold}', 
+                      Icons.shopping_cart_rounded
+                    ),
+                  ],
+                ),
+              );
+            },
           ),
         ],
       ),
@@ -384,62 +405,22 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
         const SizedBox(height: 16),
         Row(
           children: [
-            _buildActionCard(Icons.add_box_rounded, 'Add Product', const Color(0xFF6366F1), () {
-              Navigator.push(context, MaterialPageRoute(builder: (_) => AddProductCatalogScreen(
-                onProductAdded: (newProduct, selectedSize, price) {
-                  // Add to inventory
-                  setState(() {
-                      final shopId = context.read<StoreProvider>().currentShopId;
-                      String productNameWithSize = '${newProduct.name} ($selectedSize)';
-                      
-                      // Check if exists
-                      final index = mockProducts.indexWhere((p) => p.name == productNameWithSize && p.shopId == shopId);
-                      
-                      if (index == -1) {
-                         final productToAdd = ProductModel(
-                           id: DateTime.now().millisecondsSinceEpoch.toString(),
-                           shopId: shopId,
-                           name: productNameWithSize,
-                           price: price,
-                           originalPrice: newProduct.originalPrice != null 
-                               ? newProduct.originalPrice! * (price / newProduct.price)
-                               : null,
-                           imageUrl: newProduct.imageUrl,
-                           inStock: true,
-                           stockQuantity: 10,
-                           category: newProduct.category,
-                           brand: newProduct.brand,
-                           unit: newProduct.unit,
-                         );
-                         mockProducts.add(productToAdd);
-                         
-                         ScaffoldMessenger.of(context).showSnackBar(
-                           SnackBar(content: Text('${productToAdd.name} added to inventory!'), backgroundColor: Colors.green),
-                         );
-                      } else {
-                         // Increment stock
-                         final existing = mockProducts[index];
-                         mockProducts[index] = ProductModel(
-                           id: existing.id,
-                           shopId: existing.shopId,
-                           name: existing.name,
-                           price: existing.price,
-                           originalPrice: existing.originalPrice,
-                           imageUrl: existing.imageUrl,
-                           inStock: true,
-                           stockQuantity: existing.stockQuantity + 1,
-                           category: existing.category,
-                           brand: existing.brand,
-                           unit: existing.unit,
-                         );
-                         
-                         ScaffoldMessenger.of(context).showSnackBar(
-                           const SnackBar(content: Text('Product stock updated!'), backgroundColor: Colors.blue),
-                         );
-                      }
-                  });
-                },
-              )));
+            _buildActionCard(Icons.add_box_rounded, 'Add Product', const Color(0xFF6366F1), () async {
+              final result = await Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const AddProductScreen()),
+              );
+              
+              // If product was added successfully, reload the products
+              if (result == true && mounted) {
+                setState(() {}); // Trigger rebuild
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Product added! Go to Billing to see it.'),
+                    backgroundColor: Colors.green,
+                  ),
+                );
+              }
             }),
             const SizedBox(width: 12),
             _buildActionCard(Icons.qr_code_scanner_rounded, 'Scan & Bill', const Color(0xFF10B981), () {
@@ -454,8 +435,20 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
               Navigator.push(context, MaterialPageRoute(builder: (_) => const InventoryScreen()));
             }),
             const SizedBox(width: 12),
-            _buildActionCard(Icons.local_offer_rounded, 'Add Offer', const Color(0xFFEF4444), () {
-              Navigator.push(context, MaterialPageRoute(builder: (_) => const AddOfferScreen()));
+            _buildActionCard(Icons.data_usage_rounded, 'Load Demo Data', const Color(0xFF8B5CF6), () {
+              final shopId = context.read<StoreProvider>().currentShopId;
+              context.read<SalesProvider>().addDemoData(shopId);
+              
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Demo sales data loaded! Check Analytics to see charts.'),
+                  backgroundColor: Colors.green,
+                  duration: Duration(seconds: 3),
+                ),
+              );
+              
+              // Rebuild to show new stats
+              setState(() {});
             }),
           ],
         ),
@@ -486,25 +479,98 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
     );
   }
 
+
   Widget _buildRecentOrders() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Consumer<SalesProvider>(
+      builder: (context, salesProvider, _) {
+        final shopId = context.read<StoreProvider>().currentShopId;
+        final allTransactions = salesProvider.transactions
+            .where((t) => t.shopId == shopId)
+            .toList();
+        
+        // Sort by timestamp (newest first)
+        allTransactions.sort((a, b) => b.timestamp.compareTo(a.timestamp));
+        
+        // Take only recent 3
+        final recentTransactions = allTransactions.take(3).toList();
+        
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Recent Orders', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: AppColors.text)),
-            TextButton(onPressed: () {}, child: const Text('View All')),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('Recent Orders', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w800, color: AppColors.text)),
+                TextButton(
+                  onPressed: () {
+                    // Navigate to Analytics or Sales History
+                    setState(() => _selectedIndex = 3); // Analytics tab
+                  }, 
+                  child: const Text('View All')
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            if (recentTransactions.isEmpty)
+              Container(
+                padding: const EdgeInsets.all(24),
+                decoration: BoxDecoration(
+                  color: AppColors.surface,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: AppColors.border.withOpacity(0.5)),
+                ),
+                child: const Center(
+                  child: Column(
+                    children: [
+                      Icon(Icons.receipt_long_outlined, size: 48, color: AppColors.textLight),
+                      SizedBox(height: 12),
+                      Text(
+                        'No orders yet',
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: AppColors.text),
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        'Click "Load Demo Data" to see sample orders',
+                        style: TextStyle(fontSize: 13, color: AppColors.textLight),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            else
+              ...recentTransactions.asMap().entries.map((entry) {
+                final index = entry.key;
+                final transaction = entry.value;
+                final timeAgo = _getTimeAgo(transaction.timestamp);
+                
+                return Column(
+                  children: [
+                    if (index > 0) const SizedBox(height: 12),
+                    _buildOrderItem(
+                      transaction.id.substring(0, 8).toUpperCase(),
+                      transaction.customerPhone ?? 'Walk-in Customer',
+                      '₹${transaction.totalAmount.toStringAsFixed(0)}',
+                      timeAgo,
+                    ),
+                  ],
+                );
+              }).toList(),
           ],
-        ),
-        const SizedBox(height: 12),
-        _buildOrderItem('#ORD-2847', 'Murugan', '₹458', '2 mins ago'),
-        const SizedBox(height: 12),
-        _buildOrderItem('#ORD-2846', 'Lakshmi', '₹1,245', '15 mins ago'),
-        const SizedBox(height: 12),
-        _buildOrderItem('#ORD-2845', 'Selvam', '₹789', '32 mins ago'),
-      ],
+        );
+      },
     );
+  }
+  
+  String _getTimeAgo(DateTime timestamp) {
+    final now = DateTime.now();
+    final difference = now.difference(timestamp);
+    
+    if (difference.inMinutes < 1) return 'Just now';
+    if (difference.inMinutes < 60) return '${difference.inMinutes} mins ago';
+    if (difference.inHours < 24) return '${difference.inHours} hours ago';
+    if (difference.inDays < 7) return '${difference.inDays} days ago';
+    return '${timestamp.day}/${timestamp.month}/${timestamp.year}';
   }
 
   Widget _buildOrderItem(String orderId, String customer, String amount, String time) {

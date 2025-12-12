@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "508456724410",
+    "project_id": "nest-db923",
+    "storage_bucket": "nest-db923.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:508456724410:android:24abeb998d15678af91f83",
+        "android_client_info": {
+          "package_name": "com.example.near_basket"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDs1mDeSf0JuL9MS7jftf1SeskttscGPUI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

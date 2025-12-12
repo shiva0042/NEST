@@ -17,6 +17,7 @@ class _ShopSignUpScreenState extends State<ShopSignUpScreen> {
   final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
   final _addressController = TextEditingController();
+  final _mapLinkController = TextEditingController();
   String _selectedCategory = 'Grocery';
   final List<String> _categories = ['Grocery', 'Supermarket', 'Fruits & Veg', 'Bakery', 'Stationery'];
   bool _isLoading = false;
@@ -36,6 +37,9 @@ class _ShopSignUpScreenState extends State<ShopSignUpScreen> {
         _passwordController.text.trim(),
         _addressController.text.trim(),
         _selectedCategory,
+        _mapLinkController.text.trim().isNotEmpty 
+            ? _mapLinkController.text.trim() 
+            : null,
       );
 
       setState(() => _isLoading = false);
@@ -139,6 +143,19 @@ class _ShopSignUpScreenState extends State<ShopSignUpScreen> {
                   fillColor: AppColors.surface,
                 ),
                 validator: (value) => value!.isEmpty ? 'Enter address' : null,
+              ),
+              const SizedBox(height: 16),
+              TextFormField(
+                controller: _mapLinkController,
+                decoration: InputDecoration(
+                  labelText: 'Google Maps Link (Optional)',
+                  hintText: 'https://maps.app.goo.gl/...',
+                  prefixIcon: const Icon(Icons.map_outlined),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                  filled: true,
+                  fillColor: AppColors.surface,
+                  helperText: 'Share your location from Google Maps',
+                ),
               ),
               const SizedBox(height: 32),
               ElevatedButton(

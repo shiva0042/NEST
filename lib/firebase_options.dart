@@ -32,23 +32,24 @@ class DefaultFirebaseOptions {
   }
 
   // Android Configuration (from google-services.json)
+  // Android Configuration (from google-services.json)
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyB8Jfwm8SDJzPJt-u4S1bLEuvC-BRFVyp4',
-    appId: '1:956594217906:android:fd689ea991a63c8305faab',
-    messagingSenderId: '956594217906',
-    projectId: 'nest-app-251b1',
-    storageBucket: 'nest-app-251b1.firebasestorage.app',
+    apiKey: 'AIzaSyDs1mDeSf0JuL9MS7jftf1SeskttscGPUI',
+    appId: '1:508456724410:android:24abeb998d15678af91f83',
+    messagingSenderId: '508456724410',
+    projectId: 'nest-db923',
+    storageBucket: 'nest-db923.firebasestorage.app',
   );
 
-  // Web Configuration
-  // TODO: Add web app in Firebase Console to get these values
+  // Web Configuration - NEST Web App
+  // Registered in Firebase Console: https://console.firebase.google.com/project/nest-db923
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyB8Jfwm8SDJzPJt-u4S1bLEuvC-BRFVyp4',
-    appId: '1:956594217906:web:YOUR_WEB_APP_ID',
-    messagingSenderId: '956594217906',
-    projectId: 'nest-app-251b1',
-    authDomain: 'nest-app-251b1.firebaseapp.com',
-    storageBucket: 'nest-app-251b1.firebasestorage.app',
+    apiKey: 'AIzaSyDs1mDeSf0JuL9MS7jftf1SeskttscGPUI',
+    appId: '1:508456724410:web:c9cb27590e97472ff91f83',
+    messagingSenderId: '508456724410',
+    projectId: 'nest-db923',
+    authDomain: 'nest-db923.firebaseapp.com',
+    storageBucket: 'nest-db923.firebasestorage.app',
   );
 
   // iOS Configuration

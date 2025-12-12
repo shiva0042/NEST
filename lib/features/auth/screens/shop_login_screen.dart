@@ -25,13 +25,13 @@ class _ShopLoginScreenState extends State<ShopLoginScreen> {
       // Simulate network delay
       await Future.delayed(const Duration(seconds: 1));
 
-      if (!mounted) return;
-
-      final success = context.read<StoreProvider>().loginShopOwner(
+      final success = await context.read<StoreProvider>().loginShopOwner(
         _phoneController.text.trim(),
         _otpController.text.trim(),
       );
 
+      if (!mounted) return;
+      
       setState(() => _isLoading = false);
 
       if (success) {

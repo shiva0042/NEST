@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../map_discovery/screens/home_screen.dart';
 import 'shop_login_screen.dart';
+import '../../../screens/database_seed_screen.dart';
 
 class RoleSelectionScreen extends StatelessWidget {
   const RoleSelectionScreen({super.key});
@@ -9,6 +11,17 @@ class RoleSelectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: !kIsWeb ? FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const DatabaseSeedScreen()),
+          );
+        },
+        backgroundColor: AppColors.primary,
+        icon: const Icon(Icons.cloud_upload),
+        label: const Text('Upload Data'),
+      ) : null,
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(

@@ -1,56 +1,123 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../features/map_discovery/models/shop_model.dart';
+import 'package:flutter/foundation.dart';
+
+
 
 class StoreProvider extends ChangeNotifier {
-  final List<ShopModel> _shops = mockShops;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  List<ShopModel> _shops = [];
   String? _userRole; // 'customer' or 'shopOwner'
   String _currentShopId = '1';
   ShopModel? _loggedInShop;
+  bool _isLoading = false;
 
   List<ShopModel> get shops => _shops;
   String? get userRole => _userRole;
   String get currentShopId => _currentShopId;
   ShopModel? get loggedInShop => _loggedInShop;
   String? get currentShopName => _loggedInShop?.name;
+  bool get isLoading => _isLoading;
+
+  StoreProvider() {
+    // Initial fetch
+    fetchShops();
+  }
 
   void setUserRole(String role) {
     _userRole = role;
     notifyListeners();
   }
 
-  bool loginShopOwner(String phone, String password) {
+  Future<void> fetchShops() async {
     try {
-      final shop = _shops.firstWhere(
-        (s) => s.phoneNumber == phone && s.password == password,
-      );
-      _loggedInShop = shop;
-      _currentShopId = shop.id;
-      _userRole = 'shopOwner';
+      final snapshot = await _firestore.collection(ShopModel.collectionName).get();
+      _shops = snapshot.docs.map((doc) => ShopModel.fromMap(doc.data())).toList();
+      debugPrint('Loaded ${_shops.length} shops from Firestore');
       notifyListeners();
-      return true;
     } catch (e) {
+      debugPrint('Error fetching shops: $e');
+      // Fallback to mock shops if Firestore fails
+      if (_shops.isEmpty) {
+        _shops = mockShops;
+        debugPrint('Using ${mockShops.length} mock shops as fallback');
+        notifyListeners();
+      }
+    }
+  }
+
+  Future<bool> loginShopOwner(String phone, String password) async {
+    _isLoading = true;
+    notifyListeners();
+
+    try {
+      final snapshot = await _firestore
+          .collection(ShopModel.collectionName)
+          .where('phoneNumber', isEqualTo: phone)
+          .where('password', isEqualTo: password)
+          .limit(1)
+          .get();
+
+      if (snapshot.docs.isNotEmpty) {
+        final shop = ShopModel.fromMap(snapshot.docs.first.data());
+        _loggedInShop = shop;
+        _currentShopId = shop.id;
+        _userRole = 'shopOwner';
+        _isLoading = false;
+        notifyListeners();
+        debugPrint('Login successful for shop: ${shop.name}');
+        return true;
+      }
+      
+      _isLoading = false;
+      notifyListeners();
+      debugPrint('Login failed: Invalid credentials');
+      return false;
+    } catch (e) {
+      debugPrint('Login error: $e');
+      _isLoading = false;
+      notifyListeners();
       return false;
     }
   }
 
-  void registerShop(String name, String phone, String password, String address, String category) {
-    final newShop = ShopModel(
-      id: '${_shops.length + 1}',
-      name: name,
-      address: address,
-      distance: 0.0, // New shops start with 0 distance for now
-      isOpen: true,
-      rating: 5.0, // New shops start with 5 stars
-      imageUrl: 'https://images.unsplash.com/photo-1542838132-92c53300491e', // Default image
-      category: category,
-      phoneNumber: phone,
-      password: password,
-    );
-    _shops.add(newShop);
-    
-    // Auto login
-    loginShopOwner(phone, password);
+  Future<void> registerShop(String name, String phone, String password, String address, String category, String? mapLink) async {
+    _isLoading = true;
     notifyListeners();
+
+    try {
+      final newShopRef = _firestore.collection(ShopModel.collectionName).doc();
+      final newShop = ShopModel(
+        id: newShopRef.id,
+        name: name,
+        address: address,
+        distance: 0.0,
+        isOpen: true,
+        rating: 5.0,
+        imageUrl: 'https://images.unsplash.com/photo-1542838132-92c53300491e',
+        category: category,
+        phoneNumber: phone,
+        password: password,
+        mapLink: mapLink,
+      );
+
+      await newShopRef.set(newShop.toMap());
+      _shops.add(newShop);
+      
+      // Auto login
+      _loggedInShop = newShop;
+      _currentShopId = newShop.id;
+      _userRole = 'shopOwner';
+      
+      _isLoading = false;
+      notifyListeners();
+      debugPrint('Shop registered successfully: ${newShop.name} with mapLink: $mapLink');
+    } catch (e) {
+      debugPrint('Registration error: $e');
+      _isLoading = false;
+      notifyListeners();
+    }
   }
 
   void logout() {
@@ -59,30 +126,26 @@ class StoreProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void toggleShopStatus(String shopId) {
+  Future<void> toggleShopStatus(String shopId) async {
     final index = _shops.indexWhere((s) => s.id == shopId);
     if (index != -1) {
       final shop = _shops[index];
-      final updatedShop = ShopModel(
-        id: shop.id,
-        name: shop.name,
-        address: shop.address,
-        distance: shop.distance,
-        isOpen: !shop.isOpen,
-        rating: shop.rating,
-        imageUrl: shop.imageUrl,
-        category: shop.category,
-        phoneNumber: shop.phoneNumber,
-        password: shop.password,
-        mapLink: shop.mapLink,
-      );
-      _shops[index] = updatedShop;
+      final newStatus = !shop.isOpen;
       
-      // Update logged in shop if it's the same
-      if (_loggedInShop?.id == shopId) {
-        _loggedInShop = updatedShop;
+      // Optimistic update
+      // We can't update 'final' fields, so we need to refetch or create a copy logic
+      // But for Firestore, we just update the doc
+      
+      try {
+        await _firestore.collection(ShopModel.collectionName).doc(shopId).update({
+          'isOpen': newStatus
+        });
+        
+        // Refresh local state by fetching again or manual update if desired
+        fetchShops(); 
+      } catch (e) {
+        debugPrint('Error toggling status: $e');
       }
-      notifyListeners();
     }
   }
 }

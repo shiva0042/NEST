@@ -1,4 +1,6 @@
 class ShopModel {
+  static const String collectionName = 'shops';
+
   final String id;
   final String name;
   final String address;
@@ -24,6 +26,38 @@ class ShopModel {
     required this.password,
     this.mapLink,
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'address': address,
+      'distance': distance,
+      'isOpen': isOpen,
+      'rating': rating,
+      'imageUrl': imageUrl,
+      'category': category,
+      'phoneNumber': phoneNumber,
+      'password': password,
+      'mapLink': mapLink,
+    };
+  }
+
+  factory ShopModel.fromMap(Map<String, dynamic> map) {
+    return ShopModel(
+      id: map['id'] ?? '',
+      name: map['name'] ?? '',
+      address: map['address'] ?? '',
+      distance: (map['distance'] ?? 0.0).toDouble(),
+      isOpen: map['isOpen'] ?? false,
+      rating: (map['rating'] ?? 0.0).toDouble(),
+      imageUrl: map['imageUrl'] ?? 'https://images.unsplash.com/photo-1542838132-92c53300491e',
+      category: map['category'] ?? 'General',
+      phoneNumber: map['phoneNumber'] ?? '',
+      password: map['password'] ?? '',
+      mapLink: map['mapLink'],
+    );
+  }
 }
 
 final List<ShopModel> mockShops = [

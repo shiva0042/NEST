@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../features/map_discovery/models/product_model.dart';
 
 // Sale Item - Individual item in a sale
@@ -20,7 +22,10 @@ class SaleItem {
 }
 
 // Sale Transaction - Complete bill/sale
+// Sale Transaction - Complete bill/sale
 class SaleTransaction {
+  static const String collectionName = 'sales';
+  
   final String id;
   final String shopId;
   final DateTime timestamp;
@@ -39,27 +44,44 @@ class SaleTransaction {
   
   double get totalAmount => items.fold(0, (sum, item) => sum + item.totalPrice);
   double get totalProfit => items.fold(0, (sum, item) => sum + item.profit);
-  int get totalItems => items.fold(0, (sum, item) => sum + item.quantity);
+  
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'shopId': shopId,
+      'timestamp': Timestamp.fromDate(timestamp),
+      'customerPhone': customerPhone,
+      'paymentMethod': paymentMethod,
+      'items': items.map((item) => {
+        'productId': item.product.id,
+        'productName': item.product.name, // denormalize for analytics
+        'categoryId': item.product.category, // denormalize
+        'brand': item.product.brand, // denormalize
+        'quantity': item.quantity,
+        'unitPrice': item.unitPrice,
+        'costPrice': item.costPrice,
+      }).toList(),
+      'totalAmount': totalAmount,
+    };
+  }
 }
 
-// Low Stock Alert
+
+
+// Low Stock Alert Model
 class LowStockAlert {
   final ProductModel product;
   final int currentStock;
-  final int threshold;
-  final DateTime alertTime;
   
   LowStockAlert({
     required this.product,
     required this.currentStock,
-    this.threshold = 10,
-    DateTime? alertTime,
-  }) : alertTime = alertTime ?? DateTime.now();
-  
-  bool get isCritical => currentStock <= 5;
+  });
+
+  bool get isCritical => currentStock < 5;
 }
 
-// Analytics Summary
+// Analytics Summary Model
 class AnalyticsSummary {
   final double totalRevenue;
   final double totalProfit;
@@ -68,11 +90,11 @@ class AnalyticsSummary {
   final Map<String, double> revenueByCategory;
   final Map<String, int> salesByProduct;
   final Map<String, double> revenueByBrand;
-  final Map<String, int> salesByCategory; // Units sold per category
-  final Map<String, Map<String, int>> brandsByCategory; // Top brands in each category
-  final Map<String, Map<String, double>> revenueBrandsByCategory; // Revenue by brand in each category
+  final Map<String, int> salesByCategory;
+  final Map<String, Map<String, int>> brandsByCategory;
+  final Map<String, Map<String, double>> revenueBrandsByCategory;
   final List<SaleTransaction> transactions;
-  
+
   AnalyticsSummary({
     required this.totalRevenue,
     required this.totalProfit,
@@ -88,27 +110,25 @@ class AnalyticsSummary {
   });
 }
 
-// Sales Provider - Manages all sales and analytics
 class SalesProvider extends ChangeNotifier {
-  final List<SaleTransaction> _transactions = [];
-  final List<LowStockAlert> _lowStockAlerts = [];
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  List<SaleTransaction> _transactions = [];
+  List<LowStockAlert> _lowStockAlerts = [];
   static const int lowStockThreshold = 10;
   
   List<SaleTransaction> get transactions => List.unmodifiable(_transactions);
   List<LowStockAlert> get lowStockAlerts => List.unmodifiable(_lowStockAlerts);
   
-  // Record a new sale
-  void recordSale({
+  // Record a new sale with Transaction
+  Future<void> recordSale({
     required String shopId,
     required Map<ProductModel, int> cartItems,
     String? customerPhone,
     String paymentMethod = 'Cash',
-  }) {
+  }) async {
     final saleItems = cartItems.entries.map((entry) {
       final product = entry.key;
       final quantity = entry.value;
-      
-      // Assume cost price is 80% of selling price for demo
       final costPrice = product.price * 0.8;
       
       return SaleItem(
@@ -119,21 +139,47 @@ class SalesProvider extends ChangeNotifier {
       );
     }).toList();
     
+    final newId = _firestore.collection(SaleTransaction.collectionName).doc().id;
+
     final transaction = SaleTransaction(
-      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      id: newId,
       shopId: shopId,
       timestamp: DateTime.now(),
       items: saleItems,
       customerPhone: customerPhone,
       paymentMethod: paymentMethod,
     );
+
+    // Firestore Logic
+    final newSaleRef = _firestore.collection(SaleTransaction.collectionName).doc(newId);
     
-    _transactions.add(transaction);
+    // Batch write for atomicity
+    final batch = _firestore.batch();
     
-    // Update stock and check for low stock
-    _updateInventoryAndCheckAlerts(cartItems, shopId);
+    // 1. Create Sale Document
+    batch.set(newSaleRef, transaction.toMap());
     
-    notifyListeners();
+    // 2. Decrement Stock for each product
+    for (var entry in cartItems.entries) {
+      final product = entry.key;
+      final quantity = entry.value;
+      
+      // Assume ProductModel has a collectionName, or hardcode 'products'
+      final productRef = _firestore.collection('products').doc(product.id);
+      batch.update(productRef, {
+        'stockQuantity': FieldValue.increment(-quantity),
+        'inStock': quantity >= product.stockQuantity ? false : true, // This logic is approximate
+      });
+    }
+
+    try {
+      await batch.commit();
+      _transactions.add(transaction); // Optimistic update
+      notifyListeners();
+      debugPrint('Sale recorded successfully: ${transaction.id}');
+    } catch (e) {
+      debugPrint('Error recording sale: $e');
+    }
   }
   
   void _updateInventoryAndCheckAlerts(Map<ProductModel, int> cartItems, String shopId) {

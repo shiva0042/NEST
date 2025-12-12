@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../core/constants/app_colors.dart';
+import '../../../core/providers/store_provider.dart';
 import '../models/shop_model.dart';
 import 'shop_details_view.dart';
 
@@ -8,6 +10,8 @@ class StoresListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final shops = context.watch<StoreProvider>().shops;
+    
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
@@ -27,10 +31,10 @@ class StoresListScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              child: const Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'Nearby Stores',
                     style: TextStyle(
                       fontSize: 28,
@@ -39,10 +43,10 @@ class StoresListScreen extends StatelessWidget {
                       letterSpacing: -0.5,
                     ),
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Text(
-                    'Find the best shops around you',
-                    style: TextStyle(
+                    'Find the best shops around you (${shops.length} stores)',
+                    style: const TextStyle(
                       fontSize: 14,
                       color: AppColors.textLight,
                     ),
@@ -52,13 +56,41 @@ class StoresListScreen extends StatelessWidget {
             ),
             // List
             Expanded(
-              child: ListView.builder(
-                padding: const EdgeInsets.all(16),
-                itemCount: mockShops.length,
-                itemBuilder: (context, index) {
-                  final shop = mockShops[index];
-                  return _StoreListCard(shop: shop);
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  await context.read<StoreProvider>().fetchShops();
                 },
+                child: shops.isEmpty
+                    ? const Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.store_rounded, size: 64, color: AppColors.textLight),
+                            SizedBox(height: 16),
+                            Text(
+                              'No stores found',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.text,
+                              ),
+                            ),
+                            SizedBox(height: 8),
+                            Text(
+                              'Pull down to refresh',
+                              style: TextStyle(color: AppColors.textLight),
+                            ),
+                          ],
+                        ),
+                      )
+                    : ListView.builder(
+                        padding: const EdgeInsets.all(16),
+                        itemCount: shops.length,
+                        itemBuilder: (context, index) {
+                          final shop = shops[index];
+                          return _StoreListCard(shop: shop);
+                        },
+                      ),
               ),
             ),
           ],

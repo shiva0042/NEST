@@ -6,7 +6,23 @@ import 'core/providers/cart_provider.dart';
 import 'core/providers/sales_provider.dart';
 import 'features/auth/screens/role_selection_screen.dart';
 
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+import 'package:flutter/foundation.dart'; // import kIsWeb
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    debugPrint('Firebase initialized successfully for ${kIsWeb ? "Web" : "Mobile"}');
+  } catch (e) {
+    debugPrint('Firebase init error: $e');
+  }
+  
   runApp(const NearBasketApp());
 }
 

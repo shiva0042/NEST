@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/providers/store_provider.dart';
 import '../models/shop_model.dart';
@@ -167,101 +168,205 @@ class _FloatingNavItem extends StatelessWidget {
   }
 }
 
-class _HomeView extends StatelessWidget {
+class _HomeView extends StatefulWidget {
   const _HomeView();
+
+  @override
+  State<_HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<_HomeView> {
+  List<ProductModel> _allProducts = [];
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProducts();
+  }
+
+  Future<void> _loadProducts() async {
+    setState(() => _isLoading = true);
+    
+    try {
+      final snapshot = await FirebaseFirestore.instance
+          .collection('products')
+          .get();
+      
+      if (snapshot.docs.isNotEmpty) {
+        setState(() {
+          _allProducts = snapshot.docs.map((doc) {
+            final data = doc.data();
+            return ProductModel(
+              id: data['id'] ?? doc.id,
+              shopId: data['shopId'] ?? '',
+              name: data['name'] ?? '',
+              price: (data['price'] ?? 0).toDouble(),
+              originalPrice: data['originalPrice'] != null ? (data['originalPrice'] as num).toDouble() : null,
+              imageUrl: data['imageUrl'] ?? 'https://via.placeholder.com/300',
+              inStock: data['inStock'] ?? true,
+              stockQuantity: data['stockQuantity'] ?? 0,
+              category: data['category'] ?? 'Other',
+              brand: data['brand'] ?? 'Local',
+              unit: data['unit'] ?? 'weight',
+            );
+          }).where((p) => p.inStock).toList();
+          _isLoading = false;
+        });
+        debugPrint('Loaded ${_allProducts.length} products from Firestore for customer view');
+      } else {
+        // Fallback to mock products
+        setState(() {
+          _allProducts = mockProducts;
+          _isLoading = false;
+        });
+        debugPrint('Using ${mockProducts.length} mock products as fallback');
+      }
+    } catch (e) {
+      debugPrint('Error loading products for customer: $e');
+      setState(() {
+        _allProducts = mockProducts;
+        _isLoading = false;
+      });
+    }
+  }
 
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      physics: const BouncingScrollPhysics(),
-      slivers: [
-        // Modern App Bar
-        SliverToBoxAdapter(child: _ModernHeader()),
-        
-        // Promotional Banners
-        SliverToBoxAdapter(child: _PromotionalBanners()),
-        
-        // Categories Section
-        // Category Buttons with Scroll Arrows
-        const SliverToBoxAdapter(
-          child: _CategoryScrollSection(),
-        ),
-        
-        // Essential Products Sections
-        SliverToBoxAdapter(
-          child: Builder(
-            builder: (context) {
-              // Get list of open shop IDs
-              final openShopIds = context.watch<StoreProvider>()
-                  .shops
-                  .where((shop) => shop.isOpen)
-                  .map((shop) => shop.id)
-                  .toSet();
-              
-              // Filter products from open shops only
-              final availableProducts = mockProducts
-                  .where((p) => p.inStock && openShopIds.contains(p.shopId))
-                  .toList();
-              
-              return Column(
-                children: [
-                  _ProductHorizontalList(
-                    title: 'Daily Essentials',
-                    products: (availableProducts.where((p) => (p.category.contains('Rice') || p.category.contains('Oil') || p.category.contains('Atta'))).toList()..shuffle()).take(10).toList(),
-                  ),
-                  _ProductHorizontalList(
-                    title: 'Fresh Vegetables',
-                    products: (availableProducts.where((p) => p.category.contains('Vegetables')).toList()..shuffle()).take(10).toList(),
-                  ),
-                  _ProductHorizontalList(
-                    title: 'Snacks & Munchies',
-                    products: (availableProducts.where((p) => (p.category.contains('Snacks') || p.category.contains('Biscuits'))).toList()..shuffle()).take(10).toList(),
-                  ),
-                  _ProductHorizontalList(
-                    title: 'Cold Drinks & Juices',
-                    products: (availableProducts.where((p) => p.category.contains('Beverages')).toList()..shuffle()).take(10).toList(),
-                  ),
-                  _ProductHorizontalList(
-                    title: 'Dairy & Breakfast',
-                    products: (availableProducts.where((p) => p.category.contains('Dairy')).toList()..shuffle()).take(10).toList(),
-                  ),
-                  _ProductHorizontalList(
-                    title: 'Tea & Coffee',
-                    products: (availableProducts.where((p) => p.category.contains('Tea & Coffee')).toList()..shuffle()).take(10).toList(),
-                  ),
-                  _ProductHorizontalList(
-                    title: 'Ice Cream & Frozen',
-                    products: (availableProducts.where((p) => p.category.contains('Ice Cream')).toList()..shuffle()).take(10).toList(),
-                  ),
-                  _ProductHorizontalList(
-                    title: 'Chocolates & Sweets',
-                    products: (availableProducts.where((p) => p.category.contains('Chocolate')).toList()..shuffle()).take(10).toList(),
-                  ),
-                  _ProductHorizontalList(
-                    title: 'Instant Food',
-                    products: (availableProducts.where((p) => p.category.contains('Instant')).toList()..shuffle()).take(10).toList(),
-                  ),
-                  _ProductHorizontalList(
-                    title: 'Masala & Spices',
-                    products: (availableProducts.where((p) => (p.category.contains('Masala') || p.category.contains('Spices'))).toList()..shuffle()).take(10).toList(),
-                  ),
-                  _ProductHorizontalList(
-                    title: 'Fresh Fruits',
-                    products: (availableProducts.where((p) => p.category.contains('Fruits')).toList()..shuffle()).take(10).toList(),
-                  ),
-                  _ProductHorizontalList(
-                    title: 'Cleaning & Household',
-                    products: (availableProducts.where((p) => p.category.contains('Household')).toList()..shuffle()).take(10).toList(),
-                  ),
-                ],
-              );
-            },
+    return RefreshIndicator(
+      onRefresh: _loadProducts,
+      child: CustomScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        slivers: [
+          // Modern App Bar
+          SliverToBoxAdapter(child: _ModernHeader()),
+          
+          // Promotional Banners
+          SliverToBoxAdapter(child: _PromotionalBanners()),
+          
+          // Categories Section
+          // Category Buttons with Scroll Arrows
+          const SliverToBoxAdapter(
+            child: _CategoryScrollSection(),
           ),
-        ),
-        
-        const SliverToBoxAdapter(child: SizedBox(height: 100)),
-      ],
+          
+          // Essential Products Sections
+          SliverToBoxAdapter(
+            child: Builder(
+              builder: (context) {
+                // Get list of open shop IDs
+                final openShopIds = context.watch<StoreProvider>()
+                    .shops
+                    .where((shop) => shop.isOpen)
+                    .map((shop) => shop.id)
+                    .toSet();
+                
+                // Filter products from open shops only - use _allProducts from Firestore
+                final availableProducts = _allProducts
+                    .where((p) => p.inStock && openShopIds.contains(p.shopId))
+                    .toList();
+                
+                if (_isLoading) {
+                  return const Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(32.0),
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                }
+                
+                if (availableProducts.isEmpty) {
+                  return Container(
+                    padding: const EdgeInsets.all(32),
+                    child: Center(
+                      child: Column(
+                        children: [
+                          const Icon(Icons.shopping_bag_outlined, size: 64, color: AppColors.textLight),
+                          const SizedBox(height: 16),
+                          const Text(
+                            'No products available yet',
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 8),
+                          const Text(
+                            'Shops will add their products soon!',
+                            style: TextStyle(color: AppColors.textLight),
+                          ),
+                          const SizedBox(height: 16),
+                          ElevatedButton.icon(
+                            onPressed: _loadProducts,
+                            icon: const Icon(Icons.refresh),
+                            label: const Text('Refresh'),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.primary,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }
+                
+                return Column(
+                  children: [
+                    _ProductHorizontalList(
+                      title: 'Daily Essentials',
+                      products: (availableProducts.where((p) => (p.category.contains('Rice') || p.category.contains('Oil') || p.category.contains('Atta'))).toList()..shuffle()).take(10).toList(),
+                    ),
+                    _ProductHorizontalList(
+                      title: 'Fresh Vegetables',
+                      products: (availableProducts.where((p) => p.category.contains('Vegetables')).toList()..shuffle()).take(10).toList(),
+                    ),
+                    _ProductHorizontalList(
+                      title: 'Snacks & Munchies',
+                      products: (availableProducts.where((p) => (p.category.contains('Snacks') || p.category.contains('Biscuits'))).toList()..shuffle()).take(10).toList(),
+                    ),
+                    _ProductHorizontalList(
+                      title: 'Cold Drinks & Juices',
+                      products: (availableProducts.where((p) => p.category.contains('Beverages')).toList()..shuffle()).take(10).toList(),
+                    ),
+                    _ProductHorizontalList(
+                      title: 'Dairy & Breakfast',
+                      products: (availableProducts.where((p) => p.category.contains('Dairy')).toList()..shuffle()).take(10).toList(),
+                    ),
+                    _ProductHorizontalList(
+                      title: 'Tea & Coffee',
+                      products: (availableProducts.where((p) => p.category.contains('Tea & Coffee')).toList()..shuffle()).take(10).toList(),
+                    ),
+                    _ProductHorizontalList(
+                      title: 'Ice Cream & Frozen',
+                      products: (availableProducts.where((p) => p.category.contains('Ice Cream')).toList()..shuffle()).take(10).toList(),
+                    ),
+                    _ProductHorizontalList(
+                      title: 'Chocolates & Sweets',
+                      products: (availableProducts.where((p) => p.category.contains('Chocolate')).toList()..shuffle()).take(10).toList(),
+                    ),
+                    _ProductHorizontalList(
+                      title: 'Instant Food',
+                      products: (availableProducts.where((p) => p.category.contains('Instant')).toList()..shuffle()).take(10).toList(),
+                    ),
+                    _ProductHorizontalList(
+                      title: 'Masala & Spices',
+                      products: (availableProducts.where((p) => (p.category.contains('Masala') || p.category.contains('Spices'))).toList()..shuffle()).take(10).toList(),
+                    ),
+                    _ProductHorizontalList(
+                      title: 'Fresh Fruits',
+                      products: (availableProducts.where((p) => p.category.contains('Fruits')).toList()..shuffle()).take(10).toList(),
+                    ),
+                    _ProductHorizontalList(
+                      title: 'Cleaning & Household',
+                      products: (availableProducts.where((p) => p.category.contains('Household')).toList()..shuffle()).take(10).toList(),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ),
+          
+          const SliverToBoxAdapter(child: SizedBox(height: 100)),
+        ],
+      ),
     );
   }
 }
@@ -396,37 +501,20 @@ class _PromotionalBannersState extends State<_PromotionalBanners> {
   final PageController _pageController = PageController(viewportFraction: 0.88);
   int _currentPage = 0;
 
-  final List<Map<String, dynamic>> banners = [
-    // Banners for each shop
-    {
-      'gradient': [const Color(0xFF4CAF50), const Color(0xFF81C784)], 
-      'title': 'GRO MART', 
-      'subtitle': 'Groceries & More', 
-      'icon': '🥬', 
-      'shopId': '1'
-    },
-    {
-      'gradient': [const Color(0xFFFF7043), const Color(0xFFFF8A65)], 
-      'title': 'ROYAL Supermarket', 
-      'subtitle': 'Quality Products', 
-      'icon': '🛒', 
-      'shopId': '2'
-    },
-    {
-      'gradient': [const Color(0xFF42A5F5), const Color(0xFF64B5F6)], 
-      'title': 'Reliance SMART', 
-      'subtitle': 'Smart Savings', 
-      'icon': '🛍️', 
-      'shopId': '3'
-    },
-    {
-       'gradient': [const Color(0xFFAB47BC), const Color(0xFFBA68C8)],
-       'title': 'J B Super Market',
-       'subtitle': 'Best Deals',
-       'icon': '🏪',
-       'shopId': '4'
-    }
+  // Color gradients for banners (will cycle through these)
+  final List<List<Color>> bannerGradients = [
+    [const Color(0xFF4CAF50), const Color(0xFF81C784)],
+    [const Color(0xFFFF7043), const Color(0xFFFF8A65)],
+    [const Color(0xFF42A5F5), const Color(0xFF64B5F6)],
+    [const Color(0xFFAB47BC), const Color(0xFFBA68C8)],
+    [const Color(0xFFEC407A), const Color(0xFFF06292)],
+    [const Color(0xFFFFCA28), const Color(0xFFFFD54F)],
+    [const Color(0xFF26A69A), const Color(0xFF4DB6AC)],
+    [const Color(0xFFEF5350), const Color(0xFFE57373)],
   ];
+  
+  // Emojis for banners (will cycle through these)
+  final List<String> bannerEmojis = ['🥬', '🛒', '🛍️', '🏪', '🍎', '🥕', '🍞', '🥛'];
 
   void _scrollToPage(int page) {
     _pageController.animateToPage(
@@ -444,7 +532,15 @@ class _PromotionalBannersState extends State<_PromotionalBanners> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Consumer<StoreProvider>(
+      builder: (context, storeProvider, _) {
+        final shops = storeProvider.shops;
+        
+        if (shops.isEmpty) {
+          return const SizedBox.shrink();
+        }
+        
+        return Column(
       children: [
         Container(
           height: 120,
@@ -454,16 +550,20 @@ class _PromotionalBannersState extends State<_PromotionalBanners> {
               PageView.builder(
                 controller: _pageController,
                 physics: const BouncingScrollPhysics(),
-                itemCount: banners.length,
+                itemCount: shops.length,
                 onPageChanged: (page) => setState(() => _currentPage = page),
                 itemBuilder: (context, index) {
-                  final banner = banners[index];
+                  final shop = shops[index];
+                  // Cycle through colors and emojis
+                  final gradient = bannerGradients[index % bannerGradients.length];
+                  final emoji = bannerEmojis[index % bannerEmojis.length];
+                  
                   return _AnimatedBanner(
-                    gradient: banner['gradient'] as List<Color>,
-                    title: banner['title'] as String,
-                    subtitle: banner['subtitle'] as String,
-                    emoji: banner['icon'] as String,
-                    shopId: banner['shopId'] as String,
+                    gradient: gradient,
+                    title: shop.name,
+                    subtitle: shop.category,
+                    emoji: emoji,
+                    shopId: shop.id,
                   );
                 },
               ),
@@ -491,7 +591,7 @@ class _PromotionalBannersState extends State<_PromotionalBanners> {
                   ),
                 ),
               // Right Arrow
-              if (_currentPage < banners.length - 1)
+              if (_currentPage < shops.length - 1)
                 Positioned(
                   right: 8,
                   top: 0,
@@ -519,7 +619,7 @@ class _PromotionalBannersState extends State<_PromotionalBanners> {
         // Page Indicator Dots
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(banners.length, (index) {
+          children: List.generate(shops.length, (index) {
             return AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               margin: const EdgeInsets.symmetric(horizontal: 4),
@@ -533,6 +633,8 @@ class _PromotionalBannersState extends State<_PromotionalBanners> {
           }),
         ),
       ],
+    );
+      },
     );
   }
 }
@@ -640,9 +742,10 @@ class _AnimatedBanner extends StatelessWidget {
 
   void _navigateToCategory(BuildContext context) {
     // Navigate to specific shop
-    final shop = mockShops.firstWhere(
+    final storeProvider = context.read<StoreProvider>();
+    final shop = storeProvider.shops.firstWhere(
       (s) => s.id == shopId,
-      orElse: () => mockShops.first,
+      orElse: () => storeProvider.shops.isNotEmpty ? storeProvider.shops.first : mockShops.first,
     );
     
     Navigator.push(
