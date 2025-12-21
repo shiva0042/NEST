@@ -5,7 +5,7 @@ import '../../../core/constants/app_colors.dart';
 import '../../map_discovery/models/product_model.dart';
 
 class AddProductCatalogScreen extends StatefulWidget {
-  final Function(ProductModel, String selectedSize, double priceForSize) onProductAdded;
+  final Function(ProductModel, String selectedSize, double priceForSize, int quantity) onProductAdded;
 
   const AddProductCatalogScreen({super.key, required this.onProductAdded});
 
@@ -123,8 +123,8 @@ class _AddProductCatalogScreenState extends State<AddProductCatalogScreen> {
       backgroundColor: Colors.transparent,
       builder: (context) => _ProductDetailSheet(
         product: product,
-        onAddProduct: (product, size, price) {
-          widget.onProductAdded(product, size, price);
+        onAddProduct: (product, size, price, quantity) {
+          widget.onProductAdded(product, size, price, quantity);
           Navigator.pop(context);
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -476,7 +476,7 @@ class _ProductCard extends StatelessWidget {
 // Product Detail Bottom Sheet - Same style as customer view
 class _ProductDetailSheet extends StatefulWidget {
   final ProductModel product;
-  final Function(ProductModel, String, double) onAddProduct;
+  final Function(ProductModel, String, double, int) onAddProduct;
 
   const _ProductDetailSheet({required this.product, required this.onAddProduct});
 
@@ -820,7 +820,7 @@ class _ProductDetailSheetState extends State<_ProductDetailSheet> {
                 height: 52,
                 child: ElevatedButton(
                   onPressed: () {
-                    widget.onAddProduct(widget.product, selectedSize, currentPrice);
+                    widget.onAddProduct(widget.product, selectedSize, currentPrice, quantity);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.primary,

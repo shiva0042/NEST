@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/services.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/providers/store_provider.dart';
@@ -31,35 +32,45 @@ class _InventoryScreenState extends State<InventoryScreen> {
     _loadProducts();
   }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _loadProducts();
+  }
+
   Future<void> _loadProducts() async {
     final shopId = context.read<StoreProvider>().currentShopId;
     
+    // Avoid reloading if shopId hasn't changed (optional optimization)
+    // but here we just want to ensure we get the latest data.
+    
+    if (!mounted) return;
+    setState(() => _isLoading = true);
+    
     try {
-      // Try to load real scraped data
-      final String jsonString = await rootBundle.loadString('assets/data/collected_products.json');
-      final List<dynamic> jsonList = json.decode(jsonString);
-      final List<ProductModel> loadedProducts = jsonList.map((j) {
-        var p = ProductModel.fromJson(j);
-        return ProductModel(
-          id: p.id,
-          shopId: shopId,
-          name: p.name,
-          price: p.price,
-          originalPrice: p.originalPrice,
-          imageUrl: p.imageUrl,
-          inStock: p.inStock,
-          stockQuantity: p.stockQuantity,
-          category: p.category,
-          brand: p.brand
-        );
-      }).toList();
-
-      _updateStateWithProducts(loadedProducts);
-
+      final firestore = FirebaseFirestore.instance;
+      // Fetch from Firestore
+      final snapshot = await firestore
+          .collection('products')
+          .where('shopId', isEqualTo: shopId)
+          .get();
+          
+      if (snapshot.docs.isNotEmpty) {
+        final List<ProductModel> fetchedProducts = snapshot.docs
+            .map((doc) => ProductModel.fromJson(doc.data()))
+            .toList();
+        _updateStateWithProducts(fetchedProducts);
+      } else {
+        // Fallback to mock data ONLY if Firestore is empty (e.g. first run)
+        // But for "New Store", empty is correct.
+        // We will just show empty list which is correct.
+        _updateStateWithProducts([]);
+      }
     } catch (e) {
-      // Fallback to mock data if file not found or error
-      debugPrint('Error loading collected items, using mock: $e');
-      _updateStateWithProducts(mockProducts.where((p) => p.shopId == shopId).toList());
+      debugPrint('Error loading products from Firestore: $e');
+      // On error, maybe fallback to mock? Or just show error?
+      // Let's stick to empty or current behavior but logging error.
+       _updateStateWithProducts([]);
     }
   }
 
@@ -315,37 +326,63 @@ class _InventoryScreenState extends State<InventoryScreen> {
             context,
             MaterialPageRoute(
               builder: (context) => AddProductCatalogScreen(
-                onProductAdded: (newProduct, selectedSize, price) {
+                onProductAdded: (newProduct, selectedSize, price, quantity) async {
                   // Add to inventory with selected size and custom price
+                  final shopId = context.read<StoreProvider>().currentShopId;
+                  
+                  // Create product name with size
+                  String productNameWithSize = '${newProduct.name} ($selectedSize)';
+                  
+                  // Check if exists locally to avoid duplicates (though ID is unique)
+                  // Note: reusing this logic inside setState for UI update
+                  
+                  final productToAdd = ProductModel(
+                    id: DateTime.now().millisecondsSinceEpoch.toString(),
+                    shopId: shopId,
+                    name: productNameWithSize,
+                    price: price, // Use custom/selected price
+                    originalPrice: newProduct.originalPrice != null 
+                        ? newProduct.originalPrice! * (price / newProduct.price)
+                        : null,
+                    imageUrl: newProduct.imageUrl,
+                    inStock: true,
+                    stockQuantity: quantity, // Use selected quantity
+                    category: newProduct.category,
+                    brand: newProduct.brand,
+                    unit: newProduct.unit,
+                  );
+
+                  // Save to Firestore
+                  try {
+                    await FirebaseFirestore.instance.collection('products').doc(productToAdd.id).set({
+                      'id': productToAdd.id,
+                      'shopId': productToAdd.shopId,
+                      'name': productToAdd.name,
+                      'price': productToAdd.price,
+                      'originalPrice': productToAdd.originalPrice,
+                      'imageUrl': productToAdd.imageUrl,
+                      'inStock': productToAdd.inStock,
+                      'stockQuantity': productToAdd.stockQuantity,
+                      'category': productToAdd.category,
+                      'brand': productToAdd.brand,
+                      'unit': productToAdd.unit,
+                    });
+                    debugPrint("Product saved to Firestore: ${productToAdd.name}");
+                  } catch (e) {
+                    debugPrint("Error saving product to Firestore: $e");
+                  }
+
+                  if (!mounted) return;
+
                   setState(() {
-                      // Create product name with size
-                      String productNameWithSize = '${newProduct.name} ($selectedSize)';
-                      
                       // Check if exists
                       final index = _allProducts.indexWhere((p) => p.name == productNameWithSize);
                       if (index == -1) {
-                         // Assign current Shop ID
-                         final shopId = context.read<StoreProvider>().currentShopId;
-                         final productToAdd = ProductModel(
-                           id: DateTime.now().millisecondsSinceEpoch.toString(),
-                           shopId: shopId,
-                           name: productNameWithSize,
-                           price: price, // Use custom/selected price
-                           originalPrice: newProduct.originalPrice != null 
-                               ? newProduct.originalPrice! * (price / newProduct.price)
-                               : null,
-                           imageUrl: newProduct.imageUrl,
-                           inStock: true,
-                           stockQuantity: 10,
-                           category: newProduct.category,
-                           brand: newProduct.brand,
-                           unit: newProduct.unit,
-                         );
                          _allProducts.add(productToAdd);
-                         mockProducts.add(productToAdd); // Sync with customer view
+                         mockProducts.add(productToAdd); // Sync with store view
                       } else {
                          // Increment stock
-                         _updateStock(_allProducts[index], _allProducts[index].stockQuantity + 1);
+                         _updateStock(_allProducts[index], _allProducts[index].stockQuantity + quantity);
                       }
                       _updateStateWithProducts(_allProducts); // Re-calc categories and filtering
                   });

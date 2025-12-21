@@ -12,15 +12,16 @@ dependencies:
   cupertino_icons: ^1.0.2
   provider: ^6.0.0
   url_launcher: ^6.1.11
-  firebase_core: ^2.24.2
-  cloud_firestore: ^4.14.0
+  firebase_core: ^4.3.0
+  cloud_firestore: ^6.1.1
   # google_fonts: ^6.1.0
+  shared_preferences: ^2.2.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
-  flutter_launcher_icons: ^0.13.1
+  flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.14.4
 
 flutter_launcher_icons:
   android: "launcher_icon"

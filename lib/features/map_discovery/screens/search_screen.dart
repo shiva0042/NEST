@@ -1,4 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:provider/provider.dart';
+import '../../../core/providers/store_provider.dart';
 import '../../../core/constants/app_colors.dart';
 import '../models/product_model.dart';
 import '../models/shop_model.dart';
@@ -16,14 +18,33 @@ class _SearchScreenState extends State<SearchScreen> {
   late TextEditingController _controller;
   String _query = '';
   List<ProductModel> _results = [];
+  List<ProductModel> _allProducts = []; // Cache all products
 
   @override
   void initState() {
     super.initState();
     _controller = TextEditingController(text: widget.initialQuery);
+    _loadAllProducts(); // Fetch all products initially
     if (widget.initialQuery != null && widget.initialQuery!.isNotEmpty) {
       _query = widget.initialQuery!;
-      _performSearch(widget.initialQuery!);
+      // _performSearch will be called after products are loaded or if we await
+    }
+  }
+
+  Future<void> _loadAllProducts() async {
+    try {
+      final snapshot = await FirebaseFirestore.instance.collection('products').get();
+      if (mounted) {
+        setState(() {
+          _allProducts = snapshot.docs.map((doc) => ProductModel.fromJson(doc.data())).toList();
+          // If there was an initial query, search now
+          if (_query.isNotEmpty) {
+            _performSearch(_query);
+          }
+        });
+      }
+    } catch (e) {
+      debugPrint("Error loading products for search: $e");
     }
   }
 
@@ -76,7 +97,8 @@ class _SearchScreenState extends State<SearchScreen> {
         }
       }
       
-      _results = mockProducts.where((p) {
+      // Search in _allProducts instead of mockProducts
+      _results = _allProducts.where((p) {
         final name = p.name.toLowerCase();
         final category = p.category.toLowerCase();
         final brand = p.brand.toLowerCase();
@@ -196,9 +218,11 @@ class _SearchScreenState extends State<SearchScreen> {
                         itemCount: _results.length,
                         itemBuilder: (context, index) {
                           final product = _results[index];
-                          final shop = mockShops.firstWhere(
+                          // Use StoreProvider to find shop
+                          final shops = context.read<StoreProvider>().shops;
+                          final shop = shops.firstWhere(
                             (s) => s.id == product.shopId,
-                            orElse: () => mockShops.first,
+                            orElse: () => shops.isNotEmpty ? shops.first : ShopModel(id: '0', name: 'Unknown Shop', address: '', distance: 0, isOpen: false, rating: 0, imageUrl: '', category: '', phoneNumber: '', password: ''),
                           );
                           
                           return Padding(

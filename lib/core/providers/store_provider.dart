@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../features/map_discovery/models/shop_model.dart';
 import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 
@@ -25,6 +26,28 @@ class StoreProvider extends ChangeNotifier {
     fetchShops();
   }
 
+  Future<void> _restoreSession() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final savedShopId = prefs.getString('shop_id');
+      
+      if (savedShopId != null) {
+        _currentShopId = savedShopId;
+        _userRole = 'shopOwner';
+        
+        try {
+          _loggedInShop = _shops.firstWhere((s) => s.id == savedShopId);
+          debugPrint('Session restored for shop: ${_loggedInShop?.name}');
+        } catch (e) {
+          debugPrint('Saved shop ID not found in loaded shops');
+        }
+        notifyListeners();
+      }
+    } catch (e) {
+      debugPrint('Error restoring session: $e');
+    }
+  }
+
   void setUserRole(String role) {
     _userRole = role;
     notifyListeners();
@@ -36,6 +59,7 @@ class StoreProvider extends ChangeNotifier {
       _shops = snapshot.docs.map((doc) => ShopModel.fromMap(doc.data())).toList();
       debugPrint('Loaded ${_shops.length} shops from Firestore');
       notifyListeners();
+      _restoreSession(); // Check for saved session after loading shops
     } catch (e) {
       debugPrint('Error fetching shops: $e');
       // Fallback to mock shops if Firestore fails
@@ -43,6 +67,7 @@ class StoreProvider extends ChangeNotifier {
         _shops = mockShops;
         debugPrint('Using ${mockShops.length} mock shops as fallback');
         notifyListeners();
+        _restoreSession(); // Check for saved session even with mock data
       }
     }
   }
@@ -64,6 +89,11 @@ class StoreProvider extends ChangeNotifier {
         _loggedInShop = shop;
         _currentShopId = shop.id;
         _userRole = 'shopOwner';
+        
+        // Save session
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('shop_id', shop.id);
+        
         _isLoading = false;
         notifyListeners();
         debugPrint('Login successful for shop: ${shop.name}');
@@ -110,6 +140,10 @@ class StoreProvider extends ChangeNotifier {
       _currentShopId = newShop.id;
       _userRole = 'shopOwner';
       
+      // Save session
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('shop_id', newShop.id);
+      
       _isLoading = false;
       notifyListeners();
       debugPrint('Shop registered successfully: ${newShop.name} with mapLink: $mapLink');
@@ -120,9 +154,14 @@ class StoreProvider extends ChangeNotifier {
     }
   }
 
-  void logout() {
+  Future<void> logout() async {
     _loggedInShop = null;
     _userRole = null;
+    _currentShopId = '1'; // Reset to default
+    
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('shop_id');
+    
     notifyListeners();
   }
 

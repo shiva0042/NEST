@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../core/constants/app_colors.dart';
@@ -29,22 +30,57 @@ class _ShopDetailsViewState extends State<ShopDetailsView> {
   bool _showLeftArrow = false;
   bool _showRightArrow = true;
 
+  List<ProductModel> _shopProducts = [];
+  bool _isLoading = true;
+
   @override
   void initState() {
     super.initState();
     _categoryScrollController.addListener(_updateArrowVisibility);
+    _loadProducts();
     
     // Auto-select category and product if provided
     if (widget.initialProduct != null) {
       selectedCategory = widget.initialProduct!.category;
       
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        // Find the product instance from the loaded products to ensure consistency? 
-        // Or just use the passed one.
         _showProductBottomSheet(context, widget.initialProduct!);
       });
     } else if (widget.initialCategory != null) {
       selectedCategory = widget.initialCategory;
+    }
+  }
+
+  Future<void> _loadProducts() async {
+    try {
+      final firestore = FirebaseFirestore.instance; // Needs import but likely available or needs to be imported
+      final snapshot = await firestore
+          .collection('products')
+          .where('shopId', isEqualTo: widget.shop.id)
+          .get();
+
+      if (mounted) {
+        setState(() {
+          if (snapshot.docs.isNotEmpty) {
+            _shopProducts = snapshot.docs
+                .map((doc) => ProductModel.fromJson(doc.data()))
+                .toList();
+          } else {
+             // Fallback to mock if empty (optional, or just empty)
+             // For now, let's keep it empty if firestore is empty, 
+             // or maybe merge with mock if we want hybrid? 
+             // Best to rely on Firestore for "New Store" scenario.
+             _shopProducts = [];
+             
+             // OPTIONAL: If you want to keep existing mock data for DEMO purposes if Firestore is empty:
+             // _shopProducts = mockProducts.where((p) => p.shopId == widget.shop.id).toList();
+          }
+          _isLoading = false;
+        });
+      }
+    } catch (e) {
+      debugPrint("Error loading products for shop: $e");
+      if (mounted) setState(() => _isLoading = false);
     }
   }
 
@@ -100,7 +136,7 @@ class _ShopDetailsViewState extends State<ShopDetailsView> {
 
   @override
   Widget build(BuildContext context) {
-    final allProducts = mockProducts.where((p) => p.shopId == widget.shop.id).toList();
+    final allProducts = _shopProducts; // Use fetched products
     final categories = allProducts.map((p) => p.category).toSet().toList()..sort();
     
     final displayedProducts = selectedCategory == null 
