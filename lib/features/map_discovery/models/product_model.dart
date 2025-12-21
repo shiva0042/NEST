@@ -1895,6 +1895,179 @@ List<ProductModel> _generateProducts() {
       'smallBrands': {'Sakthi': [1, 2], 'Everest': [3, 4]},
       'basePrice': 65.0,
     },
+
+    // Ready Mixes & Special Masalas
+    {
+      'name': 'Paneer Butter Masala Mix',
+      'category': 'Masala & Spices',
+      'unit': 'pack',
+      'bigBrands': ['Aachi', 'MTR'],
+      'smallBrands': {'Sakthi': [1, 2], 'Everest': [3, 4]},
+      'basePrice': 45.0, // Per pack ~50g
+    },
+    {
+      'name': 'Garam Masala',
+      'category': 'Masala & Spices',
+      'unit': 'pack',
+      'bigBrands': ['Aachi', 'Everest'],
+      'smallBrands': {'Sakthi': [1, 3], 'Catch': [2, 4]},
+      'basePrice': 40.0,
+    },
+    {
+      'name': 'Maggi Masala-ae-Magic',
+      'category': 'Masala & Spices',
+      'unit': 'pack', // Usually sold in strips of sachets or small packs
+      'bigBrands': ['Maggi'],
+      'smallBrands': {'Local Store': [1, 2, 3, 4]}, // Ubiquitous
+      'basePrice': 60.0, // Packet of 12 sachets approx
+    },
+    {
+      'name': 'Fried Rice Masala Mix',
+      'category': 'Masala & Spices',
+      'unit': 'pack',
+      'bigBrands': ['Chings', 'Knorr'],
+      'smallBrands': {'Aachi': [1, 2], 'Hapima': [3, 4]},
+      'basePrice': 15.0, // Single serve pack
+    },
+    {
+      'name': 'Noodle Masala Mix',
+      'category': 'Masala & Spices',
+      'unit': 'pack',
+      'bigBrands': ['Chings', 'Knorr'],
+      'smallBrands': {'Smith & Jones': [1, 2], 'Maggi': [3, 4]},
+      'basePrice': 15.0,
+    },
+    {
+      'name': 'Bajji Bonda Mix',
+      'category': 'Masala & Spices',
+      'unit': 'pack',
+      'bigBrands': ['Aachi', 'Sakthi'],
+      'smallBrands': {'MTR': [1, 2], 'Grandma': [3, 4]},
+      'basePrice': 35.0, // 200g
+    },
+    {
+      'name': 'Vatha Kuzhambu Paste',
+      'category': 'Masala & Spices',
+      'unit': 'pack',
+      'bigBrands': ['Grandmas', 'Aachi'],
+      'smallBrands': {'Sakthi': [1, 3], 'Local': [2, 4]},
+      'basePrice': 60.0, 
+    },
+    {
+      'name': 'Tamarind Paste',
+      'category': 'Masala & Spices',
+      'unit': 'pack',
+      'bigBrands': ['Dabur', 'Sakthi'],
+      'smallBrands': {'777': [1, 2], 'Local': [3, 4]},
+      'basePrice': 55.0,
+    },
+     {
+      'name': 'Lemon Rice Mix',
+      'category': 'Masala & Spices',
+      'unit': 'pack',
+      'bigBrands': ['MTR', 'Aachi'],
+      'smallBrands': {'Sakthi': [1, 2], 'Priya': [3, 4]},
+      'basePrice': 25.0,
+    },
+    {
+      'name': 'Puliyogare Mix (Tamarind Rice)',
+      'category': 'Masala & Spices',
+      'unit': 'pack',
+      'bigBrands': ['MTR', 'Priya'],
+      'smallBrands': {'Sakthi': [1, 2], 'Aachi': [3, 4]},
+      'basePrice': 45.0,
+    },
+
+    // Pickles (Oorukai) - Tamil Nadu Varieties
+    {
+      'name': 'Mango Pickle (Avakai)',
+      'category': 'Pickles & Pastes',
+      'unit': 'pack', // Bottle/Pack ~300g
+      'bigBrands': ['Priya', '777'],
+      'smallBrands': {'Aachi': [1, 2], 'Sakthi': [3, 4]},
+      'basePrice': 110.0,
+    },
+    {
+      'name': 'Cut Mango Pickle',
+      'category': 'Pickles & Pastes',
+      'unit': 'pack', // Bottle/Pack ~300g
+      'bigBrands': ['777', 'Ruchi'],
+      'smallBrands': {'Aachi': [1, 2], 'Mother\'s': [3, 4]},
+      'basePrice': 90.0,
+    },
+    {
+      'name': 'Lemon Pickle (Elumichai)',
+      'category': 'Pickles & Pastes',
+      'unit': 'pack',
+      'bigBrands': ['777', 'Ruchi'],
+      'smallBrands': {'Aachi': [1, 2], 'Priya': [3, 4]},
+      'basePrice': 85.0,
+    },
+    {
+      'name': 'Garlic Pickle (Poondu)',
+      'category': 'Pickles & Pastes',
+      'unit': 'pack',
+      'bigBrands': ['777', 'Priya'],
+      'smallBrands': {'Aachi': [1, 3], 'Sakthi': [2, 4]},
+      'basePrice': 120.0,
+    },
+    {
+      'name': 'Vadu Mango (Maavadu)',
+      'category': 'Pickles & Pastes',
+      'unit': 'pack', // Premium item
+      'bigBrands': ['777', 'Grand Sweets'],
+      'smallBrands': {'Local Home Made': [1, 2, 3, 4]},
+      'basePrice': 250.0, // ~300-400g
+    },
+    {
+      'name': 'Tomato Pickle (Thokku)',
+      'category': 'Pickles & Pastes',
+      'unit': 'pack',
+      'bigBrands': ['Priya', '777'],
+      'smallBrands': {'Aachi': [1, 2], 'MTR': [3, 4]},
+      'basePrice': 95.0,
+    },
+    {
+      'name': 'Citron Pickle (Narthangai)',
+      'category': 'Pickles & Pastes',
+      'unit': 'pack',
+      'bigBrands': ['777', 'Grand Sweets'],
+      'smallBrands': {'Aachi': [1, 2], 'Local': [3, 4]},
+      'basePrice': 130.0,
+    },
+    {
+      'name': 'Gongura Pickle',
+      'category': 'Pickles & Pastes',
+      'unit': 'pack',
+      'bigBrands': ['Priya'],
+      'smallBrands': {'Aachi': [1, 2], 'Sakthi': [3, 4]},
+      'basePrice': 100.0,
+    },
+    {
+      'name': 'Mixed Veg Pickle',
+      'category': 'Pickles & Pastes',
+      'unit': 'pack',
+      'bigBrands': ['Ruchi', 'Mothers'],
+      'smallBrands': {'Aachi': [1, 2], 'Priya': [3, 4]},
+      'basePrice': 90.0,
+    },
+    {
+      'name': 'Ginger Pickle (Inji)',
+      'category': 'Pickles & Pastes',
+      'unit': 'pack',
+      'bigBrands': ['777', 'Priya'],
+      'smallBrands': {'Aachi': [1, 2], 'Sakthi': [3, 4]},
+      'basePrice': 110.0,
+    },
+    {
+      'name': 'Mahani Pickle (Sarasaparilla)',
+      'category': 'Pickles & Pastes',
+      'unit': 'pack',
+      'bigBrands': ['777', 'Brahmins'],
+      'smallBrands': {'Local Home Made': [1, 2, 3, 4]},
+      'basePrice': 280.0, // Specialty item
+    },
+
   ];
 
   // Shop IDs: 1 = GRO MART, 2 = ROYAL Supermarket, 3 = Reliance SMART Point, 4 = J B Super Market
