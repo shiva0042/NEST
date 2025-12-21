@@ -1446,14 +1446,24 @@ List<ProductModel> _generateProducts() {
       'basePrice': 150.0,
     },
     
+
     // === FLOWERS (Tamil Nadu Special) ===
+    // Prices based on Dec 2025 Market Data (approx avg)
     {
       'name': 'Jasmine (Malligai)',
       'category': 'Flowers',
       'unit': 'weight',
       'bigBrands': ['Fresh Farms'],
       'smallBrands': {'Local Market': [1, 2, 3, 4]},
-      'basePrice': 500.0, // Premium flower
+      'basePrice': 600.0, // Avg ~600/kg
+    },
+    {
+      'name': 'Madurai Malli (GI Tagged)',
+      'category': 'Flowers',
+      'unit': 'weight',
+      'bigBrands': ['Fresh Farms'],
+      'smallBrands': {'Madurai Market': [1, 2, 3, 4]},
+      'basePrice': 800.0, // Premium, can go higher
     },
     {
       'name': 'Mullai',
@@ -1461,7 +1471,7 @@ List<ProductModel> _generateProducts() {
       'unit': 'weight',
       'bigBrands': ['Fresh Farms'],
       'smallBrands': {'Local Market': [1, 2, 3, 4]},
-      'basePrice': 450.0,
+      'basePrice': 500.0, // ~460-540 range
     },
     {
       'name': 'Marigold (Samanthi) - Orange',
@@ -1469,7 +1479,7 @@ List<ProductModel> _generateProducts() {
       'unit': 'weight',
       'bigBrands': ['Fresh Farms'],
       'smallBrands': {'Local Market': [1, 2, 3, 4]},
-      'basePrice': 80.0,
+      'basePrice': 130.0, // Avg ~130/kg
     },
     {
       'name': 'Marigold (Samanthi) - Yellow',
@@ -1477,7 +1487,7 @@ List<ProductModel> _generateProducts() {
       'unit': 'weight',
       'bigBrands': ['Fresh Farms'],
       'smallBrands': {'Local Market': [1, 2, 3, 4]},
-      'basePrice': 80.0,
+      'basePrice': 130.0,
     },
     {
       'name': 'Paneer Rose',
@@ -1485,7 +1495,7 @@ List<ProductModel> _generateProducts() {
       'unit': 'weight',
       'bigBrands': ['Fresh Farms'],
       'smallBrands': {'Local Market': [1, 2, 3, 4]},
-      'basePrice': 180.0,
+      'basePrice': 150.0, // Avg ~153/kg
     },
     {
       'name': 'Button Rose',
@@ -1493,7 +1503,7 @@ List<ProductModel> _generateProducts() {
       'unit': 'weight',
       'bigBrands': ['Fresh Farms'],
       'smallBrands': {'Local Market': [1, 2, 3, 4]},
-      'basePrice': 200.0,
+      'basePrice': 200.0, // Slightly higher than loose rose
     },
     {
       'name': 'Hibiscus (Sembaruthi)',
@@ -1501,7 +1511,7 @@ List<ProductModel> _generateProducts() {
       'unit': 'pieces',
       'bigBrands': ['Fresh Farms'],
       'smallBrands': {'Local Market': [1, 2, 3, 4]},
-      'basePrice': 5.0, // Per flower approx scaled to pack logic later
+      'basePrice': 5.0, 
     },
     {
       'name': 'Nerium (Arali) - Pink',
@@ -1509,7 +1519,7 @@ List<ProductModel> _generateProducts() {
       'unit': 'weight',
       'bigBrands': ['Fresh Farms'],
       'smallBrands': {'Local Market': [1, 2, 3, 4]},
-      'basePrice': 120.0,
+      'basePrice': 120.0, // Market range 100-150
     },
     {
       'name': 'Crossandra (Kanakambaram)',
@@ -1517,15 +1527,7 @@ List<ProductModel> _generateProducts() {
       'unit': 'weight',
       'bigBrands': ['Fresh Farms'],
       'smallBrands': {'Local Market': [1, 2, 3, 4]},
-      'basePrice': 600.0, // Expensive
-    },
-    {
-      'name': 'Lotus (Thamarai)',
-      'category': 'Flowers',
-      'unit': 'pieces',
-      'bigBrands': ['Fresh Farms'],
-      'smallBrands': {'Local Market': [1, 2, 3, 4]},
-      'basePrice': 25.0,
+      'basePrice': 600.0, // Often matches Jasmine price
     },
     {
       'name': 'Tuberose (Sampangi)',
@@ -1533,7 +1535,15 @@ List<ProductModel> _generateProducts() {
       'unit': 'weight',
       'bigBrands': ['Fresh Farms'],
       'smallBrands': {'Local Market': [1, 2, 3, 4]},
-      'basePrice': 150.0,
+      'basePrice': 75.0, // Avg ~75/kg
+    },
+    {
+      'name': 'Lotus (Thamarai)',
+      'category': 'Flowers',
+      'unit': 'pieces',
+      'bigBrands': ['Fresh Farms'],
+      'smallBrands': {'Local Market': [1, 2, 3, 4]},
+      'basePrice': 30.0, // ~25-40 depending on size
     },
     {
       'name': 'Champak (Shenbagam)',
@@ -1541,7 +1551,7 @@ List<ProductModel> _generateProducts() {
       'unit': 'pieces',
       'bigBrands': ['Fresh Farms'],
       'smallBrands': {'Local Market': [1, 2, 3, 4]},
-      'basePrice': 15.0,
+      'basePrice': 20.0,
     },
     {
       'name': 'Tulsi Bunch',
@@ -1551,7 +1561,7 @@ List<ProductModel> _generateProducts() {
       'smallBrands': {'Local Market': [1, 2, 3, 4]},
       'basePrice': 20.0,
     },
-    {
+     {
       'name': 'Arukampul (Bermuda Grass)',
       'category': 'Flowers',
       'unit': 'pack',
@@ -1570,18 +1580,10 @@ List<ProductModel> _generateProducts() {
     {
       'name': 'Flower Garland (Malai)',
       'category': 'Flowers',
-      'unit': 'length', // Special case, mapped to 'pack' roughly or need new unit support. Using pack for now.
+      'unit': 'length', 
       'bigBrands': ['Fresh Farms'],
       'smallBrands': {'Local Market': [1, 2, 3, 4]},
-      'basePrice': 150.0,
-    },
-    {
-      'name': 'Madurai Malli (GI Tagged)',
-      'category': 'Flowers',
-      'unit': 'weight',
-      'bigBrands': ['Fresh Farms'],
-      'smallBrands': {'Madurai Market': [1, 2, 3, 4]},
-      'basePrice': 800.0, // Premium
+      'basePrice': 200.0, // Adjusted for labor
     },
     {
       'name': 'Jathi Malli (Pitchi)',
@@ -1618,7 +1620,7 @@ List<ProductModel> _generateProducts() {
     {
       'name': 'Nandiyavattai',
       'category': 'Flowers',
-      'unit': 'pieces', // Often sold by count for puja
+      'unit': 'pieces', 
       'bigBrands': ['Fresh Farms'],
       'smallBrands': {'Local Market': [1, 2, 3, 4]},
       'basePrice': 10.0,
@@ -1697,14 +1699,15 @@ List<ProductModel> _generateProducts() {
     },
 
     // === SPICES & MASALAS (South Indian Special) ===
-    // Whole Spices
+    // Whole Spices - Wholesale/Retail Avg per kg adjusted for base pricing logic
+    // Note: basePrice in code is often derived. Here we put approximate retail.
     {
       'name': 'Mustard Seeds (Kadugu)',
       'category': 'Masala & Spices',
       'unit': 'weight',
       'bigBrands': ['Aachi', 'Sakthi'],
       'smallBrands': {'Udhaiyam': [1, 2], 'Annapoorna': [3, 4]},
-      'basePrice': 90.0, // ₹90/kg
+      'basePrice': 160.0, // Retail ~160/kg
     },
     {
       'name': 'Cumin Seeds (Jeeragam)',
@@ -1712,7 +1715,7 @@ List<ProductModel> _generateProducts() {
       'unit': 'weight',
       'bigBrands': ['Aachi', 'Everest'],
       'smallBrands': {'Sakthi': [1, 3], 'Tata Sampann': [2, 4]},
-      'basePrice': 350.0, // ₹350/kg
+      'basePrice': 350.0, // Retail varies 300-500, setting conservative avg
     },
     {
       'name': 'Fennel Seeds (Sombu)',
@@ -1720,7 +1723,7 @@ List<ProductModel> _generateProducts() {
       'unit': 'weight',
       'bigBrands': ['Aachi', 'Sakthi'],
       'smallBrands': {'Everest': [1, 2], 'Local': [3, 4]},
-      'basePrice': 280.0,
+      'basePrice': 230.0, // ~230-350 range
     },
     {
       'name': 'Fenugreek Seeds (Vendhayam)',
@@ -1736,7 +1739,7 @@ List<ProductModel> _generateProducts() {
       'unit': 'weight',
       'bigBrands': ['Aachi', 'Everest'],
       'smallBrands': {'Tata Sampann': [1, 2], 'Sakthi': [3, 4]},
-      'basePrice': 600.0, // ₹60/100g
+      'basePrice': 750.0, // Retail ~670-840 range. 
     },
     {
       'name': 'Cardamom (Elakkai)',
@@ -1744,7 +1747,7 @@ List<ProductModel> _generateProducts() {
       'unit': 'weight',
       'bigBrands': ['Spices India'],
       'smallBrands': {'Local Premium': [1, 2, 3, 4]},
-      'basePrice': 3000.0, // ₹300/100g -> 3000/kg
+      'basePrice': 2800.0, // Retail ~2750/kg
     },
     {
       'name': 'Cloves (Krambu)',
@@ -1789,20 +1792,20 @@ List<ProductModel> _generateProducts() {
     {
       'name': 'Asafetida (Hing/Perungayam)',
       'category': 'Masala & Spices',
-      'unit': 'pack', // Sold in small bottles usually
+      'unit': 'pack', 
       'bigBrands': ['L.G.', 'Aachi'],
       'smallBrands': {'Sakthi': [1, 3], 'Patanjali': [2, 4]},
-      'basePrice': 60.0, // ₹60/50g bottle
+      'basePrice': 65.0, // Slight update
     },
 
-    // Masala Powders
+    // Masala Powders - Prices generally stable pack prices
     {
       'name': 'Sambar Powder',
       'category': 'Masala & Spices',
       'unit': 'weight',
       'bigBrands': ['Aachi', 'Sakthi'],
       'smallBrands': {'MTR': [1, 2], 'Annapoorna': [3, 4]},
-      'basePrice': 380.0, // ~₹38/100g
+      'basePrice': 380.0, 
     },
     {
       'name': 'Rasam Powder',
@@ -1826,7 +1829,7 @@ List<ProductModel> _generateProducts() {
       'unit': 'pack',
       'bigBrands': ['Aachi', 'Sakthi'],
       'smallBrands': {'Everest': [1, 2], 'Eastern': [3, 4]},
-      'basePrice': 45.0, // ₹45/100g pack
+      'basePrice': 45.0, 
     },
     {
       'name': 'Mutton Masala',
@@ -1882,7 +1885,7 @@ List<ProductModel> _generateProducts() {
       'unit': 'pack',
       'bigBrands': ['Aachi', 'Catch'],
       'smallBrands': {'Sakthi': [1, 2], 'Everest': [3, 4]},
-      'basePrice': 80.0, // ₹80/50g
+      'basePrice': 80.0,
     },
     {
       'name': 'Cumin Powder',
