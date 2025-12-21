@@ -1575,6 +1575,203 @@ List<ProductModel> _generateProducts() {
       'smallBrands': {'Local Market': [1, 2, 3, 4]},
       'basePrice': 150.0,
     },
+
+    // === SPICES & MASALAS (South Indian Special) ===
+    // Whole Spices
+    {
+      'name': 'Mustard Seeds (Kadugu)',
+      'category': 'Masala & Spices',
+      'unit': 'weight',
+      'bigBrands': ['Aachi', 'Sakthi'],
+      'smallBrands': {'Udhaiyam': [1, 2], 'Annapoorna': [3, 4]},
+      'basePrice': 90.0, // ₹90/kg
+    },
+    {
+      'name': 'Cumin Seeds (Jeeragam)',
+      'category': 'Masala & Spices',
+      'unit': 'weight',
+      'bigBrands': ['Aachi', 'Everest'],
+      'smallBrands': {'Sakthi': [1, 3], 'Tata Sampann': [2, 4]},
+      'basePrice': 350.0, // ₹350/kg
+    },
+    {
+      'name': 'Fennel Seeds (Sombu)',
+      'category': 'Masala & Spices',
+      'unit': 'weight',
+      'bigBrands': ['Aachi', 'Sakthi'],
+      'smallBrands': {'Everest': [1, 2], 'Local': [3, 4]},
+      'basePrice': 280.0,
+    },
+    {
+      'name': 'Fenugreek Seeds (Vendhayam)',
+      'category': 'Masala & Spices',
+      'unit': 'weight',
+      'bigBrands': ['Aachi', 'Sakthi'],
+      'smallBrands': {'Local': [1, 3], 'Tata Sampann': [2, 4]},
+      'basePrice': 120.0,
+    },
+    {
+      'name': 'Black Pepper (Milagu)',
+      'category': 'Masala & Spices',
+      'unit': 'weight',
+      'bigBrands': ['Aachi', 'Everest'],
+      'smallBrands': {'Tata Sampann': [1, 2], 'Sakthi': [3, 4]},
+      'basePrice': 600.0, // ₹60/100g
+    },
+    {
+      'name': 'Cardamom (Elakkai)',
+      'category': 'Masala & Spices',
+      'unit': 'weight',
+      'bigBrands': ['Spices India'],
+      'smallBrands': {'Local Premium': [1, 2, 3, 4]},
+      'basePrice': 3000.0, // ₹300/100g -> 3000/kg
+    },
+    {
+      'name': 'Cloves (Krambu)',
+      'category': 'Masala & Spices',
+      'unit': 'weight',
+      'bigBrands': ['Spices India'],
+      'smallBrands': {'Local': [1, 2, 3, 4]},
+      'basePrice': 1200.0,
+    },
+    {
+      'name': 'Cinnamon Stick (Pattai)',
+      'category': 'Masala & Spices',
+      'unit': 'weight',
+      'bigBrands': ['Aachi', 'Everest'],
+      'smallBrands': {'Local': [1, 3], 'Sakthi': [2, 4]},
+      'basePrice': 800.0,
+    },
+    {
+      'name': 'Star Anise (Annachi Poo)',
+      'category': 'Masala & Spices',
+      'unit': 'weight',
+      'bigBrands': ['Aachi'],
+      'smallBrands': {'Local': [1, 2, 3, 4]},
+      'basePrice': 900.0,
+    },
+    {
+      'name': 'Poppy Seeds (Kasakasa)',
+      'category': 'Masala & Spices',
+      'unit': 'weight',
+      'bigBrands': ['Aachi'],
+      'smallBrands': {'Local': [1, 2, 3, 4]},
+      'basePrice': 1600.0,
+    },
+    {
+      'name': 'Dry Ginger (Sukku)',
+      'category': 'Masala & Spices',
+      'unit': 'weight',
+      'bigBrands': ['Aachi', 'Sakthi'],
+      'smallBrands': {'Local': [1, 2, 3, 4]},
+      'basePrice': 400.0,
+    },
+    {
+      'name': 'Asafetida (Hing/Perungayam)',
+      'category': 'Masala & Spices',
+      'unit': 'pack', // Sold in small bottles usually
+      'bigBrands': ['L.G.', 'Aachi'],
+      'smallBrands': {'Sakthi': [1, 3], 'Patanjali': [2, 4]},
+      'basePrice': 60.0, // ₹60/50g bottle
+    },
+
+    // Masala Powders
+    {
+      'name': 'Sambar Powder',
+      'category': 'Masala & Spices',
+      'unit': 'weight',
+      'bigBrands': ['Aachi', 'Sakthi'],
+      'smallBrands': {'MTR': [1, 2], 'Annapoorna': [3, 4]},
+      'basePrice': 380.0, // ~₹38/100g
+    },
+    {
+      'name': 'Rasam Powder',
+      'category': 'Masala & Spices',
+      'unit': 'weight',
+      'bigBrands': ['Sakthi', 'Aachi'],
+      'smallBrands': {'MTR': [1, 3], 'Annapoorna': [2, 4]},
+      'basePrice': 400.0,
+    },
+    {
+      'name': 'Idli Chilli Powder (Idli Podi)',
+      'category': 'Masala & Spices',
+      'unit': 'weight',
+      'bigBrands': ['Aachi', 'Sakthi'],
+      'smallBrands': {'MTR': [1, 2], 'Grandma Method': [3, 4]},
+      'basePrice': 300.0,
+    },
+    {
+      'name': 'Chicken Masala',
+      'category': 'Masala & Spices',
+      'unit': 'pack',
+      'bigBrands': ['Aachi', 'Sakthi'],
+      'smallBrands': {'Everest': [1, 2], 'Eastern': [3, 4]},
+      'basePrice': 45.0, // ₹45/100g pack
+    },
+    {
+      'name': 'Mutton Masala',
+      'category': 'Masala & Spices',
+      'unit': 'pack',
+      'bigBrands': ['Aachi', 'Sakthi'],
+      'smallBrands': {'Everest': [1, 3], 'Eastern': [2, 4]},
+      'basePrice': 50.0,
+    },
+    {
+      'name': 'Fish Curry Masala',
+      'category': 'Masala & Spices',
+      'unit': 'pack',
+      'bigBrands': ['Aachi', 'Sakthi'],
+      'smallBrands': {'Eastern': [1, 2], 'Everest': [3, 4]},
+      'basePrice': 45.0,
+    },
+    {
+      'name': 'Fish Fry Masala',
+      'category': 'Masala & Spices',
+      'unit': 'pack',
+      'bigBrands': ['Aachi', 'Sakthi'],
+      'smallBrands': {'Eastern': [1, 3], 'Everest': [2, 4]},
+      'basePrice': 40.0,
+    },
+    {
+      'name': 'Biryani Masala',
+      'category': 'Masala & Spices',
+      'unit': 'pack',
+      'bigBrands': ['Aachi', 'Sakthi'],
+      'smallBrands': {'Kohinoor': [1, 2], 'Nawabs': [3, 4]},
+      'basePrice': 60.0,
+    },
+    {
+      'name': 'Chicken 65 Masala',
+      'category': 'Masala & Spices',
+      'unit': 'pack',
+      'bigBrands': ['Aachi', 'Sakthi'],
+      'smallBrands': {'Ruchi': [1, 2], 'Eastern': [3, 4]},
+      'basePrice': 35.0,
+    },
+    {
+      'name': 'Kulambu Chilli Powder',
+      'category': 'Masala & Spices',
+      'unit': 'weight',
+      'bigBrands': ['Aachi', 'Sakthi'],
+      'smallBrands': {'Annapoorna': [1, 2], 'Home Made': [3, 4]},
+      'basePrice': 350.0,
+    },
+    {
+      'name': 'Pepper Powder',
+      'category': 'Masala & Spices',
+      'unit': 'pack',
+      'bigBrands': ['Aachi', 'Catch'],
+      'smallBrands': {'Sakthi': [1, 2], 'Everest': [3, 4]},
+      'basePrice': 80.0, // ₹80/50g
+    },
+    {
+      'name': 'Cumin Powder',
+      'category': 'Masala & Spices',
+      'unit': 'pack',
+      'bigBrands': ['Aachi', 'Catch'],
+      'smallBrands': {'Sakthi': [1, 2], 'Everest': [3, 4]},
+      'basePrice': 65.0,
+    },
   ];
 
   // Shop IDs: 1 = GRO MART, 2 = ROYAL Supermarket, 3 = Reliance SMART Point, 4 = J B Super Market
