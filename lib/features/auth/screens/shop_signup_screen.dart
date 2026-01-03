@@ -94,7 +94,7 @@ class _ShopSignUpScreenState extends State<ShopSignUpScreen> {
               
               // Category Dropdown
               DropdownButtonFormField<String>(
-                initialValue: _selectedCategory,
+                value: _selectedCategory,
                 decoration: InputDecoration(
                   labelText: 'Category',
                   prefixIcon: const Icon(Icons.category),

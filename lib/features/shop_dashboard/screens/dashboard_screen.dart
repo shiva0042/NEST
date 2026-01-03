@@ -322,7 +322,7 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
             scale: 1.1,
             child: Switch(
               value: isOpen,
-              activeThumbColor: Colors.white,
+              activeColor: Colors.white,
               activeTrackColor: Colors.white.withOpacity(0.3),
               inactiveThumbColor: Colors.white,
               inactiveTrackColor: Colors.white.withOpacity(0.3),
