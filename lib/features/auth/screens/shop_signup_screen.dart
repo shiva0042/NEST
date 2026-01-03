@@ -15,7 +15,7 @@ class _ShopSignUpScreenState extends State<ShopSignUpScreen> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _phoneController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final _passkeyController = TextEditingController();
   final _addressController = TextEditingController();
   final _mapLinkController = TextEditingController();
   String _selectedCategory = 'Grocery';
@@ -34,7 +34,7 @@ class _ShopSignUpScreenState extends State<ShopSignUpScreen> {
       context.read<StoreProvider>().registerShop(
         _nameController.text.trim(),
         _phoneController.text.trim(),
-        _passwordController.text.trim(),
+        _passkeyController.text.trim(),
         _addressController.text.trim(),
         _selectedCategory,
         _mapLinkController.text.trim().isNotEmpty 
@@ -94,7 +94,7 @@ class _ShopSignUpScreenState extends State<ShopSignUpScreen> {
               
               // Category Dropdown
               DropdownButtonFormField<String>(
-                value: _selectedCategory,
+                initialValue: _selectedCategory,
                 decoration: InputDecoration(
                   labelText: 'Category',
                   prefixIcon: const Icon(Icons.category),
@@ -121,16 +121,16 @@ class _ShopSignUpScreenState extends State<ShopSignUpScreen> {
               ),
               const SizedBox(height: 16),
               TextFormField(
-                controller: _passwordController,
+                controller: _passkeyController,
                 obscureText: true,
                 decoration: InputDecoration(
-                  labelText: 'Password',
+                  labelText: 'Passkey',
                   prefixIcon: const Icon(Icons.lock_outline),
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                   filled: true,
                   fillColor: AppColors.surface,
                 ),
-                validator: (value) => value!.isEmpty ? 'Enter password' : null,
+                validator: (value) => value!.isEmpty ? 'Enter Passkey' : null,
               ),
               const SizedBox(height: 16),
               TextFormField(

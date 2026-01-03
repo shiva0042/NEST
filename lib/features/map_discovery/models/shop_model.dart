@@ -10,7 +10,7 @@ class ShopModel {
   final String imageUrl;
   final String category;
   final String phoneNumber; // Login ID
-  final String password;    // OTP
+  final String password;    // Passkey
   final String? mapLink;    // Google Maps link
 
   ShopModel({

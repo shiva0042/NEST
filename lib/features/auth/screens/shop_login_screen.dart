@@ -15,7 +15,7 @@ class ShopLoginScreen extends StatefulWidget {
 class _ShopLoginScreenState extends State<ShopLoginScreen> {
   final _formKey = GlobalKey<FormState>();
   final _phoneController = TextEditingController();
-  final _otpController = TextEditingController();
+  final _passkeyController = TextEditingController();
   bool _isLoading = false;
 
   void _login() async {
@@ -27,7 +27,7 @@ class _ShopLoginScreenState extends State<ShopLoginScreen> {
 
       final success = await context.read<StoreProvider>().loginShopOwner(
         _phoneController.text.trim(),
-        _otpController.text.trim(),
+        _passkeyController.text.trim(),
       );
 
       if (!mounted) return;
@@ -42,7 +42,7 @@ class _ShopLoginScreenState extends State<ShopLoginScreen> {
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text('Invalid Phone Number or OTP'),
+            content: Text('Invalid Phone Number or Passkey'),
             backgroundColor: Colors.red,
           ),
         );
@@ -101,18 +101,18 @@ class _ShopLoginScreenState extends State<ShopLoginScreen> {
               ),
               const SizedBox(height: 16),
               TextFormField(
-                controller: _otpController,
+                controller: _passkeyController,
                 keyboardType: TextInputType.number,
                 obscureText: true,
                 decoration: InputDecoration(
-                  labelText: 'OTP (Password)',
+                  labelText: 'Passkey',
                   prefixIcon: const Icon(Icons.lock_outline),
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                   filled: true,
                   fillColor: AppColors.surface,
                 ),
                 validator: (value) {
-                  if (value == null || value.isEmpty) return 'Please enter OTP';
+                  if (value == null || value.isEmpty) return 'Please enter Passkey';
                   return null;
                 },
               ),

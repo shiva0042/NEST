@@ -112,8 +112,8 @@ class AnalyticsSummary {
 
 class SalesProvider extends ChangeNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  List<SaleTransaction> _transactions = [];
-  List<LowStockAlert> _lowStockAlerts = [];
+  final List<SaleTransaction> _transactions = [];
+  final List<LowStockAlert> _lowStockAlerts = [];
   static const int lowStockThreshold = 10;
   
   List<SaleTransaction> get transactions => List.unmodifiable(_transactions);

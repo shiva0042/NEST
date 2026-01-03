@@ -707,7 +707,7 @@ class _ProductDetailSheetState extends State<_ProductDetailSheet> {
                             _customPriceController.text = suggestedPrice.toStringAsFixed(0);
                           }
                         }),
-                        activeColor: AppColors.primary,
+                        activeThumbColor: AppColors.primary,
                       ),
                     ],
                   ),

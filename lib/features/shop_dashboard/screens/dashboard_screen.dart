@@ -3,13 +3,10 @@ import 'package:provider/provider.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/providers/store_provider.dart';
 import '../../../core/providers/sales_provider.dart';
-import '../../map_discovery/models/product_model.dart';
 
 import 'inventory_screen.dart';
 import 'billing_screen.dart';
 import 'analytics_screen.dart';
-import 'add_product_catalog_screen.dart';
-import 'add_offer_screen.dart';
 import 'add_product_screen.dart';
 
 class ShopOwnerDashboard extends StatefulWidget {
@@ -325,7 +322,7 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
             scale: 1.1,
             child: Switch(
               value: isOpen,
-              activeColor: Colors.white,
+              activeThumbColor: Colors.white,
               activeTrackColor: Colors.white.withOpacity(0.3),
               inactiveThumbColor: Colors.white,
               inactiveTrackColor: Colors.white.withOpacity(0.3),
@@ -555,7 +552,7 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
                     ),
                   ],
                 );
-              }).toList(),
+              }),
           ],
         );
       },

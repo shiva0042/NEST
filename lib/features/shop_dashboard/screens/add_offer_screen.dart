@@ -138,7 +138,7 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
             
             // Offer Type
             DropdownButtonFormField<String>(
-              value: _offerType,
+              initialValue: _offerType,
               decoration: _buildInputDecoration('Offer Type', Icons.category),
               items: _offerTypes.map((type) {
                 return DropdownMenuItem(value: type, child: Text(type));
@@ -277,8 +277,8 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: Colors.blue.withOpacity(0.3)),
                 ),
-                child: Row(
-                  children: const [
+                child: const Row(
+                  children: [
                     Icon(Icons.info_outline, color: Colors.blue, size: 20),
                     SizedBox(width: 8),
                     Expanded(
@@ -301,9 +301,9 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: AppColors.primary, width: 2),
                 ),
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     Icon(Icons.add_shopping_cart, color: AppColors.primary),
                     SizedBox(width: 8),
                     Text(
@@ -426,11 +426,11 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
       fillColor: AppColors.surface,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(color: AppColors.border),
+        borderSide: const BorderSide(color: AppColors.border),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: BorderSide(color: AppColors.border),
+        borderSide: const BorderSide(color: AppColors.border),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),

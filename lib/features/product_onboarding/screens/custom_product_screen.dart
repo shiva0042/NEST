@@ -178,7 +178,7 @@ class _CustomProductScreenState extends State<CustomProductScreen> {
                 const SizedBox(width: 12),
                 Expanded(
                   child: DropdownButtonFormField<String>(
-                    value: _selectedVariant,
+                    initialValue: _selectedVariant,
                     decoration: const InputDecoration(labelText: "Variant", border: OutlineInputBorder()),
                     items: _variants.map((v) => DropdownMenuItem(value: v, child: Text(v))).toList(),
                     onChanged: (v) => setState(() => _selectedVariant = v!),
@@ -202,7 +202,7 @@ class _CustomProductScreenState extends State<CustomProductScreen> {
                 Expanded(
                   flex: 1,
                   child: DropdownButtonFormField<String>(
-                    value: _selectedUnit,
+                    initialValue: _selectedUnit,
                     decoration: const InputDecoration(labelText: "Unit", border: OutlineInputBorder()),
                     items: _units.map((u) => DropdownMenuItem(value: u, child: Text(u))).toList(),
                     onChanged: (v) => setState(() => _selectedUnit = v!),

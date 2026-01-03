@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/providers/store_provider.dart';
-import '../../map_discovery/models/product_model.dart';
 
 class AddProductScreen extends StatefulWidget {
   const AddProductScreen({super.key});
@@ -230,7 +229,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
               // Category Dropdown
               DropdownButtonFormField<String>(
-                value: _selectedCategory,
+                initialValue: _selectedCategory,
                 decoration: InputDecoration(
                   labelText: 'Category',
                   prefixIcon: const Icon(Icons.category),
@@ -252,7 +251,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
               // Unit Dropdown
               DropdownButtonFormField<String>(
-                value: _selectedUnit,
+                initialValue: _selectedUnit,
                 decoration: InputDecoration(
                   labelText: 'Unit Type',
                   prefixIcon: const Icon(Icons.straighten),

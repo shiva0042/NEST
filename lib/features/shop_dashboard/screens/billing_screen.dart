@@ -538,10 +538,10 @@ class _BillingScreenState extends State<BillingScreen> {
         // Cart Items
         Expanded(
           child: _cart.isEmpty
-              ? Center(
+              ? const Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
+                    children: [
                       Icon(Icons.shopping_cart_outlined, size: 64, color: AppColors.textLight),
                       SizedBox(height: 16),
                       Text('Cart is empty', style: TextStyle(color: AppColors.textLight)),

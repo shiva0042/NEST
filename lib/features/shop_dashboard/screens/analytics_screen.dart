@@ -1149,7 +1149,7 @@ class _CategoryBreakdown extends StatelessWidget {
                 ],
               ),
             );
-          }).toList(),
+          }),
         ],
       ),
     );
@@ -1610,7 +1610,7 @@ class _CategoryBrandBreakdown extends StatelessWidget {
                               ],
                             ),
                           );
-                        }).toList(),
+                        }),
                       ],
                     ),
                   ),

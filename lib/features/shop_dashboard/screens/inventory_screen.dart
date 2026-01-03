@@ -1,8 +1,6 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/services.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/providers/store_provider.dart';
 import '../../map_discovery/models/product_model.dart';
