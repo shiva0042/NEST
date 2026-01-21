@@ -45,7 +45,7 @@ class _SearchScreenState extends State<SearchScreen> {
         });
       }
     } catch (e) {
-      debugPrint("Error loading products for search: $e");
+      debugPrint('Error loading products for search: $e');
     }
   }
 

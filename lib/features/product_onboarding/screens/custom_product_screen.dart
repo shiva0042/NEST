@@ -62,7 +62,7 @@ class _CustomProductScreenState extends State<CustomProductScreen> {
     _barcodeController.text = product.barcode ?? '';
     
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text("Filled details from catalog match!")),
+      const SnackBar(content: Text('Filled details from catalog match!')),
     );
   }
 
@@ -89,7 +89,7 @@ class _CustomProductScreenState extends State<CustomProductScreen> {
       
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Custom product submitted for review!")),
+          const SnackBar(content: Text('Custom product submitted for review!')),
         );
         Navigator.pop(context);
       }
@@ -99,7 +99,7 @@ class _CustomProductScreenState extends State<CustomProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Add Custom Product")),
+      appBar: AppBar(title: const Text('Add Custom Product')),
       body: Form(
         key: _formKey,
         child: ListView(
@@ -124,7 +124,7 @@ class _CustomProductScreenState extends State<CustomProductScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(Icons.camera_alt, size: 40, color: Colors.grey),
-                          Text("Tap to upload photo"),
+                          Text('Tap to upload photo'),
                         ],
                       ),
                 ),
@@ -144,14 +144,14 @@ class _CustomProductScreenState extends State<CustomProductScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text("Found in Master Catalog:", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue)),
+                    const Text('Found in Master Catalog:', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue)),
                     const SizedBox(height: 8),
                     ..._suggestions.map((p) => ListTile(
                       title: Text(p.canonicalName),
-                      subtitle: Text("${p.brand} • ${p.canonicalSize}"),
+                      subtitle: Text('${p.brand} • ${p.canonicalSize}'),
                       trailing: ElevatedButton(
                         onPressed: () => _useSuggestion(p),
-                        child: const Text("Use"),
+                        child: const Text('Use'),
                       ),
                     )),
                   ],
@@ -162,8 +162,8 @@ class _CustomProductScreenState extends State<CustomProductScreen> {
 
             TextFormField(
               controller: _nameController,
-              decoration: const InputDecoration(labelText: "Product Name *", border: OutlineInputBorder()),
-              validator: (v) => v!.isEmpty ? "Required" : null,
+              decoration: const InputDecoration(labelText: 'Product Name *', border: OutlineInputBorder()),
+              validator: (v) => v!.isEmpty ? 'Required' : null,
             ),
             const SizedBox(height: 12),
             
@@ -172,14 +172,14 @@ class _CustomProductScreenState extends State<CustomProductScreen> {
                 Expanded(
                   child: TextFormField(
                     controller: _brandController,
-                    decoration: const InputDecoration(labelText: "Brand", border: OutlineInputBorder()),
+                    decoration: const InputDecoration(labelText: 'Brand', border: OutlineInputBorder()),
                   ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: DropdownButtonFormField<String>(
                     initialValue: _selectedVariant,
-                    decoration: const InputDecoration(labelText: "Variant", border: OutlineInputBorder()),
+                    decoration: const InputDecoration(labelText: 'Variant', border: OutlineInputBorder()),
                     items: _variants.map((v) => DropdownMenuItem(value: v, child: Text(v))).toList(),
                     onChanged: (v) => setState(() => _selectedVariant = v!),
                   ),
@@ -195,7 +195,7 @@ class _CustomProductScreenState extends State<CustomProductScreen> {
                   child: TextFormField(
                     controller: _sizeController,
                     keyboardType: TextInputType.number,
-                    decoration: const InputDecoration(labelText: "Size", border: OutlineInputBorder()),
+                    decoration: const InputDecoration(labelText: 'Size', border: OutlineInputBorder()),
                   ),
                 ),
                 const SizedBox(width: 12),
@@ -203,7 +203,7 @@ class _CustomProductScreenState extends State<CustomProductScreen> {
                   flex: 1,
                   child: DropdownButtonFormField<String>(
                     initialValue: _selectedUnit,
-                    decoration: const InputDecoration(labelText: "Unit", border: OutlineInputBorder()),
+                    decoration: const InputDecoration(labelText: 'Unit', border: OutlineInputBorder()),
                     items: _units.map((u) => DropdownMenuItem(value: u, child: Text(u))).toList(),
                     onChanged: (v) => setState(() => _selectedUnit = v!),
                   ),
@@ -215,13 +215,13 @@ class _CustomProductScreenState extends State<CustomProductScreen> {
             TextFormField(
               controller: _barcodeController,
               decoration: InputDecoration(
-                labelText: "Barcode (Optional)", 
+                labelText: 'Barcode (Optional)', 
                 border: const OutlineInputBorder(),
                 suffixIcon: IconButton(
                   icon: const Icon(Icons.qr_code_scanner),
                   onPressed: () {
                     // Mock Scan
-                    _barcodeController.text = "8901234567890";
+                    _barcodeController.text = '8901234567890';
                   },
                 ),
               ),
@@ -231,7 +231,7 @@ class _CustomProductScreenState extends State<CustomProductScreen> {
             TextFormField(
               controller: _priceController,
               keyboardType: TextInputType.number,
-              decoration: const InputDecoration(labelText: "Price (Optional)", border: OutlineInputBorder(), prefixText: "₹ "),
+              decoration: const InputDecoration(labelText: 'Price (Optional)', border: OutlineInputBorder(), prefixText: '₹ '),
             ),
             const SizedBox(height: 24),
             
@@ -242,7 +242,7 @@ class _CustomProductScreenState extends State<CustomProductScreen> {
                 foregroundColor: Colors.white,
               ),
               onPressed: _submit,
-              child: const Text("Add Product"),
+              child: const Text('Add Product'),
             ),
           ],
         ),

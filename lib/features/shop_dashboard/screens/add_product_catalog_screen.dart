@@ -65,7 +65,7 @@ class _AddProductCatalogScreenState extends State<AddProductCatalogScreen> {
         return; 
       }
     } catch(e) {
-      debugPrint("No collected products found, falling back to mock: $e");
+      debugPrint('No collected products found, falling back to mock: $e');
     }
 
     // 2. Fallback to mock products
@@ -128,7 +128,7 @@ class _AddProductCatalogScreenState extends State<AddProductCatalogScreen> {
           Navigator.pop(context);
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text("${product.name} ($size) added to inventory!"),
+              content: Text('${product.name} ($size) added to inventory!'),
               duration: const Duration(milliseconds: 1200),
               behavior: SnackBarBehavior.floating,
               backgroundColor: Colors.green,

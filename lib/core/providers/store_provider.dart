@@ -56,18 +56,26 @@ class StoreProvider extends ChangeNotifier {
   Future<void> fetchShops() async {
     try {
       final snapshot = await _firestore.collection(ShopModel.collectionName).get();
-      _shops = snapshot.docs.map((doc) => ShopModel.fromMap(doc.data())).toList();
-      debugPrint('Loaded ${_shops.length} shops from Firestore');
+      final firestoreShops = snapshot.docs.map((doc) => ShopModel.fromMap(doc.data())).toList();
+      
+      // Merge logic: Use Firestore shops, but add missing baseline mock shops for testing
+      _shops = firestoreShops;
+      for (var mock in mockShops) {
+        if (!_shops.any((s) => s.id == mock.id || s.name == mock.name)) {
+          _shops.add(mock);
+        }
+      }
+      
+      debugPrint('Loaded ${_shops.length} total shops (merged)');
       notifyListeners();
-      _restoreSession(); // Check for saved session after loading shops
+      _restoreSession();
     } catch (e) {
       debugPrint('Error fetching shops: $e');
-      // Fallback to mock shops if Firestore fails
       if (_shops.isEmpty) {
-        _shops = mockShops;
+        _shops = List.from(mockShops);
         debugPrint('Using ${mockShops.length} mock shops as fallback');
         notifyListeners();
-        _restoreSession(); // Check for saved session even with mock data
+        _restoreSession();
       }
     }
   }

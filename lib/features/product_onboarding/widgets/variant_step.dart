@@ -19,14 +19,14 @@ class VariantStep extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text("No products found for this selection."),
+            const Text('No products found for this selection.'),
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
                 // Navigate to Custom Product Screen
                 Navigator.pushNamed(context, '/custom-product');
               },
-              child: const Text("Add Custom Product"),
+              child: const Text('Add Custom Product'),
             )
           ],
         ),
@@ -38,7 +38,7 @@ class VariantStep extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Text(
-            "Select available sizes for ${provider.selectedBrand} ${provider.selectedProductType ?? provider.selectedSubcategory}",
+            'Select available sizes for ${provider.selectedBrand} ${provider.selectedProductType ?? provider.selectedSubcategory}',
             style: Theme.of(context).textTheme.titleMedium,
           ),
         ),
@@ -130,7 +130,7 @@ class VariantStep extends StatelessWidget {
             onPressed: provider.selectedProductIds.isEmpty ? null : () {
               provider.addToBatch();
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text("Added to Cart! Continue shopping.")),
+                const SnackBar(content: Text('Added to Cart! Continue shopping.')),
               );
               // Go back to Brand selection (Step 3) to pick another brand or category
               // Or just pop to stay in flow? 
@@ -142,7 +142,7 @@ class VariantStep extends StatelessWidget {
               // Let's go back to Brand list.
               provider.previousStep(); 
             },
-            child: const Text("Add to Cart & Continue"),
+            child: const Text('Add to Cart & Continue'),
           ),
         ),
       ],

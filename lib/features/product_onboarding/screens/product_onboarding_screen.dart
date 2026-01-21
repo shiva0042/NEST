@@ -20,7 +20,7 @@ class ProductOnboardingScreen extends StatelessWidget {
         builder: (context, provider, _) {
           return Scaffold(
             appBar: AppBar(
-              title: const Text("Add Your Products"),
+              title: const Text('Add Your Products'),
               leading: provider.currentStep > 0
                   ? IconButton(
                       icon: const Icon(Icons.arrow_back),
@@ -68,7 +68,7 @@ class ProductOnboardingScreen extends StatelessWidget {
                       MaterialPageRoute(builder: (_) => const CustomProductScreen()),
                     );
                   },
-                  child: const Text("Add Custom"),
+                  child: const Text('Add Custom'),
                 )
               ],
             ),
@@ -94,7 +94,7 @@ class ProductOnboardingScreen extends StatelessWidget {
   void _showBatchReview(BuildContext context, OnboardingProvider provider) {
     if (provider.batchProducts.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Your cart is empty")),
+        const SnackBar(content: Text('Your cart is empty')),
       );
       return;
     }
@@ -120,7 +120,7 @@ class ProductOnboardingScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Review Cart (${provider.batchProducts.length})",
+                        'Review Cart (${provider.batchProducts.length})',
                         style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       IconButton(
@@ -171,7 +171,7 @@ class ProductOnboardingScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(product.canonicalName, style: const TextStyle(fontWeight: FontWeight.bold)),
-                                    Text("Market: ₹$marketPrice", style: TextStyle(color: Colors.green[700], fontSize: 12)),
+                                    Text('Market: ₹$marketPrice', style: TextStyle(color: Colors.green[700], fontSize: 12)),
                                   ],
                                 ),
                               ),
@@ -181,7 +181,7 @@ class ProductOnboardingScreen extends StatelessWidget {
                                   initialValue: (provider.selectedProductPrices[product.id] ?? marketPrice).toStringAsFixed(0),
                                   keyboardType: TextInputType.number,
                                   decoration: const InputDecoration(
-                                    prefixText: "₹",
+                                    prefixText: '₹',
                                     border: OutlineInputBorder(),
                                     contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                                   ),
@@ -223,11 +223,11 @@ class ProductOnboardingScreen extends StatelessWidget {
                         Navigator.pop(context); // Close sheet
                         Navigator.pop(context); // Close Onboarding Screen
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Added ${provider.batchProducts.length} items to inventory!")),
+                          SnackBar(content: Text('Added ${provider.batchProducts.length} items to inventory!')),
                         );
                       }
                     },
-                    child: const Text("Confirm & Add All to Inventory"),
+                    child: const Text('Confirm & Add All to Inventory'),
                   ),
                 ),
               ],

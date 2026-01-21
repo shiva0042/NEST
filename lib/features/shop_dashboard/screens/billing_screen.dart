@@ -82,7 +82,7 @@ class _BillingScreenState extends State<BillingScreen> {
   }
 
   int get _totalItems {
-    return _cart.values.fold(0, (sum, qty) => sum + qty);
+    return _cart.values.fold(0, (sumQty, qty) => sumQty + qty);
   }
 
   void _addToCart(ProductModel product) {

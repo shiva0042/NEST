@@ -88,7 +88,7 @@ class CatalogService {
       brands = allBrands.toList()..sort();
       _isLoaded = true;
     } catch (e) {
-      debugPrint("Error loading catalog: $e");
+      debugPrint('Error loading catalog: $e');
     }
   }
 

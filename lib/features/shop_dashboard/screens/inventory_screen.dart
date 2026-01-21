@@ -114,6 +114,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
         stockQuantity: newQuantity,
         category: product.category,
         brand: product.brand,
+        unit: product.unit,
       );
 
       // Update local master list
@@ -365,9 +366,9 @@ class _InventoryScreenState extends State<InventoryScreen> {
                       'brand': productToAdd.brand,
                       'unit': productToAdd.unit,
                     });
-                    debugPrint("Product saved to Firestore: ${productToAdd.name}");
+                    debugPrint('Product saved to Firestore: ${productToAdd.name}');
                   } catch (e) {
-                    debugPrint("Error saving product to Firestore: $e");
+                    debugPrint('Error saving product to Firestore: $e');
                   }
 
                   if (!mounted) return;
@@ -391,8 +392,8 @@ class _InventoryScreenState extends State<InventoryScreen> {
         },
         backgroundColor: AppColors.primary,
         icon: const Icon(Icons.add),
-        label: const Text("Add Product"),
+        label: const Text('Add Product'),
       ),
     );
   }
-}    
+}

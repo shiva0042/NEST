@@ -79,7 +79,7 @@ class _ShopDetailsViewState extends State<ShopDetailsView> {
         });
       }
     } catch (e) {
-      debugPrint("Error loading products for shop: $e");
+      debugPrint('Error loading products for shop: $e');
       if (mounted) setState(() => _isLoading = false);
     }
   }

@@ -11,6 +11,10 @@ import 'search_screen.dart';
 import 'offers_screen.dart';
 import 'stores_list_screen.dart';
 
+import 'package:flutter/foundation.dart';
+import '../../../core/widgets/web_layout.dart';
+import '../../customer_dashboard/stats_screen.dart';
+
 class CustomerHomeScreen extends StatefulWidget {
   const CustomerHomeScreen({super.key});
 
@@ -23,6 +27,15 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (kIsWeb && MediaQuery.of(context).size.width > 900) {
+      return WebLayout(
+        initialIndex: 0,
+        homeContent: const _WebHomeView(),
+        storesContent: const _WebStoresView(),
+        dealsContent: const _WebDealsView(),
+      );
+    }
+
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
@@ -428,14 +441,22 @@ class _ModernHeader extends StatelessWidget {
                 child: const Icon(Icons.notifications_rounded, color: Colors.white, size: 22),
               ),
               const SizedBox(width: 12),
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.15),
-                  shape: BoxShape.circle,
-                  border: Border.all(color: Colors.white.withOpacity(0.2)),
+              GestureDetector(
+                onTap: () {
+                   Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const StatsScreen()),
+                  );
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.15),
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Colors.white.withOpacity(0.2)),
+                  ),
+                  child: const Icon(Icons.person_rounded, color: Colors.white, size: 22),
                 ),
-                child: const Icon(Icons.person_rounded, color: Colors.white, size: 22),
               ),
             ],
           ),
@@ -1210,6 +1231,1122 @@ class _ProductHorizontalListState extends State<_ProductHorizontalList> {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _WebHomeView extends StatefulWidget {
+  const _WebHomeView();
+
+  @override
+  State<_WebHomeView> createState() => _WebHomeViewState();
+}
+
+class _WebHomeViewState extends State<_WebHomeView> {
+  List<ProductModel> _allProducts = [];
+  bool _isLoading = true;
+  final ScrollController _storesScrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProducts();
+  }
+
+  @override
+  void dispose() {
+    _storesScrollController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _loadProducts() async {
+    setState(() => _isLoading = true);
+    
+    try {
+      final snapshot = await FirebaseFirestore.instance
+          .collection('products')
+          .get();
+      
+      if (snapshot.docs.isNotEmpty) {
+        setState(() {
+          _allProducts = snapshot.docs.map((doc) {
+            final data = doc.data();
+            return ProductModel(
+              id: data['id'] ?? doc.id,
+              shopId: data['shopId'] ?? '',
+              name: data['name'] ?? '',
+              price: (data['price'] ?? 0).toDouble(),
+              originalPrice: data['originalPrice'] != null ? (data['originalPrice'] as num).toDouble() : null,
+              imageUrl: data['imageUrl'] ?? 'https://via.placeholder.com/300',
+              inStock: data['inStock'] ?? true,
+              stockQuantity: data['stockQuantity'] ?? 0,
+              category: data['category'] ?? 'Other',
+              brand: data['brand'] ?? 'Local',
+              unit: data['unit'] ?? 'weight',
+            );
+          }).where((p) => p.inStock).toList();
+          _isLoading = false;
+        });
+      } else {
+        setState(() {
+          _allProducts = mockProducts;
+          _isLoading = false;
+        });
+      }
+    } catch (e) {
+      debugPrint('Error loading products for customer: $e');
+      setState(() {
+        _allProducts = mockProducts;
+        _isLoading = false;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (_isLoading) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    final shops = context.watch<StoreProvider>().shops;
+    final openShopIds = shops
+        .where((shop) => shop.isOpen)
+        .map((shop) => shop.id)
+        .toSet();
+    
+    final availableProducts = _allProducts
+        .where((p) => p.inStock && openShopIds.contains(p.shopId))
+        .toList();
+
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 1200),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Hero Banner
+              ClipRRect(
+                borderRadius: BorderRadius.circular(24),
+                child: Container(
+                  height: 280,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(24),
+                    gradient: const LinearGradient(
+                      colors: [Color(0xFF1E3A5F), Color(0xFF2D5A87)],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0xFF1E3A5F).withOpacity(0.3),
+                        blurRadius: 30,
+                        offset: const Offset(0, 15),
+                      ),
+                    ],
+                  ),
+                  child: Stack(
+                    children: [
+                      Positioned(
+                        right: -50,
+                        bottom: -50,
+                        child: Icon(Icons.storefront_rounded, size: 350, color: Colors.white.withOpacity(0.05)),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 32),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: const Text(
+                                'LOCAL SHOPPING',
+                                style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, letterSpacing: 1, fontSize: 12),
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                            const Text(
+                              'Discover Local Stores\nNear You',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 40,
+                                fontWeight: FontWeight.bold,
+                                height: 1.1,
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                            Text(
+                              '${shops.where((s) => s.isOpen).length} stores open now • ${availableProducts.length}+ products available',
+                              style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 14),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              
+              const SizedBox(height: 48),
+              
+              // Trending Stores Section
+              Row(
+                children: [
+                  const Text(
+                    'Trending Stores',
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.text),
+                  ),
+                  const Spacer(),
+                  _ScrollArrowButton(
+                    icon: Icons.arrow_back_ios_rounded,
+                    onTap: () => _storesScrollController.animateTo(
+                      _storesScrollController.offset - 340,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  _ScrollArrowButton(
+                    icon: Icons.arrow_forward_ios_rounded,
+                    onTap: () => _storesScrollController.animateTo(
+                      _storesScrollController.offset + 340,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 24),
+              SizedBox(
+                height: 200,
+                child: ListView.builder(
+                  controller: _storesScrollController,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: shops.where((s) => s.isOpen).take(6).length,
+                  itemBuilder: (context, index) {
+                    final shop = shops.where((s) => s.isOpen).toList()[index];
+                    final shopProducts = _allProducts.where((p) => p.shopId == shop.id).take(3).toList();
+                    return _WebStoreCard(shop: shop, trendingProducts: shopProducts);
+                  },
+                ),
+              ),
+              
+              const SizedBox(height: 48),
+              
+              // Categories Grid
+              const Text(
+                'Shop by Category',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.text),
+              ),
+              const SizedBox(height: 24),
+              GridView.count(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                crossAxisCount: 6,
+                mainAxisSpacing: 16,
+                crossAxisSpacing: 16,
+                childAspectRatio: 1.2,
+                children: const [
+                  _WebCategoryCard(title: 'Vegetables', icon: '🥕', color: Colors.green),
+                  _WebCategoryCard(title: 'Fruits', icon: '🍎', color: Colors.red),
+                  _WebCategoryCard(title: 'Dairy', icon: '🥛', color: Colors.blue),
+                  _WebCategoryCard(title: 'Bakery', icon: '🍞', color: Colors.brown),
+                  _WebCategoryCard(title: 'Beverages', icon: '🥤', color: Colors.orange),
+                  _WebCategoryCard(title: 'Household', icon: '🧹', color: Colors.purple),
+                  _WebCategoryCard(title: 'Rice & Atta', icon: '🌾', color: Colors.amber),
+                  _WebCategoryCard(title: 'Oil & Ghee', icon: '🫒', color: Colors.lime),
+                  _WebCategoryCard(title: 'Spices', icon: '🌶️', color: Colors.deepOrange),
+                  _WebCategoryCard(title: 'Snacks', icon: '🍿', color: Colors.pink),
+                  _WebCategoryCard(title: 'Tea & Coffee', icon: '☕', color: Colors.brown),
+                  _WebCategoryCard(title: 'Personal Care', icon: '🧴', color: Colors.teal),
+                ],
+              ),
+              
+              const SizedBox(height: 64),
+              
+              // Daily Essentials
+              _WebProductSection(
+                title: 'Daily Essentials',
+                products: (availableProducts.where((p) => (p.category.contains('Rice') || p.category.contains('Oil') || p.category.contains('Atta'))).toList()..shuffle()).take(10).toList(),
+              ),
+
+              const SizedBox(height: 48),
+
+              // Fresh Vegetables
+              _WebProductSection(
+                title: 'Fresh Vegetables', 
+                products: (availableProducts.where((p) => p.category.contains('Vegetables')).toList()..shuffle()).take(10).toList(),
+              ),
+              
+              const SizedBox(height: 48),
+              
+              // Fruits
+              _WebProductSection(
+                title: 'Fresh Fruits', 
+                products: (availableProducts.where((p) => p.category.contains('Fruits')).toList()..shuffle()).take(10).toList(),
+              ),
+              
+              const SizedBox(height: 48),
+              
+              // Dairy Products
+              _WebProductSection(
+                title: 'Dairy & Milk Products', 
+                products: (availableProducts.where((p) => p.category.contains('Dairy')).toList()..shuffle()).take(10).toList(),
+              ),
+              
+              const SizedBox(height: 48),
+              
+              // Snacks
+              _WebProductSection(
+                title: 'Snacks & Munchies', 
+                products: (availableProducts.where((p) => p.category.contains('Snacks')).toList()..shuffle()).take(10).toList(),
+              ),
+              
+              const SizedBox(height: 48),
+              
+              // Spices
+              _WebProductSection(
+                title: 'Spices & Masalas', 
+                products: (availableProducts.where((p) => p.category.contains('Spices')).toList()..shuffle()).take(10).toList(),
+              ),
+              
+              const SizedBox(height: 100),
+              
+              // Footer
+              Container(
+                padding: const EdgeInsets.all(32),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(24),
+                  border: Border.all(color: Colors.grey.shade200),
+                ),
+                child: Row(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                         const Text('NEST', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.primary)),
+                         const SizedBox(height: 8),
+                         Text('The smarter way to shop locally.', style: TextStyle(color: Colors.grey.shade600)),
+                      ],
+                    ),
+                    const Spacer(),
+                     Text('© 2026 NEST Inc.', style: TextStyle(color: Colors.grey.shade500)),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _WebCategoryCard extends StatefulWidget {
+  final String title;
+  final String icon;
+  final Color color;
+
+  const _WebCategoryCard({required this.title, required this.icon, required this.color});
+
+  @override
+  State<_WebCategoryCard> createState() => _WebCategoryCardState();
+}
+
+class _WebCategoryCardState extends State<_WebCategoryCard> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SearchScreen(initialQuery: widget.title),
+            ),
+          );
+        },
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: _isHovered ? widget.color : Colors.grey.shade200),
+            boxShadow: [
+              BoxShadow(
+                color: widget.color.withOpacity(_isHovered ? 0.1 : 0),
+                blurRadius: 20,
+                offset: const Offset(0, 10),
+              ),
+            ],
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(widget.icon, style: const TextStyle(fontSize: 40)),
+              const SizedBox(height: 12),
+              Text(
+                widget.title,
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  color: _isHovered ? widget.color : AppColors.text,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _WebProductSection extends StatelessWidget {
+  final String title;
+  final List<ProductModel> products;
+
+  const _WebProductSection({required this.title, required this.products});
+
+  @override
+  Widget build(BuildContext context) {
+    if (products.isEmpty) return const SizedBox.shrink();
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Text(
+              title,
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.text),
+            ),
+            const Spacer(),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey.shade300),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: const Text('View All', style: TextStyle(fontWeight: FontWeight.w600)),
+            ),
+          ],
+        ),
+        const SizedBox(height: 24),
+        GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 5,
+            childAspectRatio: 0.62,
+            crossAxisSpacing: 20,
+            mainAxisSpacing: 20,
+          ),
+          itemCount: products.length,
+          itemBuilder: (context, index) {
+            final product = products[index];
+            return _WebProductCard(product: product);
+          },
+        ),
+      ],
+    );
+  }
+}
+
+class _WebProductCard extends StatefulWidget {
+  final ProductModel product;
+
+  const _WebProductCard({required this.product});
+
+  @override
+  State<_WebProductCard> createState() => _WebProductCardState();
+}
+
+class _WebProductCardState extends State<_WebProductCard> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () {
+          // Find the shop that has this product
+          final shop = mockShops.firstWhere(
+            (s) => s.id == widget.product.shopId,
+            orElse: () => mockShops.first,
+          );
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ShopDetailsView(
+                shop: shop,
+                initialProduct: widget.product,
+              ),
+            ),
+          );
+        },
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: _isHovered ? AppColors.primary : Colors.transparent),
+            boxShadow: [
+              if (_isHovered)
+                BoxShadow(
+                  color: AppColors.primary.withOpacity(0.1),
+                  blurRadius: 20,
+                  offset: const Offset(0, 10),
+                )
+              else
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.05),
+                  blurRadius: 10,
+                  offset: const Offset(0, 5),
+                ),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Image
+              Expanded(
+                flex: 5,
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade50,
+                        borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
+                        image: DecorationImage(
+                          image: NetworkImage(widget.product.imageUrl),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    if (widget.product.originalPrice != null && widget.product.originalPrice! > widget.product.price)
+                      Positioned(
+                        top: 12,
+                        left: 12,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                          decoration: BoxDecoration(
+                            color: Colors.green,
+                            borderRadius: BorderRadius.circular(8),
+                            boxShadow: [
+                              BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 4),
+                            ],
+                          ),
+                          child: Text(
+                            '${((1 - widget.product.price / widget.product.originalPrice!) * 100).round()}% OFF',
+                            style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.w900, letterSpacing: 0.5),
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+              // Info
+              Expanded(
+                flex: 4,
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.product.brand.toUpperCase(),
+                        style: TextStyle(color: Colors.grey.shade500, fontSize: 10, fontWeight: FontWeight.bold, letterSpacing: 1),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        widget.product.name,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 14, height: 1.3),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        '${widget.product.stockQuantity} ${widget.product.unit}',
+                        style: TextStyle(color: Colors.grey.shade600, fontSize: 12),
+                      ),
+                      const Spacer(),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '₹${widget.product.price.toStringAsFixed(0)}',
+                                style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 18, color: AppColors.text),
+                              ),
+                              if (widget.product.originalPrice != null)
+                                Text(
+                                  '₹${widget.product.originalPrice!.toStringAsFixed(0)}',
+                                  style: TextStyle(
+                                    decoration: TextDecoration.lineThrough,
+                                    color: Colors.grey.shade400,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                            ],
+                          ),
+                          const Spacer(),
+                          Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: AppColors.primary,
+                              borderRadius: BorderRadius.circular(12),
+                              boxShadow: [
+                                BoxShadow(color: AppColors.primary.withOpacity(0.3), blurRadius: 8, offset: const Offset(0, 4)),
+                              ],
+                            ),
+                            child: const Icon(Icons.add_shopping_cart_rounded, size: 18, color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// Store card showing trending products
+class _WebStoreCard extends StatefulWidget {
+  final ShopModel shop;
+  final List<ProductModel> trendingProducts;
+
+  const _WebStoreCard({required this.shop, required this.trendingProducts});
+
+  @override
+  State<_WebStoreCard> createState() => _WebStoreCardState();
+}
+
+class _WebStoreCardState extends State<_WebStoreCard> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (_) => ShopDetailsView(shop: widget.shop)));
+        },
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          width: 320,
+          margin: const EdgeInsets.only(right: 20),
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: _isHovered ? AppColors.primary : Colors.grey.shade200),
+            boxShadow: [
+              BoxShadow(
+                color: _isHovered ? AppColors.primary.withOpacity(0.1) : Colors.black.withOpacity(0.05),
+                blurRadius: _isHovered ? 20 : 10,
+                offset: const Offset(0, 5),
+              ),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Image.network(
+                      widget.shop.imageUrl,
+                      width: 50,
+                      height: 50,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, __, ___) => Container(
+                        width: 50,
+                        height: 50,
+                        color: AppColors.primary.withOpacity(0.1),
+                        child: const Icon(Icons.store, color: AppColors.primary),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.shop.name,
+                          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const SizedBox(height: 4),
+                        Row(
+                          children: [
+                            const Icon(Icons.star_rounded, size: 14, color: Colors.orange),
+                            const SizedBox(width: 4),
+                            Text(widget.shop.rating.toString(), style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+                            const SizedBox(width: 8),
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                              decoration: BoxDecoration(
+                                color: Colors.green.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: const Text('Open', style: TextStyle(color: Colors.green, fontSize: 10, fontWeight: FontWeight.bold)),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              const Text('Trending Products', style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: AppColors.textLight)),
+              const SizedBox(height: 8),
+              SizedBox(
+                height: 60,
+                child: Row(
+                  children: widget.trendingProducts.isEmpty
+                      ? [Text('No products', style: TextStyle(color: Colors.grey.shade400, fontSize: 12))]
+                      : widget.trendingProducts.map((p) => ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Container(
+                            width: 60,
+                            height: 60,
+                            margin: const EdgeInsets.only(right: 8),
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade100,
+                              borderRadius: BorderRadius.circular(8),
+                              image: DecorationImage(
+                                image: NetworkImage(p.imageUrl),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        )).toList(),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// Web Stores View
+class _WebStoresView extends StatelessWidget {
+  const _WebStoresView();
+
+  @override
+  Widget build(BuildContext context) {
+    final shops = context.watch<StoreProvider>().shops;
+
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 1200),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'All Stores',
+                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: AppColors.text),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                '${shops.length} stores available near you',
+                style: TextStyle(color: Colors.grey.shade600, fontSize: 16),
+              ),
+              const SizedBox(height: 32),
+              GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  childAspectRatio: 1.5,
+                  crossAxisSpacing: 24,
+                  mainAxisSpacing: 24,
+                ),
+                itemCount: shops.length,
+                itemBuilder: (context, index) {
+                  final shop = shops[index];
+                  return _WebStoreGridCard(shop: shop);
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _WebStoreGridCard extends StatefulWidget {
+  final ShopModel shop;
+
+  const _WebStoreGridCard({required this.shop});
+
+  @override
+  State<_WebStoreGridCard> createState() => _WebStoreGridCardState();
+}
+
+class _WebStoreGridCardState extends State<_WebStoreGridCard> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (_) => ShopDetailsView(shop: widget.shop)));
+        },
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: _isHovered ? AppColors.primary : Colors.transparent),
+            boxShadow: [
+              BoxShadow(
+                color: _isHovered ? AppColors.primary.withOpacity(0.1) : Colors.black.withOpacity(0.05),
+                blurRadius: _isHovered ? 20 : 10,
+                offset: const Offset(0, 5),
+              ),
+            ],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(19)),
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      Image.network(
+                        widget.shop.imageUrl,
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, __, ___) => Container(
+                          color: AppColors.primary.withOpacity(0.1),
+                          child: const Icon(Icons.store, size: 48, color: AppColors.primary),
+                        ),
+                      ),
+                      if (!widget.shop.isOpen)
+                        Container(
+                          color: Colors.black.withOpacity(0.5),
+                          child: const Center(
+                            child: Text('CLOSED', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.shop.name,
+                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            widget.shop.address,
+                            style: TextStyle(color: Colors.grey.shade600, fontSize: 12),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: Colors.orange.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.star_rounded, size: 14, color: Colors.orange),
+                          const SizedBox(width: 4),
+                          Text(widget.shop.rating.toString(), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12)),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// Web Deals View
+class _WebDealsView extends StatelessWidget {
+  const _WebDealsView();
+
+  @override
+  Widget build(BuildContext context) {
+    final shops = context.watch<StoreProvider>().shops;
+    
+    // Create sample offers based on shops
+    final allOffers = <Map<String, dynamic>>[];
+    final sampleOffers = [
+      '20% OFF on Fresh Vegetables',
+      'Buy 2 Get 1 Free on Dairy',
+      'Flat ₹50 OFF on orders above ₹500',
+      '15% OFF on Rice & Atta',
+      'Free Delivery on orders above ₹300',
+      '10% Cashback on first order',
+    ];
+    
+    for (int i = 0; i < shops.length && i < sampleOffers.length; i++) {
+      allOffers.add({
+        'offer': sampleOffers[i],
+        'shop': shops[i],
+      });
+    }
+
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 1200),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 32),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Hot Deals & Offers',
+                style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: AppColors.text),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                '${allOffers.length} offers available right now',
+                style: TextStyle(color: Colors.grey.shade600, fontSize: 16),
+              ),
+              const SizedBox(height: 32),
+              if (allOffers.isEmpty)
+                Container(
+                  height: 300,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.local_offer_outlined, size: 64, color: Colors.grey.shade300),
+                      const SizedBox(height: 16),
+                      Text('No offers available', style: TextStyle(color: Colors.grey.shade500, fontSize: 18)),
+                      const SizedBox(height: 8),
+                      Text('Check back later for exciting deals!', style: TextStyle(color: Colors.grey.shade400)),
+                    ],
+                  ),
+                )
+              else
+                GridView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: 2.5,
+                    crossAxisSpacing: 24,
+                    mainAxisSpacing: 24,
+                  ),
+                  itemCount: allOffers.length,
+                  itemBuilder: (context, index) {
+                    final item = allOffers[index];
+                    return _WebOfferCard(
+                      offer: item['offer'] as String,
+                      shop: item['shop'] as ShopModel,
+                    );
+                  },
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _WebOfferCard extends StatefulWidget {
+  final String offer;
+  final ShopModel shop;
+
+  const _WebOfferCard({required this.offer, required this.shop});
+
+  @override
+  State<_WebOfferCard> createState() => _WebOfferCardState();
+}
+
+class _WebOfferCardState extends State<_WebOfferCard> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (_) => ShopDetailsView(shop: widget.shop)));
+        },
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: _isHovered 
+                  ? [AppColors.primary, AppColors.primary.withOpacity(0.8)]
+                  : [const Color(0xFF667EEA), const Color(0xFF764BA2)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: (_isHovered ? AppColors.primary : const Color(0xFF667EEA)).withOpacity(0.3),
+                blurRadius: 20,
+                offset: const Offset(0, 10),
+              ),
+            ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: const Icon(Icons.local_offer_rounded, color: Colors.white, size: 32),
+                ),
+                const SizedBox(width: 20),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        widget.offer,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        'at ${widget.shop.name}',
+                        style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 14),
+                      ),
+                    ],
+                  ),
+                ),
+                Icon(Icons.arrow_forward_ios_rounded, color: Colors.white.withOpacity(0.8)),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// Scroll Arrow Button for horizontal lists
+class _ScrollArrowButton extends StatefulWidget {
+  final IconData icon;
+  final VoidCallback onTap;
+
+  const _ScrollArrowButton({required this.icon, required this.onTap});
+
+  @override
+  State<_ScrollArrowButton> createState() => _ScrollArrowButtonState();
+}
+
+class _ScrollArrowButtonState extends State<_ScrollArrowButton> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: _isHovered ? AppColors.primary : Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: _isHovered ? AppColors.primary : Colors.grey.shade300),
+            boxShadow: [
+              BoxShadow(
+                color: _isHovered ? AppColors.primary.withOpacity(0.2) : Colors.black.withOpacity(0.05),
+                blurRadius: 10,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Icon(
+            widget.icon,
+            size: 18,
+            color: _isHovered ? Colors.white : AppColors.text,
+          ),
+        ),
+      ),
     );
   }
 }

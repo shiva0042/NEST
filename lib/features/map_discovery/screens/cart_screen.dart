@@ -20,11 +20,11 @@ class CartScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "My Cart",
+              'My Cart',
               style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
             ),
             Text(
-              "Delivery in 10 mins",
+              'Delivery in 10 mins',
               style: TextStyle(color: Colors.green, fontSize: 12),
             ),
           ],
@@ -40,12 +40,12 @@ class CartScreen extends StatelessWidget {
                   Icon(Icons.shopping_cart_outlined, size: 64, color: Colors.grey[300]),
                   const SizedBox(height: 16),
                   Text(
-                    "Your cart is empty",
+                    'Your cart is empty',
                     style: TextStyle(fontSize: 18, color: Colors.grey[600], fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    "Add items to start a cart",
+                    'Add items to start a cart',
                     style: TextStyle(color: Colors.grey[500]),
                   ),
                 ],
@@ -111,7 +111,7 @@ class CartScreen extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 4),
                                   Text(
-                                    "₹${item.product.price.toStringAsFixed(0)}",
+                                    '₹${item.product.price.toStringAsFixed(0)}',
                                     style: const TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                 ],
@@ -157,7 +157,7 @@ class CartScreen extends StatelessWidget {
                 
                 // Bill Details
                 const Text(
-                  "Bill Details",
+                  'Bill Details',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
                 const SizedBox(height: 12),
@@ -169,15 +169,15 @@ class CartScreen extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      _BillRow(label: "Item Total", value: "₹${cart.totalAmount.toStringAsFixed(0)}"),
+                      _BillRow(label: 'Item Total', value: '₹${cart.totalAmount.toStringAsFixed(0)}'),
                       const SizedBox(height: 8),
-                      const _BillRow(label: "Delivery Fee", value: "₹25"),
+                      const _BillRow(label: 'Delivery Fee', value: '₹25'),
                       const SizedBox(height: 8),
-                      const _BillRow(label: "Handling Charge", value: "₹5"),
+                      const _BillRow(label: 'Handling Charge', value: '₹5'),
                       const Divider(height: 24),
                       _BillRow(
-                        label: "To Pay", 
-                        value: "₹${(cart.totalAmount + 30).toStringAsFixed(0)}",
+                        label: 'To Pay', 
+                        value: '₹${(cart.totalAmount + 30).toStringAsFixed(0)}',
                         isBold: true,
                       ),
                     ],
@@ -194,7 +194,7 @@ class CartScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
-                    "Cancellation Policy: Orders cannot be cancelled once packed for delivery. In case of unexpected delays, a refund will be provided, if applicable.",
+                    'Cancellation Policy: Orders cannot be cancelled once packed for delivery. In case of unexpected delays, a refund will be provided, if applicable.',
                     style: TextStyle(color: Colors.grey[600], fontSize: 11, height: 1.4),
                   ),
                 ),
@@ -227,7 +227,7 @@ class CartScreen extends StatelessWidget {
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
-                          "Delivering to Home - Thillai Nagar, Trichy",
+                          'Delivering to Home - Thillai Nagar, Trichy',
                           style: TextStyle(fontSize: 12, color: Colors.grey[700], fontWeight: FontWeight.w500),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -235,7 +235,7 @@ class CartScreen extends StatelessWidget {
                       ),
                       TextButton(
                         onPressed: () {},
-                        child: const Text("Change", style: TextStyle(color: Colors.green, fontSize: 12)),
+                        child: const Text('Change', style: TextStyle(color: Colors.green, fontSize: 12)),
                       ),
                     ],
                   ),
@@ -266,9 +266,9 @@ class CartScreen extends StatelessWidget {
                                 child: const Icon(Icons.check_rounded, color: Colors.green, size: 48),
                               ),
                               const SizedBox(height: 16),
-                              const Text("Order Placed!", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                              const Text('Order Placed!', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                               const SizedBox(height: 8),
-                              const Text("Your order will be delivered in 10 minutes.", textAlign: TextAlign.center),
+                              const Text('Your order will be delivered in 10 minutes.', textAlign: TextAlign.center),
                             ],
                           ),
                           actions: [
@@ -279,7 +279,7 @@ class CartScreen extends StatelessWidget {
                                 Navigator.pop(context); // Close Cart
                                 Navigator.pop(context); // Close Shop (Optional, maybe stay in shop)
                               },
-                              child: const Text("Done"),
+                              child: const Text('Done'),
                             ),
                           ],
                         ),
@@ -293,15 +293,15 @@ class CartScreen extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "₹${(cart.totalAmount + 30).toStringAsFixed(0)}",
+                              '₹${(cart.totalAmount + 30).toStringAsFixed(0)}',
                               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                             ),
-                            const Text("TOTAL", style: TextStyle(fontSize: 10, color: Colors.white70)),
+                            const Text('TOTAL', style: TextStyle(fontSize: 10, color: Colors.white70)),
                           ],
                         ),
                         const Row(
                           children: [
-                            Text("Place Order", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                            Text('Place Order', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                             SizedBox(width: 8),
                             Icon(Icons.arrow_forward_rounded, size: 18),
                           ],
