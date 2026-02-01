@@ -873,8 +873,11 @@ class _StatsScreenState extends State<StatsScreen> {
                    Color color;
                    if(e.key == 'Cash') {
                      color = Colors.green;
-                   } else if(e.key == 'UPI') color = Colors.orange;
-                   else color = Colors.purple;
+                   } else if(e.key == 'UPI') {
+                     color = Colors.orange;
+                   } else {
+                     color = Colors.purple;
+                   }
                    
                    return PieChartSectionData(
                      value: e.value.toDouble(),
@@ -894,8 +897,11 @@ class _StatsScreenState extends State<StatsScreen> {
                Color color;
                if(e.key == 'Cash') {
                  color = Colors.green;
-               } else if(e.key == 'UPI') color = Colors.orange;
-               else color = Colors.purple;
+               } else if(e.key == 'UPI') {
+                 color = Colors.orange;
+               } else {
+                 color = Colors.purple;
+               }
                
                return Padding(
                  padding: const EdgeInsets.only(bottom: 8.0),

@@ -59,7 +59,40 @@ class StoreProvider extends ChangeNotifier {
       final firestoreShops = snapshot.docs.map((doc) => ShopModel.fromMap(doc.data())).toList();
       
       // Merge logic: Use Firestore shops, but add missing baseline mock shops for testing
-      _shops = firestoreShops;
+      // Merge logic: Use Firestore shops, but OVERRIDE coordinates from mock data if available
+      // This ensures the map shows the correct hardcoded locations even if Firestore has old data
+      _shops = [];
+      for (var docShop in firestoreShops) {
+        ShopModel finalShop = docShop;
+        
+        try {
+          final matchedMock = mockShops.firstWhere(
+            (m) => m.name == docShop.name || m.id == docShop.id
+          );
+          
+          // Create new instance with UPDATED coordinates from mock
+          finalShop = ShopModel(
+            id: docShop.id,
+            name: docShop.name,
+            address: docShop.address,
+            distance: docShop.distance,
+            isOpen: docShop.isOpen,
+            rating: docShop.rating,
+            imageUrl: docShop.imageUrl,
+            category: docShop.category,
+            phoneNumber: docShop.phoneNumber,
+            password: docShop.password,
+            mapLink: matchedMock.mapLink, // Use updated link
+            latitude: matchedMock.latitude, // FORCE UPDATE form mock
+            longitude: matchedMock.longitude, // FORCE UPDATE from mock
+          );
+        } catch (_) {
+          // No match found, keep original
+        }
+        _shops.add(finalShop);
+      }
+
+      // Add fully missing mocks
       for (var mock in mockShops) {
         if (!_shops.any((s) => s.id == mock.id || s.name == mock.name)) {
           _shops.add(mock);

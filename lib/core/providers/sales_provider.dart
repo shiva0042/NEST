@@ -791,12 +791,12 @@ class SalesProvider extends ChangeNotifier {
          freqs[key] = (freqs[key] ?? 0) + 1;
        }
     }
-    freqs.forEach((key, count) {
+    freqs.forEach((key, cnt) {
       var parts = key.split('_');
       points.add({
         'day': int.parse(parts[0]),
         'hour': int.parse(parts[1]),
-        'count': count,
+        'count': cnt,
       });
     });
     return points;

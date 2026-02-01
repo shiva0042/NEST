@@ -72,12 +72,12 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
       width: _isSidebarExpanded ? 260 : 80,
       decoration: BoxDecoration(
         color: Colors.white,
-        border: Border(right: BorderSide(color: Colors.grey.shade200)),
+        border: Border(right: BorderSide(color: Colors.grey.shade300)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 10,
-            offset: const Offset(2, 0),
+            color: Colors.black.withOpacity(0.08),
+            blurRadius: 16,
+            offset: const Offset(4, 0),
           ),
         ],
       ),
@@ -418,7 +418,7 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: Colors.grey.shade200),
         boxShadow: [
-          BoxShadow(color: Colors.black.withOpacity(0.02), blurRadius: 10, offset: const Offset(0, 4)),
+          BoxShadow(color: Colors.black.withOpacity(0.08), blurRadius: 16, offset: const Offset(0, 6)),
         ],
       ),
       child: Column(
@@ -487,6 +487,9 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
             border: Border.all(color: Colors.grey.shade200),
+            boxShadow: [
+               BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 12, offset: const Offset(0, 4)),
+            ],
           ),
           child: Column(
             children: [

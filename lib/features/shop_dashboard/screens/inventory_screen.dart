@@ -100,9 +100,9 @@ class _InventoryScreenState extends State<InventoryScreen> {
     });
   }
 
-  void _updateStock(ProductModel product, int newQuantity) {
+  Future<void> _updateStock(ProductModel product, int newQuantity) async {
+    // 1. Optimistic UI Update
     setState(() {
-      // Create updated product
       final updatedProduct = ProductModel(
         id: product.id,
         shopId: product.shopId,
@@ -124,12 +124,30 @@ class _InventoryScreenState extends State<InventoryScreen> {
       }
       _filterProducts(); // Re-apply filter to update view
 
-      // Update global mock list to persist changes across screens
+      // Update global mock list to persist changes across screens (if using mocks)
       final globalIndex = mockProducts.indexWhere((p) => p.id == product.id);
       if (globalIndex != -1) {
         mockProducts[globalIndex] = updatedProduct;
       }
     });
+
+    // 2. Persist to Firestore
+    try {
+      await FirebaseFirestore.instance
+          .collection('products')
+          .doc(product.id)
+          .update({
+        'stockQuantity': newQuantity,
+        'inStock': newQuantity > 0,
+      });
+    } catch (e) {
+      debugPrint('Error updating stock in Firestore: $e');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to update stock online: $e'), backgroundColor: Colors.red),
+        );
+      }
+    }
   }
 
   @override
@@ -218,10 +236,20 @@ class _InventoryScreenState extends State<InventoryScreen> {
                   itemCount: _displayedProducts.length,
                   itemBuilder: (context, index) {
                     final product = _displayedProducts[index];
-                    return Card(
+                    return Container(
                       margin: const EdgeInsets.only(bottom: 16),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                      elevation: 2,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(color: Colors.grey.shade200),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.06),
+                            blurRadius: 12,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
+                      ),
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Row(

@@ -1,0 +1,5 @@
+Analyzing near_basket...                                        
+
+  error - The named parameter 'padding' isn't defined - lib\features\auth\screens\role_selection_screen.dart:45:13 - undefined_named_parameter
+  error - The named parameter 'padding' isn't defined - lib\features\auth\screens\role_selection_screen.dart:164:13 - undefined_named_parameter
+

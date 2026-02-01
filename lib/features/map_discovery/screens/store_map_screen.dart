@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-// import 'dart:html' as html;
-// import 'dart:ui_web' as ui_web;
+import 'dart:html' as html;
+import 'dart:ui_web' as ui_web;
 import '../../../core/constants/app_colors.dart';
 import '../../../core/providers/store_provider.dart';
 import '../models/shop_model.dart';
@@ -250,12 +250,11 @@ class _StoreMapScreenState extends State<StoreMapScreen> {
                           ),
                         ),
                         Expanded(
-                          child: const Center(child: Text('Map Preview (Web)')),
-                          // child: _GoogleMapIframeDetailed(
-                          //   lat: _selectedShop!.latitude,
-                          //   lng: _selectedShop!.longitude,
-                          //   shopName: _selectedShop!.name,
-                          // ),
+                          child: _GoogleMapIframeDetailed(
+                            lat: _selectedShop!.latitude,
+                            lng: _selectedShop!.longitude,
+                            shopName: _selectedShop!.name,
+                          ),
                         ),
                       ],
                     ),
@@ -378,7 +377,6 @@ class _StoreMapScreenState extends State<StoreMapScreen> {
   }
 }
 
-/*
 // Special Iframe widget that uses the output=embed trick for pinpoint accuracy
 class _GoogleMapIframeDetailed extends StatelessWidget {
   final double lat;
@@ -409,7 +407,6 @@ class _GoogleMapIframeDetailed extends StatelessWidget {
     return HtmlElementView(viewType: viewId);
   }
 }
-*/
 
 // Store List Item Widget
 class _StoreListItem extends StatelessWidget {

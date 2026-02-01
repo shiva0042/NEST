@@ -323,9 +323,16 @@ class _BillingScreenState extends State<BillingScreen> {
               ),
               Container(
                 width: 380,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   color: AppColors.surface,
-                  border: Border(left: BorderSide(color: AppColors.border)),
+                  border: Border(left: BorderSide(color: Colors.grey.shade300)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 20,
+                      offset: const Offset(-4, 0),
+                    ),
+                  ],
                 ),
                 child: _buildCartSummary(isMobile: false),
               ),
@@ -384,14 +391,14 @@ class _BillingScreenState extends State<BillingScreen> {
                     color: AppColors.surface,
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(
-                      color: inCart ? AppColors.primary : AppColors.border,
+                      color: inCart ? AppColors.primary : Colors.grey.shade300,
                       width: inCart ? 2 : 1,
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.03),
-                        blurRadius: 8,
-                        offset: const Offset(0, 2),
+                        color: Colors.black.withOpacity(0.08),
+                        blurRadius: 12,
+                        offset: const Offset(0, 4),
                       ),
                     ],
                   ),
@@ -599,10 +606,11 @@ class _BillingScreenState extends State<BillingScreen> {
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             color: Colors.white,
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.05),
-                blurRadius: 10,
+                color: Colors.black.withOpacity(0.1),
+                blurRadius: 20,
                 offset: const Offset(0, -5),
               ),
             ],

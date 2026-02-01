@@ -239,9 +239,9 @@ class _ShopDetailsViewState extends State<ShopDetailsView> {
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
-                          color: const Color(0xFFEF4444).withOpacity(0.4),
-                          blurRadius: 12,
-                          offset: const Offset(0, 4),
+                          color: const Color(0xFFEF4444).withOpacity(0.5),
+                          blurRadius: 16,
+                          offset: const Offset(0, 6),
                         ),
                       ],
                     ),
@@ -632,7 +632,7 @@ class _CategoryChip extends StatelessWidget {
               width: isSelected ? 2 : 1,
             ),
             boxShadow: isSelected 
-                ? [BoxShadow(color: color.withOpacity(0.3), blurRadius: 8, offset: const Offset(0, 4))] 
+                ? [BoxShadow(color: color.withOpacity(0.4), blurRadius: 12, offset: const Offset(0, 6))] 
                 : [],
           ),
           child: Row(
@@ -709,8 +709,8 @@ class _ProductCard extends StatelessWidget {
               boxShadow: [
                 BoxShadow(
                   color: quantity > 0 
-                      ? AppColors.primary.withOpacity(0.08) 
-                      : Colors.black.withOpacity(0.04),
+                      ? AppColors.primary.withOpacity(0.12) 
+                      : Colors.black.withOpacity(0.06),
                   blurRadius: 16,
                   offset: const Offset(0, 6),
                 ),

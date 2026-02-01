@@ -1,0 +1,6 @@
+Analyzing near_basket...                                        
+
+   info - Unnecessary 'const' keyword - lib\features\auth\screens\role_selection_screen.dart:42:20 - unnecessary_const
+  error - Methods can't be invoked in constant expressions - lib\features\auth\screens\role_selection_screen.dart:45:15 - const_eval_method_invocation
+  error - The name '_FloatingLogo' isn't a class - lib\features\auth\screens\role_selection_screen.dart:197:31 - creation_with_non_type
+
