@@ -9,6 +9,8 @@ import 'billing_screen.dart';
 import 'analytics_screen.dart';
 import 'add_product_screen.dart';
 
+import '../../../core/widgets/theme_toggle_button.dart';
+
 class ShopOwnerDashboard extends StatefulWidget {
   const ShopOwnerDashboard({super.key});
 
@@ -25,7 +27,7 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
     final isWeb = MediaQuery.of(context).size.width > 900;
     
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: isWeb 
           ? Row(
               children: [
@@ -71,11 +73,11 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
       duration: const Duration(milliseconds: 300),
       width: _isSidebarExpanded ? 260 : 80,
       decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border(right: BorderSide(color: Colors.grey.shade300)),
+        color: Theme.of(context).colorScheme.surface,
+        border: Border(right: BorderSide(color: Theme.of(context).dividerColor)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
+            color: Theme.of(context).shadowColor.withOpacity(0.08),
             blurRadius: 16,
             offset: const Offset(4, 0),
           ),
@@ -122,19 +124,19 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'NEST',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
-                      color: AppColors.text,
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
                   Text(
                     'Vendor Portal',
                     style: TextStyle(
                       fontSize: 12,
-                      color: Colors.grey.shade500,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
                   ),
                 ],
@@ -162,7 +164,7 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
           children: [
             Icon(
               isSelected ? activeIcon : icon,
-              color: isSelected ? AppColors.primary : Colors.grey.shade600,
+              color: isSelected ? AppColors.primary : Theme.of(context).colorScheme.onSurfaceVariant,
               size: 24,
             ),
             if (_isSidebarExpanded) ...[
@@ -170,7 +172,7 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
               Text(
                 label,
                 style: TextStyle(
-                  color: isSelected ? AppColors.primary : Colors.grey.shade700,
+                  color: isSelected ? AppColors.primary : Theme.of(context).colorScheme.onSurface,
                   fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
                   fontSize: 14,
                 ),
@@ -219,8 +221,8 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
       height: 70,
       padding: const EdgeInsets.symmetric(horizontal: 24),
       decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
+        color: Theme.of(context).colorScheme.surface,
+        border: Border(bottom: BorderSide(color: Theme.of(context).dividerColor)),
       ),
       child: Row(
         children: [
@@ -231,11 +233,13 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
           const SizedBox(width: 16),
           Text(
             _getPageTitle(),
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.text),
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface),
           ),
           const Spacer(),
           _buildStoreStatusToggle(),
           const SizedBox(width: 24),
+          const ThemeToggleButton(),
+          const SizedBox(width: 16),
           _buildNotificationIcon(),
           const SizedBox(width: 16),
           _buildUserProfile(shop?.name ?? 'Account'),
@@ -300,7 +304,7 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
   Widget _buildNotificationIcon() {
     return Stack(
       children: [
-        Icon(Icons.notifications_none_rounded, color: Colors.grey.shade600, size: 28),
+        Icon(Icons.notifications_none_rounded, color: Theme.of(context).colorScheme.onSurfaceVariant, size: 28),
         Positioned(
           right: 2,
           top: 2,
@@ -321,8 +325,8 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Text(name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-            const Text('Administrator', style: TextStyle(color: AppColors.textLight, fontSize: 11)),
+            Text(name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Theme.of(context).colorScheme.onSurface)),
+            Text('Administrator', style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant, fontSize: 11)),
           ],
         ),
         const SizedBox(width: 12),
@@ -367,17 +371,27 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
 
   Widget _buildGreetings() {
     final shopName = context.watch<StoreProvider>().loggedInShop?.name ?? 'Store';
+    final isWeb = MediaQuery.of(context).size.width > 900;
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Welcome back, $shopName!',
-          style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: AppColors.text),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Text(
+                'Welcome back, $shopName!',
+                style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface),
+              ),
+            ),
+            if (!isWeb) const ThemeToggleButton(),
+          ],
         ),
         const SizedBox(height: 4),
         Text(
           'Here is what is happening with your store today.',
-          style: TextStyle(fontSize: 16, color: Colors.grey.shade600),
+          style: TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.onSurfaceVariant),
         ),
       ],
     );
@@ -414,11 +428,11 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
       width: isWeb ? 260 : (MediaQuery.of(context).size.width - 48) / 2,
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.grey.shade200),
+        border: Border.all(color: Theme.of(context).dividerColor),
         boxShadow: [
-          BoxShadow(color: Colors.black.withOpacity(0.08), blurRadius: 16, offset: const Offset(0, 6)),
+          BoxShadow(color: Theme.of(context).shadowColor.withOpacity(0.08), blurRadius: 16, offset: const Offset(0, 6)),
         ],
       ),
       child: Column(
@@ -429,9 +443,9 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
             child: Icon(icon, color: color, size: 20),
           ),
           const SizedBox(height: 16),
-          Text(value, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.text)),
+          Text(value, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface)),
           const SizedBox(height: 4),
-          Text(title, style: TextStyle(fontSize: 14, color: Colors.grey.shade600, fontWeight: FontWeight.w500)),
+          Text(title, style: TextStyle(fontSize: 14, color: Theme.of(context).colorScheme.onSurfaceVariant, fontWeight: FontWeight.w500)),
         ],
       ),
     );
@@ -456,7 +470,7 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(title, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: AppColors.text)),
+        Text(title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface)),
         if (actionText != null)
           TextButton(
             onPressed: () => setState(() => _selectedIndex = 3),
@@ -477,18 +491,18 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
         if (recent.isEmpty) {
           return Container(
             height: 200,
-            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20), border: Border.all(color: Colors.grey.shade200)),
-            child: const Center(child: Text('No orders found yet.')),
+            decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface, borderRadius: BorderRadius.circular(20), border: Border.all(color: Theme.of(context).dividerColor)),
+            child: Center(child: Text('No orders found yet.', style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant))),
           );
         }
 
         return Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: Colors.grey.shade200),
+            border: Border.all(color: Theme.of(context).dividerColor),
             boxShadow: [
-               BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 12, offset: const Offset(0, 4)),
+               BoxShadow(color: Theme.of(context).shadowColor.withOpacity(0.05), blurRadius: 12, offset: const Offset(0, 4)),
             ],
           ),
           child: Column(
@@ -506,7 +520,7 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
       decoration: BoxDecoration(
-        color: Colors.grey.shade50,
+        color: Theme.of(context).dividerColor.withOpacity(0.1),
         borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
       ),
       child: Row(
@@ -520,16 +534,16 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
     );
   }
 
-  TextStyle _tableHeaderStyle() => TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Colors.grey.shade500, letterSpacing: 1);
+  TextStyle _tableHeaderStyle() => TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurfaceVariant, letterSpacing: 1);
 
   Widget _buildTableRow(SaleTransaction tx) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-      decoration: BoxDecoration(border: Border(top: BorderSide(color: Colors.grey.shade100))),
+      decoration: BoxDecoration(border: Border(top: BorderSide(color: Theme.of(context).dividerColor.withOpacity(0.5)))),
       child: Row(
         children: [
-          Expanded(flex: 2, child: Text('#${tx.id.substring(0, 6).toUpperCase()}', style: const TextStyle(fontWeight: FontWeight.bold))),
-          Expanded(flex: 3, child: Text(tx.customerPhone ?? 'Direct Sale')),
+          Expanded(flex: 2, child: Text('#${tx.id.substring(0, 6).toUpperCase()}', style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface))),
+          Expanded(flex: 3, child: Text(tx.customerPhone ?? 'Direct Sale', style: TextStyle(color: Theme.of(context).colorScheme.onSurface))),
           Expanded(flex: 2, child: Text('₹${tx.totalAmount.toStringAsFixed(2)}', style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.blue))),
           Expanded(
             flex: 2,
@@ -604,21 +618,21 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.grey.shade200),
+        border: Border.all(color: Theme.of(context).dividerColor),
       ),
       child: Column(
         children: [
           CircleAvatar(
             radius: 40,
             backgroundImage: NetworkImage(shop?.imageUrl ?? ''),
-            backgroundColor: Colors.grey.shade200,
+            backgroundColor: Theme.of(context).dividerColor.withOpacity(0.3),
           ),
           const SizedBox(height: 16),
-          Text(shop?.name ?? 'Loading...', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          Text(shop?.category ?? 'Vendor', style: TextStyle(color: Colors.grey.shade500)),
-          const Divider(height: 32),
+          Text(shop?.name ?? 'Loading...', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSurface)),
+          Text(shop?.category ?? 'Vendor', style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant)),
+          Divider(height: 32, color: Theme.of(context).dividerColor),
           _buildProfileStat('Status', 'Verified', Colors.green),
           const SizedBox(height: 12),
           _buildProfileStat('Experience', 'Top Tier', Colors.blue),
@@ -631,7 +645,7 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(label, style: TextStyle(color: Colors.grey.shade600)),
+        Text(label, style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant)),
         Text(value, style: TextStyle(color: color, fontWeight: FontWeight.bold)),
       ],
     );
@@ -641,7 +655,7 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(colors: [Color(0xFF2D323E), Color(0xFF191C24)]),
+        gradient: const LinearGradient(colors: [Color(0xFF2D323E), Color(0xFF191C24)]), // These are dark colors, so they should be fine.
         borderRadius: BorderRadius.circular(24),
       ),
       child: Column(
@@ -683,15 +697,15 @@ class _ShopOwnerDashboardState extends State<ShopOwnerDashboard> {
   Widget _buildBottomNav() {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, -2))],
+        color: Theme.of(context).colorScheme.surface,
+        boxShadow: [BoxShadow(color: Theme.of(context).shadowColor.withOpacity(0.05), blurRadius: 10, offset: const Offset(0, -2))],
       ),
       child: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: (index) => setState(() => _selectedIndex = index),
         type: BottomNavigationBarType.fixed,
         selectedItemColor: AppColors.primary,
-        unselectedItemColor: Colors.grey,
+        unselectedItemColor: Theme.of(context).colorScheme.onSurfaceVariant,
         showUnselectedLabels: true,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.dashboard_outlined), activeIcon: Icon(Icons.dashboard), label: 'Home'),

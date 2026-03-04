@@ -111,15 +111,15 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: AppColors.surface,
+        backgroundColor: Theme.of(context).cardColor,
         elevation: 0,
-        title: const Text(
+        title: Text(
           'Create New Offer',
-          style: TextStyle(color: AppColors.text, fontWeight: FontWeight.bold),
+          style: TextStyle(color: Theme.of(context).textTheme.titleLarge?.color, fontWeight: FontWeight.bold),
         ),
-        iconTheme: const IconThemeData(color: AppColors.text),
+        iconTheme: IconThemeData(color: Theme.of(context).iconTheme.color),
       ),
       body: Form(
         key: _formKey,
@@ -177,9 +177,9 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                     child: Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: AppColors.surface,
+                        color: Theme.of(context).cardColor,
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: AppColors.border),
+                        border: Border.all(color: Theme.of(context).dividerColor),
                       ),
                       child: Row(
                         children: [
@@ -189,15 +189,18 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text(
+                                Text(
                                   'Start Date',
-                                  style: TextStyle(fontSize: 12, color: AppColors.textLight),
+                                  style: TextStyle(fontSize: 12, color: Theme.of(context).textTheme.bodySmall?.color),
                                 ),
                                 Text(
                                   _startDate != null
                                       ? '${_startDate!.day}/${_startDate!.month}/${_startDate!.year}'
                                       : 'Select Date',
-                                  style: const TextStyle(fontWeight: FontWeight.w600),
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color: Theme.of(context).textTheme.bodyLarge?.color,
+                                  ),
                                 ),
                               ],
                             ),
@@ -214,9 +217,9 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                     child: Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: AppColors.surface,
+                        color: Theme.of(context).cardColor,
                         borderRadius: BorderRadius.circular(12),
-                        border: Border.all(color: AppColors.border),
+                        border: Border.all(color: Theme.of(context).dividerColor),
                       ),
                       child: Row(
                         children: [
@@ -226,15 +229,18 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Text(
+                                Text(
                                   'End Date',
-                                  style: TextStyle(fontSize: 12, color: AppColors.textLight),
+                                  style: TextStyle(fontSize: 12, color: Theme.of(context).textTheme.bodySmall?.color),
                                 ),
                                 Text(
                                   _endDate != null
                                       ? '${_endDate!.day}/${_endDate!.month}/${_endDate!.year}'
                                       : 'Select Date',
-                                  style: const TextStyle(fontWeight: FontWeight.w600),
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color: Theme.of(context).textTheme.bodyLarge?.color,
+                                  ),
                                 ),
                               ],
                             ),
@@ -297,7 +303,7 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
               child: Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: AppColors.surface,
+                  color: Theme.of(context).cardColor,
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: AppColors.primary, width: 2),
                 ),
@@ -326,9 +332,9 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                 margin: const EdgeInsets.only(bottom: 8),
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: AppColors.surface,
+                  color: Theme.of(context).cardColor,
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: AppColors.border),
+                  border: Border.all(color: Theme.of(context).dividerColor),
                 ),
                 child: Row(
                   children: [
@@ -354,7 +360,10 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                         children: [
                           Text(
                             product.name,
-                            style: const TextStyle(fontWeight: FontWeight.w600),
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: Theme.of(context).textTheme.bodyLarge?.color,
+                            ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -410,10 +419,10 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
   Widget _buildSectionTitle(String title) {
     return Text(
       title,
-      style: const TextStyle(
+      style: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.w800,
-        color: AppColors.text,
+        color: Theme.of(context).textTheme.titleLarge?.color,
       ),
     );
   }
@@ -422,15 +431,16 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
     return InputDecoration(
       labelText: label,
       prefixIcon: Icon(icon, color: AppColors.primary),
+      labelStyle: TextStyle(color: Theme.of(context).textTheme.bodySmall?.color),
       filled: true,
-      fillColor: AppColors.surface,
+      fillColor: Theme.of(context).cardColor,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: AppColors.border),
+        borderSide: BorderSide(color: Theme.of(context).dividerColor),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: AppColors.border),
+        borderSide: BorderSide(color: Theme.of(context).dividerColor),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
@@ -476,9 +486,9 @@ class _ProductSelectionSheetState extends State<_ProductSelectionSheet> {
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.8,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
       ),
       child: Column(
         children: [
@@ -501,11 +511,12 @@ class _ProductSelectionSheetState extends State<_ProductSelectionSheet> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
+                    Text(
                       'Select Products',
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
+                        color: Theme.of(context).textTheme.titleLarge?.color,
                       ),
                     ),
                     Text(
@@ -553,19 +564,21 @@ class _ProductSelectionSheetState extends State<_ProductSelectionSheet> {
                 ),
                 const SizedBox(height: 12),
                 // Search bar
-                TextField(
-                  onChanged: (val) => setState(() => _searchQuery = val),
-                  decoration: InputDecoration(
-                    hintText: 'Search products...',
-                    prefixIcon: const Icon(Icons.search),
-                    filled: true,
-                    fillColor: Colors.grey[100],
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
-                      borderSide: BorderSide.none,
+                  TextField(
+                    onChanged: (val) => setState(() => _searchQuery = val),
+                    style: TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color),
+                    decoration: InputDecoration(
+                      hintText: 'Search products...',
+                      hintStyle: TextStyle(color: Theme.of(context).textTheme.bodySmall?.color?.withOpacity(0.5)),
+                      prefixIcon: Icon(Icons.search, color: Theme.of(context).textTheme.bodySmall?.color),
+                      filled: true,
+                      fillColor: Theme.of(context).cardColor,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: BorderSide.none,
+                      ),
                     ),
                   ),
-                ),
               ],
             ),
           ),
@@ -591,9 +604,15 @@ class _ProductSelectionSheetState extends State<_ProductSelectionSheet> {
                   },
                   title: Text(
                     product.name,
-                    style: const TextStyle(fontWeight: FontWeight.w600),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: Theme.of(context).textTheme.bodyLarge?.color,
+                    ),
                   ),
-                  subtitle: Text('₹${product.price.toStringAsFixed(0)}'),
+                  subtitle: Text(
+                    '₹${product.price.toStringAsFixed(0)}',
+                    style: TextStyle(color: Theme.of(context).textTheme.bodySmall?.color),
+                  ),
                   secondary: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: Image.network(
@@ -618,7 +637,7 @@ class _ProductSelectionSheetState extends State<_ProductSelectionSheet> {
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: Theme.of(context).cardColor,
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.1),

@@ -42,7 +42,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
     final isWeb = MediaQuery.of(context).size.width > 900;
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SingleChildScrollView(
         padding: EdgeInsets.all(isWeb ? 32 : 16),
         child: Column(
@@ -82,24 +82,27 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Business Analytics',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: AppColors.text,
+        Builder(builder: (context) {
+          final theme = Theme.of(context);
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Business Analytics',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: theme.textTheme.titleLarge?.color,
+                ),
               ),
-            ),
-            SizedBox(height: 4),
-            Text(
-              'Track your store performance and growth',
-              style: TextStyle(color: Colors.grey),
-            ),
-          ],
-        ),
+              const SizedBox(height: 4),
+              Text(
+                'Track your store performance and growth',
+                style: TextStyle(color: theme.textTheme.bodySmall?.color),
+              ),
+            ],
+          );
+        }),
         _buildPeriodSelector(),
       ],
     );
@@ -108,9 +111,9 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
   Widget _buildPeriodSelector() {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey.shade200),
+        border: Border.all(color: Theme.of(context).dividerColor),
       ),
       padding: const EdgeInsets.all(4),
       child: Row(
@@ -129,7 +132,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
               child: Text(
                 period,
                 style: TextStyle(
-                  color: isSelected ? Colors.white : Colors.grey.shade600,
+                  color: isSelected ? Colors.white : Theme.of(context).textTheme.bodySmall?.color,
                   fontWeight: FontWeight.bold,
                   fontSize: 13,
                 ),
@@ -196,12 +199,12 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
       width: width,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.grey.shade100),
+        border: Border.all(color: Theme.of(context).dividerColor),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
+            color: Colors.black.withOpacity(0.06),
             blurRadius: 16,
             offset: const Offset(0, 4),
           ),
@@ -251,10 +254,10 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
           const SizedBox(height: 20),
           Text(
             value,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: AppColors.text,
+              color: Theme.of(context).textTheme.titleLarge?.color,
             ),
           ),
           const SizedBox(height: 4),
@@ -263,7 +266,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
             style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w500,
-              color: Colors.grey.shade500,
+              color: Theme.of(context).textTheme.bodySmall?.color,
             ),
           ),
         ],
@@ -314,9 +317,9 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
       height: 400,
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.grey.shade100),
+        border: Border.all(color: Theme.of(context).dividerColor),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -324,11 +327,11 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Column(
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Revenue Trend', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                  Text('Sales performance over time', style: TextStyle(color: Colors.grey, fontSize: 12)),
+                  Text('Revenue Trend', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Theme.of(context).textTheme.titleLarge?.color)),
+                  Text('Sales performance over time', style: TextStyle(color: Theme.of(context).textTheme.bodySmall?.color, fontSize: 12)),
                 ],
               ),
               IconButton(onPressed: () {}, icon: const Icon(Icons.more_horiz, color: Colors.grey)),
@@ -460,7 +463,11 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
        return Container(
          height: 400,
          padding: const EdgeInsets.all(24),
-         decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(24)),
+         decoration: BoxDecoration(
+           color: Theme.of(context).cardColor,
+           borderRadius: BorderRadius.circular(24),
+           border: Border.all(color: Theme.of(context).dividerColor),
+         ),
          child: const Center(child: Text('No data available')),
        );
     }
@@ -477,16 +484,16 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
       height: 400,
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.grey.shade100),
+        border: Border.all(color: Theme.of(context).dividerColor),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Sales by Category', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+          Text('Sales by Category', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Theme.of(context).textTheme.titleLarge?.color)),
           const SizedBox(height: 8),
-          const Text('Distribution of revenue', style: TextStyle(color: Colors.grey, fontSize: 12)),
+          Text('Distribution of revenue', style: TextStyle(color: Theme.of(context).textTheme.bodySmall?.color, fontSize: 12)),
           Expanded(
             child: Row(
               children: [
@@ -545,7 +552,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                              decoration: BoxDecoration(color: colors[i % colors.length], shape: BoxShape.circle),
                            ),
                            const SizedBox(width: 8),
-                           Text(top4[i].key, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500)),
+                            Text(top4[i].key, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, color: Theme.of(context).textTheme.bodyMedium?.color)),
                          ],
                        ),
                      );
@@ -565,38 +572,38 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(24),
-        border: Border.all(color: Colors.grey.shade100),
+        border: Border.all(color: Theme.of(context).dividerColor),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Top Selling Products', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          Text('Top Selling Products', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Theme.of(context).textTheme.titleLarge?.color)),
           const SizedBox(height: 24),
           Table(
             defaultVerticalAlignment: TableCellVerticalAlignment.middle,
             children: [
               TableRow(
                 decoration: BoxDecoration(
-                  border: Border(bottom: BorderSide(color: Colors.grey.shade200)),
+                  border: Border(bottom: BorderSide(color: Theme.of(context).dividerColor)),
                 ),
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
-                    child: Text('PRODUCT', style: TextStyle(color: Colors.grey.shade500, fontSize: 11, fontWeight: FontWeight.bold)),
+                    child: Text('PRODUCT', style: TextStyle(color: Theme.of(context).textTheme.bodySmall?.color, fontSize: 11, fontWeight: FontWeight.bold)),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
-                    child: Text('CATEGORY', style: TextStyle(color: Colors.grey.shade500, fontSize: 11, fontWeight: FontWeight.bold)),
+                    child: Text('CATEGORY', style: TextStyle(color: Theme.of(context).textTheme.bodySmall?.color, fontSize: 11, fontWeight: FontWeight.bold)),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
-                    child: Text('PRICE', style: TextStyle(color: Colors.grey.shade500, fontSize: 11, fontWeight: FontWeight.bold)),
+                    child: Text('PRICE', style: TextStyle(color: Theme.of(context).textTheme.bodySmall?.color, fontSize: 11, fontWeight: FontWeight.bold)),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 12),
-                    child: Text('SOLD', style: TextStyle(color: Colors.grey.shade500, fontSize: 11, fontWeight: FontWeight.bold)),
+                    child: Text('SOLD', style: TextStyle(color: Theme.of(context).textTheme.bodySmall?.color, fontSize: 11, fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),
@@ -611,9 +618,9 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                           Container(
                             width: 40,
                             height: 40,
-                            decoration: BoxDecoration(
+                              decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
-                              color: Colors.grey.shade100,
+                              color: Theme.of(context).cardColor,
                               image: NetworkImage(product.imageUrl).toString().isNotEmpty 
                                   ? DecorationImage(image: NetworkImage(product.imageUrl), fit: BoxFit.cover) 
                                   : null,
@@ -621,19 +628,19 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                           ),
                           const SizedBox(width: 12),
                           Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(product.name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
-                                Text(product.unit, style: TextStyle(color: Colors.grey.shade500, fontSize: 12)),
+                              child: Column(
+                               crossAxisAlignment: CrossAxisAlignment.start,
+                               children: [
+                                 Text(product.name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Theme.of(context).textTheme.bodyLarge?.color)),
+                                 Text(product.unit, style: TextStyle(color: Theme.of(context).textTheme.bodySmall?.color, fontSize: 12)),
                               ],
                             ),
                           ),
                         ],
                       ),
                     ),
-                    Text(product.category, style: const TextStyle(fontSize: 14)),
-                    Text('₹${product.price}', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                    Text(product.category, style: TextStyle(fontSize: 14, color: Theme.of(context).textTheme.bodyMedium?.color)),
+                    Text('₹${product.price}', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Theme.of(context).textTheme.bodyLarge?.color)),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                       decoration: BoxDecoration(

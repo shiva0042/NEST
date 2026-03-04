@@ -5,6 +5,9 @@ import '../../features/map_discovery/screens/cart_screen.dart';
 import '../../features/map_discovery/screens/store_map_screen.dart';
 import '../../features/customer_dashboard/stats_screen.dart';
 
+import 'package:provider/provider.dart';
+import '../../core/providers/theme_provider.dart';
+
 class WebLayout extends StatefulWidget {
   final Widget homeContent;
   final Widget storesContent;
@@ -41,7 +44,7 @@ class _WebLayoutState extends State<WebLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Column(
         children: [
           _WebNavbar(
@@ -72,14 +75,15 @@ class _WebNavbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       height: 80,
       padding: const EdgeInsets.symmetric(horizontal: 40),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Theme.of(context).shadowColor.withOpacity(0.1),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -93,23 +97,24 @@ class _WebNavbar extends StatelessWidget {
               Image.asset(
                 'assets/images/logo.png',
                 height: 40,
-                errorBuilder: (c, e, s) => const Icon(Icons.shopping_basket, size: 40, color: AppColors.primary),
+                errorBuilder: (c, e, s) => Icon(Icons.shopping_basket, size: 40, color: Theme.of(context).colorScheme.primary),
               ),
               const SizedBox(width: 12),
-              const Text(
+              Text(
                 'NEST',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w800,
-                  color: AppColors.primary,
+                  color: Theme.of(context).colorScheme.primary,
                   letterSpacing: -0.5,
                 ),
               ),
             ],
           ),
           
-          const SizedBox(width: 80),
+          const SizedBox(width: 20),
 
+          // Search Bar
           // Search Bar
           Expanded(
             child: GestureDetector(
@@ -120,17 +125,28 @@ class _WebNavbar extends StatelessWidget {
                 height: 48,
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 decoration: BoxDecoration(
-                  color: Colors.grey.shade100,
+                  color: isDark ? const Color(0xFF2C2C2C) : Colors.grey.shade100,
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.grey.shade200),
+                  border: Border.all(
+                    color: isDark ? Colors.transparent : Colors.grey.shade200
+                  ),
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.search, color: Colors.grey.shade500),
+                    Icon(
+                      Icons.search, 
+                      color: isDark ? Colors.grey.shade400 : Colors.grey.shade500
+                    ),
                     const SizedBox(width: 12),
-                    Text(
-                      'Search for products, brands and more...',
-                      style: TextStyle(color: Colors.grey.shade500, fontSize: 14),
+                    Expanded(
+                      child: Text(
+                        'Search for products, brands and more...',
+                        style: TextStyle(
+                          color: isDark ? Colors.grey.shade400 : Colors.grey.shade500,
+                          fontSize: 14
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ],
                 ),
@@ -138,7 +154,7 @@ class _WebNavbar extends StatelessWidget {
             ),
           ),
 
-          const SizedBox(width: 60),
+          const SizedBox(width: 20),
 
           // Navigation Links
           _NavBarItem(
@@ -185,6 +201,18 @@ class _WebNavbar extends StatelessWidget {
               Navigator.push(context, MaterialPageRoute(builder: (_) => const StatsScreen()));
             },
           ),
+          const SizedBox(width: 16),
+          Consumer<ThemeProvider>(
+            builder: (context, themeProvider, child) {
+              final isDark = themeProvider.isDarkMode;
+              return _ActionIcon(
+                icon: isDark ? Icons.light_mode_outlined : Icons.dark_mode_outlined, 
+                onTap: () {
+                  themeProvider.toggleTheme(!isDark);
+                },
+              );
+            },
+          ),
         ],
       ),
     );
@@ -213,6 +241,10 @@ class _NavBarItemState extends State<_NavBarItem> {
 
   @override
   Widget build(BuildContext context) {
+    final isSelected = widget.isSelected;
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
@@ -223,10 +255,10 @@ class _NavBarItemState extends State<_NavBarItem> {
           duration: const Duration(milliseconds: 200),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           decoration: BoxDecoration(
-            color: widget.isSelected 
+            color: isSelected 
                 ? AppColors.primary.withOpacity(0.1) 
                 : _isHovered 
-                    ? Colors.grey.shade100 
+                    ? (isDark ? Colors.white.withOpacity(0.1) : Colors.grey.shade100)
                     : Colors.transparent,
             borderRadius: BorderRadius.circular(12),
           ),
@@ -235,15 +267,15 @@ class _NavBarItemState extends State<_NavBarItem> {
               Icon(
                 widget.icon,
                 size: 20,
-                color: widget.isSelected ? AppColors.primary : Colors.grey.shade600,
+                color: isSelected ? AppColors.primary : (isDark ? Colors.grey.shade400 : Colors.grey.shade600),
               ),
               const SizedBox(width: 8),
               Text(
                 widget.title,
                 style: TextStyle(
                   fontSize: 15,
-                  fontWeight: widget.isSelected ? FontWeight.w700 : FontWeight.w600,
-                  color: widget.isSelected ? AppColors.primary : Colors.grey.shade600,
+                  fontWeight: isSelected ? FontWeight.w700 : FontWeight.w600,
+                  color: isSelected ? AppColors.primary : (isDark ? Colors.grey.shade300 : Colors.grey.shade600),
                 ),
               ),
             ],
@@ -269,6 +301,8 @@ class _ActionIconState extends State<_ActionIcon> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
@@ -279,17 +313,29 @@ class _ActionIconState extends State<_ActionIcon> {
           duration: const Duration(milliseconds: 200),
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: _isHovered ? AppColors.primary.withOpacity(0.1) : Colors.white,
+            color: _isHovered 
+                ? AppColors.primary.withOpacity(0.1) 
+                : (isDark ? Theme.of(context).scaffoldBackgroundColor : Colors.white),
             shape: BoxShape.circle,
-            border: Border.all(color: _isHovered ? AppColors.primary : Colors.grey.shade200),
+            border: Border.all(
+              color: _isHovered 
+                  ? AppColors.primary 
+                  : (isDark ? Colors.white.withOpacity(0.1) : Colors.grey.shade200)
+            ),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.05),
+                color: Theme.of(context).shadowColor.withOpacity(0.1),
                 blurRadius: 10,
               ),
             ],
           ),
-          child: Icon(widget.icon, color: _isHovered ? AppColors.primary : AppColors.text, size: 22),
+          child: Icon(
+            widget.icon, 
+            color: _isHovered 
+                ? AppColors.primary 
+                : (isDark ? Colors.grey.shade300 : AppColors.text), 
+            size: 22
+          ),
         ),
       ),
     );

@@ -12,6 +12,8 @@ import 'firebase_options.dart';
 
 import 'package:flutter/foundation.dart'; // import kIsWeb
 
+import 'core/providers/theme_provider.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
@@ -38,12 +40,19 @@ class NearBasketApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => CartProvider()),
         ChangeNotifierProvider(create: (_) => SalesProvider()),
         ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
       ],
-      child: MaterialApp(
-        title: 'NEST',
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.lightTheme,
-        home: const RoleSelectionScreen(),
+      child: Consumer<ThemeProvider>(
+        builder: (context, themeProvider, child) {
+          return MaterialApp(
+            title: 'NEST',
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            themeMode: themeProvider.themeMode,
+            home: const RoleSelectionScreen(),
+          );
+        },
       ),
     );
   }

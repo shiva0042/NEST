@@ -153,14 +153,14 @@ class _InventoryScreenState extends State<InventoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: AppColors.surface,
+        backgroundColor: Theme.of(context).cardColor,
         title: Text(
           widget.showLowStockOnly ? 'Low Stock Items' : 'Inventory Management',
-          style: const TextStyle(color: AppColors.text, fontWeight: FontWeight.bold),
+          style: TextStyle(color: Theme.of(context).textTheme.titleLarge?.color, fontWeight: FontWeight.bold),
         ),
-        iconTheme: const IconThemeData(color: AppColors.text),
+        iconTheme: IconThemeData(color: Theme.of(context).iconTheme.color),
         elevation: 0,
       ),
       body: _isLoading 
@@ -169,7 +169,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
             children: [
               // Search & Filter Section
               Container(
-                color: Colors.white,
+                color: Theme.of(context).cardColor,
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Column(
                   children: [
@@ -180,10 +180,10 @@ class _InventoryScreenState extends State<InventoryScreen> {
                             _searchQuery = val;
                             _filterProducts();
                           },
-                          decoration: InputDecoration(
+                           decoration: InputDecoration(
                             hintText: 'Search inventory...',
-                            prefixIcon: const Icon(Icons.search, color: Colors.grey),
-                            fillColor: Colors.grey[100],
+                            prefixIcon: Icon(Icons.search, color: Theme.of(context).textTheme.bodySmall?.color),
+                            fillColor: Theme.of(context).cardColor,
                             filled: true,
                             border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide.none),
                             contentPadding: EdgeInsets.zero
@@ -210,14 +210,14 @@ class _InventoryScreenState extends State<InventoryScreen> {
                             child: Container(
                               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                               decoration: BoxDecoration(
-                                color: isSelected ? AppColors.primary : Colors.grey[100],
+                                color: isSelected ? AppColors.primary : Theme.of(context).cardColor,
                                 borderRadius: BorderRadius.circular(20),
-                                border: Border.all(color: isSelected ? AppColors.primary : Colors.grey.shade300)
+                                border: Border.all(color: isSelected ? AppColors.primary : Theme.of(context).dividerColor)
                               ),
                               child: Text(
                                 cat,
                                 style: TextStyle(
-                                  color: isSelected ? Colors.white : Colors.black,
+                                  color: isSelected ? Colors.white : Theme.of(context).textTheme.bodyMedium?.color,
                                   fontWeight: FontWeight.w600,
                                   fontSize: 13
                                 ),
@@ -239,9 +239,9 @@ class _InventoryScreenState extends State<InventoryScreen> {
                     return Container(
                       margin: const EdgeInsets.only(bottom: 16),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Theme.of(context).cardColor,
                         borderRadius: BorderRadius.circular(16),
-                        border: Border.all(color: Colors.grey.shade200),
+                        border: Border.all(color: Theme.of(context).dividerColor),
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black.withOpacity(0.06),
@@ -282,16 +282,16 @@ class _InventoryScreenState extends State<InventoryScreen> {
                                 children: [
                                   Text(
                                     product.name,
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
-                                      color: AppColors.text,
+                                      color: Theme.of(context).textTheme.bodyLarge?.color,
                                     ),
                                   ),
                                   const SizedBox(height: 4),
                                   Text(
                                     '₹${product.price.toStringAsFixed(0)}',
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       color: AppColors.primary,
                                       fontWeight: FontWeight.w600,
                                     ),
@@ -301,9 +301,9 @@ class _InventoryScreenState extends State<InventoryScreen> {
                             ),
                             Column(
                               children: [
-                                const Text(
+                                Text(
                                   'Stock',
-                                  style: TextStyle(fontSize: 12, color: AppColors.textLight),
+                                  style: TextStyle(fontSize: 12, color: Theme.of(context).textTheme.bodySmall?.color),
                                 ),
                                 const SizedBox(height: 4),
                                 Row(
@@ -324,7 +324,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 16,
-                                          color: product.stockQuantity < 10 ? Colors.red : AppColors.text,
+                                          color: product.stockQuantity < 10 ? Colors.red : Theme.of(context).textTheme.bodyLarge?.color,
                                         ),
                                       ),
                                     ),

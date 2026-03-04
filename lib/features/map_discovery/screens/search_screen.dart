@@ -116,17 +116,17 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        backgroundColor: AppColors.surface,
+        backgroundColor: Theme.of(context).cardColor,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded, color: AppColors.text),
+          icon: Icon(Icons.arrow_back_rounded, color: Theme.of(context).textTheme.bodyLarge?.color),
           onPressed: () => Navigator.pop(context),
         ),
-        title: const Text(
+        title: Text(
           'Search',
-          style: TextStyle(color: AppColors.text, fontWeight: FontWeight.bold),
+          style: TextStyle(color: Theme.of(context).textTheme.titleLarge?.color, fontWeight: FontWeight.bold),
         ),
       ),
       body: Column(
@@ -134,7 +134,7 @@ class _SearchScreenState extends State<SearchScreen> {
           Container(
             padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
             decoration: BoxDecoration(
-              color: AppColors.surface,
+              color: Theme.of(context).cardColor,
               boxShadow: [
                 BoxShadow(
                   color: AppColors.primary.withOpacity(0.05),
@@ -152,7 +152,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 hintText: 'Search for milk, bread, vegetables...',
                 prefixIcon: const Icon(Icons.search_rounded, color: AppColors.primary),
                 filled: true,
-                fillColor: AppColors.background,
+                fillColor: Theme.of(context).scaffoldBackgroundColor,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(20),
                   borderSide: BorderSide.none,
@@ -265,9 +265,9 @@ class _ProductResultCard extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: AppColors.surface,
+            color: Theme.of(context).cardColor,
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: AppColors.border.withOpacity(0.5)),
+            border: Border.all(color: Theme.of(context).dividerColor.withOpacity(0.5)),
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.02),
@@ -291,7 +291,7 @@ class _ProductResultCard extends StatelessWidget {
                       return Container(
                         width: 80,
                         height: 80,
-                        color: AppColors.background,
+                color: Theme.of(context).scaffoldBackgroundColor,
                         child: const Icon(Icons.image_not_supported_rounded,
                             size: 24, color: AppColors.textLight),
                       );
@@ -306,10 +306,10 @@ class _ProductResultCard extends StatelessWidget {
                   children: [
                     Text(
                       product.name,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: AppColors.text,
+                        color: Theme.of(context).textTheme.bodyLarge?.color,
                         height: 1.2,
                       ),
                     ),

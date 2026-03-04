@@ -1,0 +1,81 @@
+﻿Launching lib\main.dart on Chrome in debug mode...
+Waiting for connection from debug service on Chrome...          
+flutter : Warning: In 
+index.html:39: Local 
+variable for 
+"serviceWorkerVersion" is 
+deprecated. Use "{{flutter_se
+rvice_worker_version}}" 
+template token instead. See h
+ttps://docs.flutter.dev/platf
+orm-integration/web/initializ
+ation for more details.
+At line:1 char:1
++ flutter run -d chrome 
+--web-port 8080 > output.txt 
+2>&1
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo           
+   : NotSpecified: (Warning  
+  : In ind...r more detail   
+ s.:String) [], RemoteExc    
+eption
+    + FullyQualifiedErrorId  
+   : NativeCommandError
+ 
+Warning: In index.html:61: "F
+lutterLoader.loadEntrypoint" 
+is deprecated. Use 
+"FlutterLoader.load" 
+instead. See https://docs.flu
+tter.dev/platform-integration
+/web/initialization for more 
+details.
+lib/features/map_discovery/sc
+reens/shop_details_view.dart:
+488:53: Error: Not a 
+constant expression.
+                             
+       color: Theme.of(contex
+t).textTheme.titleLarge?.colo
+r,
+                             
+                       
+^^^^^^^
+lib/features/map_discovery/sc
+reens/shop_details_view.dart:
+488:50: Error: Method 
+invocation is not a constant 
+expression.
+                             
+       color: Theme.of(contex
+t).textTheme.titleLarge?.colo
+r,
+                             
+                    ^^
+lib/features/map_discovery/sc
+reens/shop_details_view.dart:
+488:62: Error: Not a 
+constant expression.
+                             
+       color: Theme.of(contex
+t).textTheme.titleLarge?.colo
+r,
+                             
+                             
+   ^^^^^^^^^
+lib/features/map_discovery/sc
+reens/shop_details_view.dart:
+488:72: Error: Not a 
+constant expression.
+                             
+       color: Theme.of(contex
+t).textTheme.titleLarge?.colo
+r,
+                             
+                             
+             ^^^^^^^^^^
+Waiting for connection from debug service on Chrome...             20.2s
+Failed to compile 
+application.

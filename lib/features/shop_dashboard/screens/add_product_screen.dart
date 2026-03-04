@@ -128,10 +128,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: const Text('Add New Product'),
-        backgroundColor: AppColors.primary,
+        backgroundColor: Theme.of(context).cardColor,
+        iconTheme: IconThemeData(color: Theme.of(context).iconTheme.color),
+        titleTextStyle: TextStyle(color: Theme.of(context).textTheme.titleLarge?.color, fontSize: 20, fontWeight: FontWeight.bold),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -143,13 +145,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
               // Product Name
               TextFormField(
                 controller: _nameController,
-                decoration: InputDecoration(
-                  labelText: 'Product Name',
-                  hintText: 'e.g., Amul Butter 100g',
-                  prefixIcon: const Icon(Icons.shopping_bag),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-                  filled: true,
-                  fillColor: Colors.white,
+                style: TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color),
+                decoration: _buildInputDecoration(
+                  context,
+                  label: 'Product Name',
+                  hint: 'e.g., Amul Butter 100g',
+                  icon: Icons.shopping_bag_outlined,
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -163,13 +164,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
               // Brand
               TextFormField(
                 initialValue: _selectedBrand,
-                decoration: InputDecoration(
-                  labelText: 'Brand',
-                  hintText: 'e.g., Amul, Britannia',
-                  prefixIcon: const Icon(Icons.branding_watermark),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-                  filled: true,
-                  fillColor: Colors.white,
+                style: TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color),
+                decoration: _buildInputDecoration(
+                  context,
+                  label: 'Brand',
+                  hint: 'e.g., Amul, Britannia',
+                  icon: Icons.branding_watermark_outlined,
                 ),
                 onChanged: (value) => _selectedBrand = value,
               ),
@@ -182,12 +182,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     child: TextFormField(
                       controller: _priceController,
                       keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        labelText: 'Price (₹)',
-                        prefixIcon: const Icon(Icons.currency_rupee),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-                        filled: true,
-                        fillColor: Colors.white,
+                      style: TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color),
+                      decoration: _buildInputDecoration(
+                        context,
+                        label: 'Price (₹)',
+                        icon: Icons.currency_rupee_rounded,
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -205,12 +204,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     child: TextFormField(
                       controller: _stockController,
                       keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        labelText: 'Stock Qty',
-                        prefixIcon: const Icon(Icons.inventory),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-                        filled: true,
-                        fillColor: Colors.white,
+                      style: TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color),
+                      decoration: _buildInputDecoration(
+                        context,
+                        label: 'Stock Qty',
+                        icon: Icons.inventory_2_outlined,
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -230,12 +228,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
               // Category Dropdown
               DropdownButtonFormField<String>(
                 value: _selectedCategory,
-                decoration: InputDecoration(
-                  labelText: 'Category',
-                  prefixIcon: const Icon(Icons.category),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-                  filled: true,
-                  fillColor: Colors.white,
+                style: TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color, fontSize: 16),
+                dropdownColor: Theme.of(context).cardColor,
+                decoration: _buildInputDecoration(
+                  context,
+                  label: 'Category',
+                  icon: Icons.category_outlined,
                 ),
                 items: _categories.map((category) {
                   return DropdownMenuItem(
@@ -252,12 +250,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
               // Unit Dropdown
               DropdownButtonFormField<String>(
                 value: _selectedUnit,
-                decoration: InputDecoration(
-                  labelText: 'Unit Type',
-                  prefixIcon: const Icon(Icons.straighten),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-                  filled: true,
-                  fillColor: Colors.white,
+                style: TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color, fontSize: 16),
+                dropdownColor: Theme.of(context).cardColor,
+                decoration: _buildInputDecoration(
+                  context,
+                  label: 'Unit Type',
+                  icon: Icons.straighten_rounded,
                 ),
                 items: _units.map((unit) {
                   return DropdownMenuItem(
@@ -274,13 +272,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
               // Image URL
               TextFormField(
                 controller: _imageUrlController,
-                decoration: InputDecoration(
-                  labelText: 'Image URL (Optional)',
-                  hintText: 'https://example.com/image.jpg',
-                  prefixIcon: const Icon(Icons.image),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-                  filled: true,
-                  fillColor: Colors.white,
+                style: TextStyle(color: Theme.of(context).textTheme.bodyLarge?.color),
+                decoration: _buildInputDecoration(
+                  context,
+                  label: 'Image URL (Optional)',
+                  hint: 'https://example.com/image.jpg',
+                  icon: Icons.image_outlined,
                 ),
               ),
               const SizedBox(height: 24),
@@ -313,6 +310,36 @@ class _AddProductScreenState extends State<AddProductScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  InputDecoration _buildInputDecoration(
+    BuildContext context, {
+    required String label,
+    String? hint,
+    required IconData icon,
+  }) {
+    return InputDecoration(
+      labelText: label,
+      hintText: hint,
+      prefixIcon: Icon(icon, color: AppColors.primary),
+      labelStyle: TextStyle(color: Theme.of(context).textTheme.bodySmall?.color),
+      hintStyle: TextStyle(color: Theme.of(context).textTheme.bodySmall?.color?.withOpacity(0.5)),
+      filled: true,
+      fillColor: Theme.of(context).cardColor,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: Theme.of(context).dividerColor),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: Theme.of(context).dividerColor),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(color: AppColors.primary, width: 2),
+      ),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
     );
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:ui';
 import 'package:provider/provider.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/providers/store_provider.dart';
@@ -11,47 +12,47 @@ class StoresListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final shops = context.watch<StoreProvider>().shops;
-    
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Colors.transparent,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Header
-            Container(
-              padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
-              decoration: BoxDecoration(
-                color: AppColors.surface,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.03),
-                    blurRadius: 10,
-                    offset: const Offset(0, 4),
+            ClipRRect(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+                child: Container(
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 16),
+                  decoration: BoxDecoration(
+                    color: isDark ? Colors.black.withOpacity(0.4) : Colors.white.withOpacity(0.4),
+                    border: Border(bottom: BorderSide(color: Colors.white.withOpacity(0.1))),
                   ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Nearby Stores',
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.w800,
-                      color: AppColors.text,
-                      letterSpacing: -0.5,
-                    ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Nearby Stores',
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.w800,
+                          color: Theme.of(context).textTheme.titleLarge?.color,
+                          letterSpacing: -0.5,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        'Find the best shops around you (${shops.length} stores)',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Theme.of(context).textTheme.bodySmall?.color,
+                        ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 4),
-                  Text(
-                    'Find the best shops around you (${shops.length} stores)',
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: AppColors.textLight,
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
             // List
@@ -61,24 +62,24 @@ class StoresListScreen extends StatelessWidget {
                   await context.read<StoreProvider>().fetchShops();
                 },
                 child: shops.isEmpty
-                    ? const Center(
+                    ? Center(
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.store_rounded, size: 64, color: AppColors.textLight),
+                            Icon(Icons.store_rounded, size: 64, color: Theme.of(context).textTheme.bodySmall?.color),
                             SizedBox(height: 16),
                             Text(
                               'No stores found',
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
-                                color: AppColors.text,
+                                color: Theme.of(context).textTheme.titleLarge?.color,
                               ),
                             ),
                             SizedBox(height: 8),
                             Text(
                               'Pull down to refresh',
-                              style: TextStyle(color: AppColors.textLight),
+                              style: TextStyle(color: Theme.of(context).textTheme.bodySmall?.color),
                             ),
                           ],
                         ),
@@ -107,19 +108,20 @@ class _StoreListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
-      decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(24),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+          child: Container(
+            decoration: BoxDecoration(
+              color: isDark ? Colors.black.withOpacity(0.4) : Colors.white.withOpacity(0.4),
+              borderRadius: BorderRadius.circular(24),
+              border: Border.all(color: Colors.white.withOpacity(0.2)),
+            ),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
@@ -156,18 +158,18 @@ class _StoreListCard extends StatelessWidget {
                     children: [
                       Text(
                         shop.name,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          color: AppColors.text,
+                          color: isDark ? Colors.white : AppColors.text,
                         ),
                       ),
                       const SizedBox(height: 4),
                       Text(
                         shop.address,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 13,
-                          color: AppColors.textLight,
+                          color: isDark ? Colors.grey[300] : AppColors.textLight,
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -184,7 +186,7 @@ class _StoreListCard extends StatelessWidget {
                           const SizedBox(width: 4),
                           Text(
                             '${shop.distance} km',
-                            style: const TextStyle(fontSize: 12),
+                            style: TextStyle(fontSize: 12, color: isDark ? Colors.grey[300] : Colors.black87),
                           ),
                         ],
                       ),
@@ -196,7 +198,10 @@ class _StoreListCard extends StatelessWidget {
             ),
           ),
         ),
+          ),
+        ),
       ),
-    );
+    ),
+  );
   }
 }

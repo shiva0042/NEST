@@ -44,11 +44,11 @@ class _StatsScreenState extends State<StatsScreen> {
     double totalSavings = savingsTrend.fold(0, (v, e) => v + (e['saving'] as double));
 
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
         title: const Text('My Smart Wallet'),
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        backgroundColor: Theme.of(context).cardColor,
+        foregroundColor: Theme.of(context).textTheme.titleLarge?.color,
         elevation: 0,
         actions: [
           Container(
@@ -224,7 +224,7 @@ class _StatsScreenState extends State<StatsScreen> {
     return Container(
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
@@ -258,7 +258,7 @@ class _StatsScreenState extends State<StatsScreen> {
           label,
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: isSelected ? Colors.white : Colors.grey[600],
+              color: isSelected ? Colors.white : Theme.of(context).textTheme.bodyMedium?.color,
             fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
             fontSize: 13,
           ),
@@ -381,7 +381,7 @@ class _StatsScreenState extends State<StatsScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
@@ -397,12 +397,12 @@ class _StatsScreenState extends State<StatsScreen> {
           const SizedBox(height: 8),
           Text(
             value,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Theme.of(context).textTheme.titleLarge?.color),
           ),
           const SizedBox(height: 4),
           Text(
             label,
-            style: TextStyle(fontSize: 11, color: Colors.grey[600]),
+            style: TextStyle(fontSize: 11, color: Theme.of(context).textTheme.bodySmall?.color),
           ),
         ],
       ),
@@ -414,7 +414,7 @@ class _StatsScreenState extends State<StatsScreen> {
       return Container(
         height: 250,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(16),
         ),
         child: const Center(
@@ -448,7 +448,7 @@ class _StatsScreenState extends State<StatsScreen> {
       height: 300,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
@@ -542,7 +542,7 @@ class _StatsScreenState extends State<StatsScreen> {
       height: 200,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
@@ -619,7 +619,7 @@ class _StatsScreenState extends State<StatsScreen> {
       return Container(
         padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(16),
         ),
         child: const Center(
@@ -633,7 +633,7 @@ class _StatsScreenState extends State<StatsScreen> {
     
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
@@ -693,7 +693,7 @@ class _StatsScreenState extends State<StatsScreen> {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
@@ -788,7 +788,7 @@ class _StatsScreenState extends State<StatsScreen> {
       return Container(
         padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(16),
         ),
         child: const Center(
@@ -1327,7 +1327,7 @@ class _StatsScreenState extends State<StatsScreen> {
   
   BoxDecoration _cardDecoration() {
     return BoxDecoration(
-      color: Colors.white,
+      color: Theme.of(context).cardColor,
       borderRadius: BorderRadius.circular(16),
       boxShadow: [
         BoxShadow(

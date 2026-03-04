@@ -272,9 +272,9 @@ class _AddProductCatalogScreenState extends State<AddProductCatalogScreen> {
                           duration: const Duration(milliseconds: 200),
                           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                           decoration: BoxDecoration(
-                            color: isSelected ? AppColors.primary : AppColors.surface,
+                            color: isSelected ? AppColors.primary : Theme.of(context).cardColor,
                             borderRadius: BorderRadius.circular(20),
-                            border: Border.all(color: isSelected ? AppColors.primary : AppColors.border),
+                            border: Border.all(color: isSelected ? AppColors.primary : Theme.of(context).dividerColor),
                             boxShadow: isSelected 
                                 ? [BoxShadow(color: AppColors.primary.withOpacity(0.3), blurRadius: 8, offset: const Offset(0, 4))] 
                                 : [],
@@ -282,7 +282,7 @@ class _AddProductCatalogScreenState extends State<AddProductCatalogScreen> {
                           child: Text(
                             category,
                             style: TextStyle(
-                              color: isSelected ? Colors.white : AppColors.text,
+                              color: isSelected ? Colors.white : Theme.of(context).textTheme.bodyMedium?.color,
                               fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
                               fontSize: 13,
                             ),
@@ -381,9 +381,9 @@ class _ProductCard extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 12),
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: AppColors.surface,
+          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: AppColors.border.withOpacity(0.5)),
+          border: Border.all(color: Theme.of(context).dividerColor.withOpacity(0.5)),
           boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.02), blurRadius: 10, offset: const Offset(0, 4))],
         ),
         child: Row(
@@ -416,14 +416,14 @@ class _ProductCard extends StatelessWidget {
                 children: [
                   Text(
                     product.name,
-                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.text, height: 1.2),
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Theme.of(context).textTheme.bodyLarge?.color, height: 1.2),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 4),
                   Text(
                     product.brand,
-                    style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: AppColors.textLight),
+                    style: TextStyle(fontSize: 11, fontWeight: FontWeight.w500, color: Theme.of(context).textTheme.bodySmall?.color),
                   ),
                   const SizedBox(height: 6),
                   Row(
@@ -523,9 +523,9 @@ class _ProductDetailSheetState extends State<_ProductDetailSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -536,7 +536,7 @@ class _ProductDetailSheetState extends State<_ProductDetailSheet> {
             width: 40,
             height: 4,
             decoration: BoxDecoration(
-              color: Colors.grey[300],
+              color: Theme.of(context).dividerColor,
               borderRadius: BorderRadius.circular(2),
             ),
           ),
@@ -639,13 +639,13 @@ class _ProductDetailSheetState extends State<_ProductDetailSheet> {
                               size.name,
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
-                                color: isSelected ? AppColors.primary : Colors.black,
+                                color: isSelected ? AppColors.primary : Theme.of(context).textTheme.bodyLarge?.color,
                               ),
                             ),
                             const SizedBox(height: 2),
                             Text(
                               size.label,
-                              style: TextStyle(fontSize: 10, color: Colors.grey[600]),
+                              style: TextStyle(fontSize: 10, color: Theme.of(context).textTheme.bodySmall?.color),
                             ),
                             const SizedBox(height: 4),
                             Text(
@@ -653,7 +653,7 @@ class _ProductDetailSheetState extends State<_ProductDetailSheet> {
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14,
-                                color: isSelected ? AppColors.primary : Colors.black87,
+                                color: isSelected ? AppColors.primary : Theme.of(context).textTheme.bodyLarge?.color?.withOpacity(0.87),
                               ),
                             ),
                           ],

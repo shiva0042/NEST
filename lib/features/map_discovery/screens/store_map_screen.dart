@@ -1,4 +1,6 @@
+// ignore_for_file: undefined_prefixed_name, avoid_web_libraries_in_flutter
 import 'package:flutter/material.dart';
+import 'dart:ui';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -87,66 +89,72 @@ class _StoreMapScreenState extends State<StoreMapScreen> {
       children: [
         // Store List Panel
         StatefulBuilder(builder: (context, setListState) {
-          return Container(
-            width: 400,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
-                  blurRadius: 10,
-                  offset: const Offset(2, 0),
+          return ClipRRect(
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+              child: Container(
+                width: 400,
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.8),
+                  border: Border(right: BorderSide(color: Colors.white.withOpacity(0.5))),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 10,
+                      offset: const Offset(2, 0),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        '${shops.length} Stores Found',
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.text,
-                        ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '${shops.length} Stores Found',
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.text,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            'View and navigate to local stores',
+                            style: TextStyle(color: Colors.grey.shade600),
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 4),
-                      Text(
-                        'View and navigate to local stores',
-                        style: TextStyle(color: Colors.grey.shade600),
-                      ),
-                    ],
-                  ),
-                ),
-                const Divider(height: 1),
-                Expanded(
-                  child: ListView.builder(
-                    padding: const EdgeInsets.all(12),
-                    itemCount: shops.length,
-                    itemBuilder: (context, index) {
-                      final shop = shops[index];
-                      final isSelected = _selectedShop?.id == shop.id;
-                      return _StoreListItem(
-                        shop: shop,
-                        isSelected: isSelected,
-                        onTap: () => _selectShop(shop),
-                        onViewDetails: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (_) => ShopDetailsView(shop: shop)),
+                    ),
+                    const Divider(height: 1),
+                    Expanded(
+                      child: ListView.builder(
+                        padding: const EdgeInsets.all(12),
+                        itemCount: shops.length,
+                        itemBuilder: (context, index) {
+                          final shop = shops[index];
+                          final isSelected = _selectedShop?.id == shop.id;
+                          return _StoreListItem(
+                            shop: shop,
+                            isSelected: isSelected,
+                            onTap: () => _selectShop(shop),
+                            onViewDetails: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (_) => ShopDetailsView(shop: shop)),
+                              );
+                            },
+                            onOpenMap: () => _openInGoogleMaps(shop),
                           );
                         },
-                        onOpenMap: () => _openInGoogleMaps(shop),
-                      );
-                    },
-                  ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           );
         }),
@@ -323,27 +331,33 @@ class _StoreMapScreenState extends State<StoreMapScreen> {
           minChildSize: 0.12,
           maxChildSize: 0.9,
           builder: (context, scrollController) {
-            return Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-              ),
-              child: ListView.builder(
-                controller: scrollController,
-                itemCount: shops.length + 1,
-                itemBuilder: (context, index) {
-                  if (index == 0) return _buildMobileHandle();
-                  final shop = shops[index - 1];
-                  return _MobileStoreCard(
-                    shop: shop,
-                    isSelected: _selectedShop?.id == shop.id,
-                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ShopDetailsView(shop: shop))),
-                    onLocate: () {
-                      _selectShop(shop);
+            return ClipRRect(
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.8),
+                    borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+                  ),
+                  child: ListView.builder(
+                    controller: scrollController,
+                    itemCount: shops.length + 1,
+                    itemBuilder: (context, index) {
+                      if (index == 0) return _buildMobileHandle();
+                      final shop = shops[index - 1];
+                      return _MobileStoreCard(
+                        shop: shop,
+                        isSelected: _selectedShop?.id == shop.id,
+                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => ShopDetailsView(shop: shop))),
+                        onLocate: () {
+                          _selectShop(shop);
+                        },
+                        onOpenMap: () => _openInGoogleMaps(shop),
+                      );
                     },
-                    onOpenMap: () => _openInGoogleMaps(shop),
-                  );
-                },
+                  ),
+                ),
               ),
             );
           },
@@ -395,6 +409,7 @@ class _GoogleMapIframeDetailed extends StatelessWidget {
     final String embedUrl = 'https://maps.google.com/maps?q=$lat,$lng&hl=en&z=17&output=embed';
 
     // ignore: undefined_prefixed_name
+    // ignore: unsafe_html
     ui_web.platformViewRegistry.registerViewFactory(viewId, (int viewId) {
       final iframe = html.IFrameElement()
         ..src = embedUrl
@@ -485,36 +500,52 @@ class _SelectedStoreCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.15), blurRadius: 20)]),
-      child: Row(
-        children: [
-          ClipRRect(borderRadius: BorderRadius.circular(12), child: Image.network(shop.imageUrl, width: 80, height: 80, fit: BoxFit.cover)),
-          const SizedBox(width: 20),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(shop.name, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                Text(shop.address, style: TextStyle(color: Colors.grey.shade600)),
-              ],
-            ),
-          ),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              IconButton(icon: const Icon(Icons.close), onPressed: onClose),
-              ElevatedButton.icon(
-                onPressed: onOpenMap,
-                icon: const Icon(Icons.directions, size: 18),
-                label: const Text('Directions'),
-                style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary, foregroundColor: Colors.white),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(24),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+        child: Container(
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.7),
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(color: Colors.white.withOpacity(0.5)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                blurRadius: 20,
               ),
             ],
           ),
-        ],
+          child: Row(
+            children: [
+              ClipRRect(borderRadius: BorderRadius.circular(12), child: Image.network(shop.imageUrl, width: 80, height: 80, fit: BoxFit.cover)),
+              const SizedBox(width: 20),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(shop.name, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    Text(shop.address, style: TextStyle(color: Colors.grey.shade600)),
+                  ],
+                ),
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(icon: const Icon(Icons.close), onPressed: onClose),
+                  ElevatedButton.icon(
+                    onPressed: onOpenMap,
+                    icon: const Icon(Icons.directions, size: 18),
+                    label: const Text('Directions'),
+                    style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary, foregroundColor: Colors.white),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:ui';
 import '../../../core/constants/app_colors.dart';
 
 class OffersScreen extends StatelessWidget {
@@ -6,39 +7,46 @@ class OffersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Colors.transparent,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
             floating: true,
             pinned: true,
-            backgroundColor: AppColors.surface,
+            backgroundColor: isDark ? Colors.black.withOpacity(0.4) : Colors.white.withOpacity(0.4),
             elevation: 0,
             scrolledUnderElevation: 0,
             expandedHeight: 120,
             flexibleSpace: FlexibleSpaceBar(
               titlePadding: const EdgeInsets.only(left: 24, bottom: 16),
-              title: const Text(
+              title: Text(
                 'Community Deals',
                 style: TextStyle(
-                  color: AppColors.text,
+                  color: Theme.of(context).textTheme.titleLarge?.color,
                   fontWeight: FontWeight.w800,
                   fontSize: 24,
                   letterSpacing: -0.5,
                 ),
               ),
-              background: Container(color: AppColors.surface),
+              background: ClipRRect(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                  child: Container(color: Colors.transparent),
+                ),
+              ),
             ),
           ),
           SliverPadding(
             padding: const EdgeInsets.all(20),
             sliver: SliverList(
               delegate: SliverChildListDelegate([
-                const Text(
+                  Text(
                   'Best offers near you',
                   style: TextStyle(
-                    color: AppColors.textLight,
+                    color: Theme.of(context).textTheme.bodySmall?.color,
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                   ),
@@ -98,19 +106,20 @@ class _OfferCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
-      decoration: BoxDecoration(
-        color: AppColors.surface,
+      child: ClipRRect(
         borderRadius: BorderRadius.circular(24),
-        boxShadow: [
-          BoxShadow(
-            color: color.withOpacity(0.15),
-            blurRadius: 20,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      ),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+          child: Container(
+            decoration: BoxDecoration(
+              color: isDark ? Colors.black.withOpacity(0.4) : Colors.white.withOpacity(0.4),
+              borderRadius: BorderRadius.circular(24),
+              border: Border.all(color: Colors.white.withOpacity(0.2)),
+            ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(24),
         child: Stack(
@@ -166,10 +175,10 @@ class _OfferCard extends StatelessWidget {
                   const SizedBox(height: 20),
                   Text(
                     title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w800,
-                      color: AppColors.text,
+                      color: isDark ? Colors.white : AppColors.text,
                       height: 1.2,
                       letterSpacing: -0.5,
                     ),
@@ -177,12 +186,12 @@ class _OfferCard extends StatelessWidget {
                   const SizedBox(height: 20),
                   Row(
                     children: [
-                      const Icon(Icons.timer_outlined, color: AppColors.textLight, size: 18),
+                      Icon(Icons.timer_outlined, color: isDark ? Colors.grey[400] : AppColors.textLight, size: 18),
                       const SizedBox(width: 6),
                       Text(
                         expiry,
-                        style: const TextStyle(
-                          color: AppColors.textLight,
+                        style: TextStyle(
+                          color: isDark ? Colors.grey[400] : AppColors.textLight,
                           fontWeight: FontWeight.w600,
                           fontSize: 14,
                         ),
@@ -193,6 +202,9 @@ class _OfferCard extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      ),
+          ),
         ),
       ),
     );

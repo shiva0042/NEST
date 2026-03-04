@@ -16,6 +16,9 @@ class AppTheme {
         error: AppColors.error,
         background: AppColors.background,
       ),
+      cardColor: AppColors.surface,
+      canvasColor: AppColors.surface,
+      dividerColor: AppColors.border,
       appBarTheme: const AppBarTheme(
         backgroundColor: AppColors.surface,
         elevation: 0,
@@ -81,6 +84,109 @@ class AppTheme {
         side: const BorderSide(color: AppColors.border),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         labelStyle: const TextStyle(color: AppColors.text),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+      ),
+      textTheme: const TextTheme(
+        bodyLarge: TextStyle(color: AppColors.text),
+        bodyMedium: TextStyle(color: AppColors.text),
+        titleLarge: TextStyle(color: AppColors.text),
+        titleMedium: TextStyle(color: AppColors.text),
+        titleSmall: TextStyle(color: AppColors.text),
+      ),
+    );
+  }
+
+  static ThemeData get darkTheme {
+    return ThemeData(
+      useMaterial3: true,
+      brightness: Brightness.dark,
+      primaryColor: AppColors.primary,
+      scaffoldBackgroundColor: AppColors.backgroundDark,
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: AppColors.primary,
+        brightness: Brightness.dark,
+        primary: AppColors.primary,
+        secondary: AppColors.secondary,
+        surface: AppColors.surfaceDark,
+        error: AppColors.error,
+        background: AppColors.backgroundDark,
+      ),
+      cardColor: AppColors.surfaceDark,
+      canvasColor: AppColors.surfaceDark,
+      dividerColor: AppColors.borderDark,
+      appBarTheme: const AppBarTheme(
+        backgroundColor: AppColors.surfaceDark,
+        elevation: 0,
+        centerTitle: false,
+        scrolledUnderElevation: 0,
+        iconTheme: IconThemeData(color: AppColors.textDark),
+        titleTextStyle: TextStyle(
+          color: AppColors.textDark,
+          fontSize: 20,
+          fontWeight: FontWeight.w700,
+          letterSpacing: -0.5,
+        ),
+      ),
+      textTheme: const TextTheme(
+        bodyLarge: TextStyle(color: AppColors.textDark),
+        bodyMedium: TextStyle(color: AppColors.textDark),
+        bodySmall: TextStyle(color: AppColors.textLightDark),
+        titleLarge: TextStyle(color: AppColors.textDark),
+        titleMedium: TextStyle(color: AppColors.textDark),
+        titleSmall: TextStyle(color: AppColors.textDark),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.primary,
+          foregroundColor: Colors.white,
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+          textStyle: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+            letterSpacing: 0.5,
+          ),
+        ),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: AppColors.surfaceDark,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: const BorderSide(color: Colors.transparent),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: const BorderSide(color: Colors.transparent),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: const BorderSide(color: AppColors.primary, width: 2),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: const BorderSide(color: AppColors.error),
+        ),
+        hintStyle: const TextStyle(color: AppColors.textLightDark),
+      ),
+      cardTheme: CardThemeData(
+        color: AppColors.surfaceDark,
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+          side: const BorderSide(color: AppColors.borderDark),
+        ),
+        margin: EdgeInsets.zero,
+      ),
+      chipTheme: ChipThemeData(
+        backgroundColor: AppColors.surfaceDark,
+        side: const BorderSide(color: AppColors.borderDark),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        labelStyle: const TextStyle(color: AppColors.textDark),
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -136,6 +137,7 @@ class _ShopDetailsViewState extends State<ShopDetailsView> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final allProducts = _shopProducts; // Use fetched products
     final categories = allProducts.map((p) => p.category).toSet().toList()..sort();
     
@@ -158,15 +160,44 @@ class _ShopDetailsViewState extends State<ShopDetailsView> {
     });
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: Colors.transparent,
       body: Stack(
         children: [
+          // Liquid Background
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: isDark
+                    ? [const Color(0xFF0F172A), const Color(0xFF1E293B)]
+                    : [const Color(0xFFE0F7FA), const Color(0xFFE3F2FD)],
+              ),
+            ),
+          ),
+          Positioned(
+            top: -100,
+            left: -100,
+            child: Container(
+              width: 500,
+              height: 500,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  colors: isDark
+                      ? [AppColors.primary.withOpacity(0.15), Colors.transparent]
+                      : [Colors.blue.withOpacity(0.2), Colors.transparent],
+                ),
+              ),
+            ),
+          ),
+          // Content
           CustomScrollView(
             slivers: [
               SliverAppBar(
                 expandedHeight: 200,
                 pinned: true,
-                backgroundColor: AppColors.surface,
+                backgroundColor: isDark ? Colors.black.withOpacity(0.8) : Colors.white.withOpacity(0.8),
                 elevation: 0,
                 scrolledUnderElevation: 0,
                 flexibleSpace: FlexibleSpaceBar(
@@ -302,7 +333,7 @@ class _ShopDetailsViewState extends State<ShopDetailsView> {
                               widget.shop.name,
                               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                                 fontWeight: FontWeight.w800,
-                                color: AppColors.text,
+                                color: Theme.of(context).textTheme.titleLarge?.color,
                                 letterSpacing: -0.5,
                               ),
                             ),
@@ -336,9 +367,9 @@ class _ShopDetailsViewState extends State<ShopDetailsView> {
                             style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
                           ),
                           const SizedBox(width: 12),
-                          const Icon(Icons.location_on_rounded, color: AppColors.textLight, size: 18),
+                          const Icon(Icons.location_on_rounded, color: AppColors.primary, size: 18),
                           const SizedBox(width: 4),
-                          Text(widget.shop.address, style: const TextStyle(color: AppColors.textLight, fontSize: 13)),
+                          Text(widget.shop.address, style: TextStyle(color: Theme.of(context).textTheme.bodySmall?.color, fontSize: 13)),
                         ],
                       ),
                       const SizedBox(height: 12),
@@ -365,8 +396,9 @@ class _ShopDetailsViewState extends State<ShopDetailsView> {
                             Container(
                               margin: const EdgeInsets.only(right: 8),
                               decoration: BoxDecoration(
-                                color: AppColors.surface,
+                                color: Theme.of(context).cardColor,
                                 shape: BoxShape.circle,
+                                border: Border.all(color: Theme.of(context).dividerColor.withOpacity(0.5)),
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.black.withOpacity(0.1),
@@ -415,8 +447,9 @@ class _ShopDetailsViewState extends State<ShopDetailsView> {
                             Container(
                               margin: const EdgeInsets.only(left: 8),
                               decoration: BoxDecoration(
-                                color: AppColors.surface,
+                                color: Theme.of(context).cardColor,
                                 shape: BoxShape.circle,
+                                border: Border.all(color: Theme.of(context).dividerColor.withOpacity(0.5)),
                                 boxShadow: [
                                   BoxShadow(
                                     color: Colors.black.withOpacity(0.1),
@@ -451,10 +484,10 @@ class _ShopDetailsViewState extends State<ShopDetailsView> {
                                 padding: const EdgeInsets.fromLTRB(8, 16, 8, 12),
                                 child: Text(
                                   item,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w800,
-                                    color: AppColors.text,
+                                    color: Theme.of(context).textTheme.titleLarge?.color,
                                   ),
                                 ),
                               );
@@ -625,10 +658,10 @@ class _CategoryChip extends StatelessWidget {
           duration: const Duration(milliseconds: 200),
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           decoration: BoxDecoration(
-            color: isSelected ? color : AppColors.surface,
+            color: isSelected ? color : Theme.of(context).cardColor,
             borderRadius: BorderRadius.circular(24),
             border: Border.all(
-              color: isSelected ? color : AppColors.border,
+              color: isSelected ? color : Theme.of(context).dividerColor,
               width: isSelected ? 2 : 1,
             ),
             boxShadow: isSelected 
@@ -647,7 +680,7 @@ class _CategoryChip extends StatelessWidget {
               Text(
                 label,
                 style: TextStyle(
-                  color: isSelected ? Colors.white : AppColors.text,
+                  color: isSelected ? Colors.white : Theme.of(context).textTheme.bodyLarge?.color,
                   fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
                   fontSize: 13,
                 ),
@@ -700,7 +733,7 @@ class _ProductCard extends StatelessWidget {
             duration: const Duration(milliseconds: 200),
             margin: const EdgeInsets.only(bottom: 14),
             decoration: BoxDecoration(
-              color: AppColors.surface,
+              color: Theme.of(context).cardColor,
               borderRadius: BorderRadius.circular(20),
               border: Border.all(
                 color: quantity > 0 ? AppColors.primary.withOpacity(0.3) : AppColors.border.withOpacity(0.3),
@@ -811,10 +844,12 @@ class _ProductCard extends StatelessWidget {
                                 ),
                                 child: Text(
                                   product.brand.toUpperCase(),
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontSize: 9,
                                     fontWeight: FontWeight.w700,
-                                    color: AppColors.primary,
+                                    color: Theme.of(context).brightness == Brightness.dark 
+                                        ? AppColors.secondary 
+                                        : AppColors.primary,
                                     letterSpacing: 0.5,
                                   ),
                                 ),
@@ -823,10 +858,10 @@ class _ProductCard extends StatelessWidget {
                               // Product name
                               Text(
                                 product.name,
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w700,
-                                  color: AppColors.text,
+                                  color: Theme.of(context).textTheme.bodyLarge?.color,
                                   height: 1.2,
                                   letterSpacing: -0.2,
                                 ),
@@ -839,21 +874,21 @@ class _ProductCard extends StatelessWidget {
                                 children: [
                                   Text(
                                     '₹${product.price.toStringAsFixed(0)}',
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w900,
-                                      color: AppColors.text,
+                                      color: Theme.of(context).textTheme.bodyLarge?.color,
                                     ),
                                   ),
                                   if (hasDiscount) ...[
                                     const SizedBox(width: 8),
                                     Text(
                                       '₹${product.originalPrice!.toStringAsFixed(0)}',
-                                      style: const TextStyle(
+                                      style: TextStyle(
                                         fontSize: 13,
                                         decoration: TextDecoration.lineThrough,
-                                        decorationColor: AppColors.textLight,
-                                        color: AppColors.textLight,
+                                        decorationColor: Theme.of(context).textTheme.bodySmall?.color,
+                                        color: Theme.of(context).textTheme.bodySmall?.color,
                                       ),
                                     ),
                                   ],
@@ -1032,9 +1067,9 @@ class _ProductDetailSheetState extends State<_ProductDetailSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -1045,7 +1080,7 @@ class _ProductDetailSheetState extends State<_ProductDetailSheet> {
             width: 40,
             height: 4,
             decoration: BoxDecoration(
-              color: Colors.grey[300],
+              color: Theme.of(context).dividerColor,
               borderRadius: BorderRadius.circular(2),
             ),
           ),
